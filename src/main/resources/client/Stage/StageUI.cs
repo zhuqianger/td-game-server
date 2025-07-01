@@ -24,11 +24,7 @@ namespace TDGame.Stage
         public Slider progressSlider;
         public TextMeshProUGUI progressText;
         
-        [Header("天气UI")]
-        public Image weatherIcon;
-        public TextMeshProUGUI weatherNameText;
-        public TextMeshProUGUI weatherTimeText;
-        public Slider weatherProgressSlider;
+
         
         [Header("敌人信息UI")]
         public TextMeshProUGUI enemyCountText;
@@ -49,7 +45,6 @@ namespace TDGame.Stage
         
         private Stage currentStage;
         private StageManager stageManager;
-        private WeatherManager weatherManager;
         private EnemyManager enemyManager;
         
         private void Awake()
@@ -61,7 +56,6 @@ namespace TDGame.Stage
         {
             // 获取组件引用
             stageManager = FindObjectOfType<StageManager>();
-            weatherManager = FindObjectOfType<WeatherManager>();
             enemyManager = FindObjectOfType<EnemyManager>();
             
             // 设置按钮事件
@@ -97,11 +91,7 @@ namespace TDGame.Stage
                 progressSlider.maxValue = 1f;
             }
             
-            if (weatherProgressSlider != null)
-            {
-                weatherProgressSlider.minValue = 0f;
-                weatherProgressSlider.maxValue = 1f;
-            }
+
         }
         
         /// <summary>
@@ -140,7 +130,6 @@ namespace TDGame.Stage
             
             UpdateStageInfo();
             UpdateStatusInfo();
-            UpdateWeatherInfo();
             UpdateEnemyInfo();
         }
         
@@ -219,34 +208,7 @@ namespace TDGame.Stage
                 progressText.text = $"进度: {currentStage.GetStageProgress():P0}";
         }
         
-        /// <summary>
-        /// 更新天气信息
-        /// </summary>
-        private void UpdateWeatherInfo()
-        {
-            if (weatherManager == null) return;
-            
-            var weatherConfig = weatherManager.GetCurrentWeatherConfig();
-            if (weatherConfig == null) return;
-            
-            if (weatherNameText != null)
-                weatherNameText.text = weatherConfig.weatherName;
-                
-            if (weatherTimeText != null)
-            {
-                float remaining = weatherManager.GetWeatherRemainingTime();
-                if (remaining >= 0)
-                    weatherTimeText.text = $"剩余: {FormatTime(remaining)}";
-                else
-                    weatherTimeText.text = "永久";
-            }
-            
-            if (weatherProgressSlider != null)
-            {
-                float progress = weatherManager.GetWeatherProgress();
-                weatherProgressSlider.value = progress;
-            }
-        }
+
         
         /// <summary>
         /// 更新敌人信息

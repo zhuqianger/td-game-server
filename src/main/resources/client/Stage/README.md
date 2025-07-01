@@ -78,19 +78,7 @@ public void ExitStage()                 // 退出关卡
 - 部署位置验证
 - 地形信息查询
 
-### 5. WeatherManager.cs - 天气管理器
-管理天气效果和环境影响。
 
-**天气类型：**
-- `Clear`: 晴朗
-- `Sandstorm`: 沙暴
-- `Fog`: 迷雾
-
-**天气效果：**
-- `Damage`: 伤害效果
-- `Slow`: 减速效果
-- `Visibility`: 视野效果
-- `Stealth`: 隐匿效果
 
 ### 6. StageUI.cs - 关卡UI
 显示关卡信息和状态。
@@ -98,7 +86,6 @@ public void ExitStage()                 // 退出关卡
 **UI组件：**
 - 关卡信息显示
 - 状态面板（生命、费用、进度）
-- 天气信息
 - 敌人统计
 - 控制按钮
 
@@ -161,8 +148,7 @@ StageConfig config = new StageConfig
     initialDeployCost = 10,
     costRecoveryRate = 1f,
     costRecoveryInterval = 1f,
-    mapSize = new Vector2Int(8, 6),
-    weather = WeatherType.Clear
+    mapSize = new Vector2Int(8, 6)
 };
 
 // 设置地形
@@ -211,27 +197,7 @@ EnemyConfig enemyConfig = new EnemyConfig
 };
 ```
 
-### 3. 创建天气配置
 
-```csharp
-WeatherConfig weatherConfig = new WeatherConfig
-{
-    weatherType = WeatherType.Sandstorm,
-    weatherName = "沙暴",
-    description = "沙暴天气，所有干员持续扣血",
-    duration = 60f,
-    effects = new List<WeatherEffect>
-    {
-        new WeatherEffect
-        {
-            effectType = WeatherEffectType.Damage,
-            value = 10f,
-            interval = 5f,
-            description = "每5秒对所有干员造成10点伤害"
-        }
-    }
-};
-```
 
 ### 4. 使用关卡管理器
 
@@ -278,9 +244,7 @@ stageManager.ExitStage();
 - 能量符文（周期性回复技力）
 - 冰冻源石（周期性冻结单位）
 
-### 6. 天气系统
-- 沙暴（全场干员持续扣血）
-- 迷雾（隐匿未受攻击的敌人）
+
 
 ## 敌人属性
 
@@ -347,14 +311,7 @@ stageManager.ExitStage();
 2. 在`TerrainManager.cs`中实现对应的生成逻辑
 3. 添加对应的视觉效果
 
-### 4. 添加新天气类型
-1. 在`WeatherType`枚举中添加新类型
-2. 在`WeatherManager.cs`中实现对应的效果逻辑
-3. 添加对应的视觉效果
 
-### 5. 添加新天气效果
-1. 在`WeatherEffectType`枚举中添加新效果类型
-2. 在`WeatherManager.cs`的`ApplyWeatherEffect`方法中实现效果逻辑
 
 ## 注意事项
 

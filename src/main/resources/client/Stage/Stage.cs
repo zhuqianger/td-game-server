@@ -39,15 +39,7 @@ namespace TDGame.Stage
         IceCrystal     // 冰冻源石
     }
     
-    /// <summary>
-    /// 天气类型枚举
-    /// </summary>
-    public enum WeatherType
-    {
-        Clear,         // 晴朗
-        Sandstorm,     // 沙暴
-        Fog            // 迷雾
-    }
+
     
     /// <summary>
     /// 关卡配置数据
@@ -76,7 +68,6 @@ namespace TDGame.Stage
         public TerrainType[,] terrainMap;   // 地形地图
         
         [Header("环境设置")]
-        public WeatherType weather;         // 天气类型
         public List<EnvironmentObject> environmentObjects; // 环境机关
         
         [Header("特殊条件")]
@@ -143,7 +134,6 @@ namespace TDGame.Stage
         public StageManager stageManager;
         public TerrainManager terrainManager;
         public EnemyManager enemyManager;
-        public WeatherManager weatherManager;
         
         // 事件
         public event Action<Stage> OnStageStart;
@@ -199,11 +189,7 @@ namespace TDGame.Stage
                 terrainManager.InitializeTerrain(config.terrainMap, config.mapSize);
             }
             
-            // 初始化天气
-            if (weatherManager != null)
-            {
-                weatherManager.SetWeather(config.weather);
-            }
+
             
             // 初始化环境机关
             InitializeEnvironmentObjects();

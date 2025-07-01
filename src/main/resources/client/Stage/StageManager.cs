@@ -18,7 +18,6 @@ namespace TDGame.Stage
         public OperatorManager operatorManager;
         public TerrainManager terrainManager;
         public EnemyManager enemyManager;
-        public WeatherManager weatherManager;
         public StageUI stageUI;
         
         [Header("关卡状态")]
@@ -64,9 +63,6 @@ namespace TDGame.Stage
             if (enemyManager == null)
                 enemyManager = FindObjectOfType<EnemyManager>();
                 
-            if (weatherManager == null)
-                weatherManager = FindObjectOfType<WeatherManager>();
-                
             if (stageUI == null)
                 stageUI = FindObjectOfType<StageUI>();
         }
@@ -98,7 +94,6 @@ namespace TDGame.Stage
             currentStage.stageManager = this;
             currentStage.terrainManager = terrainManager;
             currentStage.enemyManager = enemyManager;
-            currentStage.weatherManager = weatherManager;
             
             // 订阅事件
             currentStage.OnStageStart += OnStageStart;

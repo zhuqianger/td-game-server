@@ -15,14 +15,12 @@ namespace TDGame.Stage
         [Header("示例敌人配置")]
         public List<EnemyConfig> exampleEnemyConfigs;
         
-        [Header("示例天气配置")]
-        public List<WeatherConfig> exampleWeatherConfigs;
+
         
         private void Awake()
         {
             CreateExampleStageConfigs();
             CreateExampleEnemyConfigs();
-            CreateExampleWeatherConfigs();
         }
         
         /// <summary>
@@ -44,7 +42,6 @@ namespace TDGame.Stage
                 costRecoveryRate = 1f,
                 costRecoveryInterval = 1f,
                 mapSize = new Vector2Int(8, 6),
-                weather = WeatherType.Clear,
                 enemyAttackBoost = false,
                 costRecoveryReduction = false
             };
@@ -121,7 +118,6 @@ namespace TDGame.Stage
                 costRecoveryRate = 1.5f,
                 costRecoveryInterval = 0.8f,
                 mapSize = new Vector2Int(10, 8),
-                weather = WeatherType.Clear,
                 enemyAttackBoost = false,
                 costRecoveryReduction = false
             };
@@ -198,7 +194,6 @@ namespace TDGame.Stage
                 costRecoveryRate = 0.5f,
                 costRecoveryInterval = 2f,
                 mapSize = new Vector2Int(8, 6),
-                weather = WeatherType.Sandstorm,
                 enemyAttackBoost = true,
                 enemyAttackMultiplier = 1.5f,
                 costRecoveryReduction = true,
@@ -398,74 +393,7 @@ namespace TDGame.Stage
             exampleEnemyConfigs.Add(stealthEnemy);
         }
         
-        /// <summary>
-        /// 创建示例天气配置
-        /// </summary>
-        private void CreateExampleWeatherConfigs()
-        {
-            exampleWeatherConfigs = new List<WeatherConfig>();
-            
-            // 晴朗天气
-            WeatherConfig clearWeather = new WeatherConfig
-            {
-                weatherType = WeatherType.Clear,
-                weatherName = "晴朗",
-                description = "天气晴朗，无特殊效果",
-                duration = -1f, // 永久
-                weatherColor = Color.white,
-                effects = new List<WeatherEffect>()
-            };
-            exampleWeatherConfigs.Add(clearWeather);
-            
-            // 沙暴天气
-            WeatherConfig sandstormWeather = new WeatherConfig
-            {
-                weatherType = WeatherType.Sandstorm,
-                weatherName = "沙暴",
-                description = "沙暴天气，所有干员持续扣血",
-                duration = 60f,
-                weatherColor = new Color(0.8f, 0.6f, 0.2f),
-                effects = new List<WeatherEffect>
-                {
-                    new WeatherEffect
-                    {
-                        effectType = WeatherEffectType.Damage,
-                        value = 10f,
-                        interval = 5f,
-                        description = "每5秒对所有干员造成10点伤害"
-                    }
-                }
-            };
-            exampleWeatherConfigs.Add(sandstormWeather);
-            
-            // 迷雾天气
-            WeatherConfig fogWeather = new WeatherConfig
-            {
-                weatherType = WeatherType.Fog,
-                weatherName = "迷雾",
-                description = "迷雾天气，隐匿敌人更难被发现",
-                duration = 45f,
-                weatherColor = new Color(0.7f, 0.7f, 0.7f),
-                effects = new List<WeatherEffect>
-                {
-                    new WeatherEffect
-                    {
-                        effectType = WeatherEffectType.Stealth,
-                        value = 50f,
-                        interval = 1f,
-                        description = "增强隐匿敌人的隐匿效果"
-                    },
-                    new WeatherEffect
-                    {
-                        effectType = WeatherEffectType.Visibility,
-                        value = 20f,
-                        interval = 1f,
-                        description = "减少干员视野范围20%"
-                    }
-                }
-            };
-            exampleWeatherConfigs.Add(fogWeather);
-        }
+
         
         /// <summary>
         /// 获取示例关卡配置
@@ -483,13 +411,7 @@ namespace TDGame.Stage
             return exampleEnemyConfigs;
         }
         
-        /// <summary>
-        /// 获取示例天气配置
-        /// </summary>
-        public List<WeatherConfig> GetExampleWeatherConfigs()
-        {
-            return exampleWeatherConfigs;
-        }
+
         
         /// <summary>
         /// 根据ID获取示例关卡配置
@@ -507,13 +429,7 @@ namespace TDGame.Stage
             return exampleEnemyConfigs.Find(config => config.enemyId == enemyId);
         }
         
-        /// <summary>
-        /// 根据类型获取示例天气配置
-        /// </summary>
-        public WeatherConfig GetExampleWeatherConfig(WeatherType weatherType)
-        {
-            return exampleWeatherConfigs.Find(config => config.weatherType == weatherType);
-        }
+
         
         /// <summary>
         /// 打印所有示例配置信息
@@ -540,15 +456,7 @@ namespace TDGame.Stage
                 Debug.Log("---");
             }
             
-            Debug.Log("=== 示例天气配置 ===");
-            foreach (var config in exampleWeatherConfigs)
-            {
-                Debug.Log($"天气: {config.weatherName}");
-                Debug.Log($"  描述: {config.description}");
-                Debug.Log($"  持续时间: {(config.duration > 0 ? config.duration + "秒" : "永久")}");
-                Debug.Log($"  效果数量: {config.effects.Count}");
-                Debug.Log("---");
-            }
+
         }
     }
 } 
