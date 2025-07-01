@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: td-game-server
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://gz-cynosdbmysql-grp-c24ambkl.sql.tencentcdb.com:24962/td_game
+    username: root
+    password: 1187246802zqZQ
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: org.example.gameserver.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+server:
+  port: 8080

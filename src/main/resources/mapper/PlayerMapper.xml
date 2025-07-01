@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.tdgameserver.mapper.PlayerMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="PlayerResultMap" type="com.example.tdgameserver.entity.Player">
+        <id column="player_id" property="playerId" jdbcType="BIGINT"/>
+        <result column="player_name" property="playerName" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 基础字段 -->
+    <sql id="Base_Column_List">
+        player_id, player_name, password, create_time, update_time
+    </sql>
+
+    <!-- 根据玩家ID查询玩家 -->
+    <select id="selectByPlayerId" parameterType="java.lang.Long" resultMap="PlayerResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM player
+        WHERE player_id = #{playerId}
+    </select>
+
+    <!-- 根据玩家名称查询玩家 -->
+    <select id="selectByPlayerName" parameterType="java.lang.String" resultMap="PlayerResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM player
+        WHERE player_name = #{playerName}
+    </select>
+
+    <!-- 插入新玩家 -->
+    <insert id="insert" parameterType="com.example.tdgameserver.entity.Player" useGeneratedKeys="true" keyProperty="playerId">
+        INSERT INTO player (
+            player_name, 
+            password, 
+            create_time, 
+            update_time
+        ) VALUES (
+            #{playerName}, 
+            #{password}, 
+            #{createTime}, 
+            #{updateTime}
+        )
+    </insert>
+
+    <!-- 更新玩家信息 -->
+    <update id="update" parameterType="com.example.tdgameserver.entity.Player">
+        UPDATE player
+        <set>
+            <if test="playerName != null">player_name = #{playerName},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        WHERE player_id = #{playerId}
+    </update>
+
+    <!-- 删除玩家 -->
+    <delete id="deleteByPlayerId" parameterType="java.lang.Long">
+        DELETE FROM player
+        WHERE player_id = #{playerId}
+    </delete>
+
+    <!-- 查询所有玩家 -->
+    <select id="selectAll" resultMap="PlayerResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM player
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 根据玩家名称和密码查询玩家（用于登录验证） -->
+    <select id="selectByPlayerNameAndPassword" resultMap="PlayerResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM player
+        WHERE player_name = #{playerName} AND password = #{password}
+    </select>
+
+</mapper> 
