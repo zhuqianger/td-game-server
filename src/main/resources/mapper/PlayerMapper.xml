@@ -4,7 +4,7 @@
 
     <!-- 结果映射 -->
     <resultMap id="PlayerResultMap" type="com.example.tdgameserver.entity.Player">
-        <id column="player_id" property="playerId" jdbcType="BIGINT"/>
+        <id column="player_id" property="playerId" jdbcType="INTEGER"/>
         <result column="player_name" property="playerName" jdbcType="VARCHAR"/>
         <result column="password" property="password" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
@@ -17,7 +17,7 @@
     </sql>
 
     <!-- 根据玩家ID查询玩家 -->
-    <select id="selectByPlayerId" parameterType="java.lang.Long" resultMap="PlayerResultMap">
+    <select id="selectByPlayerId" parameterType="java.lang.Integer" resultMap="PlayerResultMap">
         SELECT 
         <include refid="Base_Column_List"/>
         FROM player
@@ -59,7 +59,7 @@
     </update>
 
     <!-- 删除玩家 -->
-    <delete id="deleteByPlayerId" parameterType="java.lang.Long">
+    <delete id="deleteByPlayerId" parameterType="java.lang.Integer">
         DELETE FROM player
         WHERE player_id = #{playerId}
     </delete>

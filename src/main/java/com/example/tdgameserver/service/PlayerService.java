@@ -10,14 +10,14 @@ import java.util.List;
 public interface PlayerService {
     
     /**
-     * 根据玩家ID查询玩家
+     * 根据玩家ID获取玩家信息
      * @param playerId 玩家ID
      * @return 玩家信息
      */
-    Player getPlayerById(Long playerId);
+    Player getPlayerById(Integer playerId);
     
     /**
-     * 根据玩家名称查询玩家
+     * 根据玩家名称获取玩家信息
      * @param playerName 玩家名称
      * @return 玩家信息
      */
@@ -43,7 +43,7 @@ public interface PlayerService {
      * @param playerId 玩家ID
      * @return 是否删除成功
      */
-    boolean deletePlayer(Long playerId);
+    boolean deletePlayer(Integer playerId);
     
     /**
      * 获取所有玩家
@@ -52,12 +52,12 @@ public interface PlayerService {
     List<Player> getAllPlayers();
     
     /**
-     * 玩家登录验证
+     * 验证玩家登录
      * @param playerName 玩家名称
      * @param password 密码
-     * @return 登录成功返回玩家信息，失败返回null
+     * @return 验证成功返回玩家信息，失败返回null
      */
-    Player login(String playerName, String password);
+    Player authenticatePlayer(String playerName, String password);
     
     /**
      * 检查玩家名称是否已存在

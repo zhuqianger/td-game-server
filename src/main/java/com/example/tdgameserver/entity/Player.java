@@ -13,7 +13,7 @@ public class Player {
     /**
      * 玩家ID
      */
-    private Long playerId;
+    private Integer playerId;
     
     /**
      * 玩家名称
@@ -38,7 +38,7 @@ public class Player {
     // 构造函数
     public Player() {}
     
-    public Player(Long playerId, String playerName, String password) {
+    public Player(Integer playerId, String playerName, String password) {
         this.playerId = playerId;
         this.playerName = playerName;
         this.password = password;
@@ -46,7 +46,7 @@ public class Player {
         this.updateTime = LocalDateTime.now();
     }
 
-    public Player(Long playerId, String playerName, String password, LocalDateTime createTime, LocalDateTime updateTime) {
+    public Player(Integer playerId, String playerName, String password, LocalDateTime createTime, LocalDateTime updateTime) {
         this.playerId = playerId;
         this.playerName = playerName;
         this.password = password;

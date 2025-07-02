@@ -2,7 +2,7 @@
 -- 玩家信息表
 
 CREATE TABLE `player` (
-    `player_id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '玩家ID，主键，自增',
+    `player_id` INT NOT NULL AUTO_INCREMENT COMMENT '玩家ID，主键，自增',
     `player_name` VARCHAR(50) NOT NULL COMMENT '玩家名称',
     `password` VARCHAR(255) NOT NULL COMMENT '玩家密码',
     `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

@@ -19,7 +19,7 @@ public class PlayerServiceImpl implements PlayerService {
     private PlayerMapper playerMapper;
     
     @Override
-    public Player getPlayerById(Long playerId) {
+    public Player getPlayerById(Integer playerId) {
         return playerMapper.selectByPlayerId(playerId);
     }
     
@@ -31,36 +31,30 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public Player createPlayer(String playerName, String password) {
         // 检查玩家名称是否已存在
-        if (isPlayerNameExists(playerName)) {
-            return null;
+        Player existingPlayer = playerMapper.selectByPlayerName(playerName);
+        if (existingPlayer != null) {
+            return null; // 玩家名称已存在
         }
         
-        // 创建新玩家
-        Player player = new Player();
-        player.setPlayerName(playerName);
-        player.setPassword(password);
-        player.setCreateTime(LocalDateTime.now());
-        player.setUpdateTime(LocalDateTime.now());
+        // 创建新玩家（这里简化处理，实际应该生成唯一的playerId）
+        Player newPlayer = new Player(null, playerName, password);
+        int result = playerMapper.insert(newPlayer);
         
-        // TODO: 生成玩家ID的逻辑，这里暂时使用时间戳
-        player.setPlayerId(System.currentTimeMillis());
+        if (result > 0) {
+            // 重新查询获取完整的玩家信息（包括生成的ID）
+            return playerMapper.selectByPlayerName(playerName);
+        }
         
-        int result = playerMapper.insert(player);
-        return result > 0 ? player : null;
+        return null;
     }
     
     @Override
     public boolean updatePlayer(Player player) {
-        if (player == null || player.getPlayerId() == null) {
-            return false;
-        }
-        
-        player.setUpdateTime(LocalDateTime.now());
         return playerMapper.update(player) > 0;
     }
     
     @Override
-    public boolean deletePlayer(Long playerId) {
+    public boolean deletePlayer(Integer playerId) {
         return playerMapper.deleteByPlayerId(playerId) > 0;
     }
     
@@ -70,21 +64,16 @@ public class PlayerServiceImpl implements PlayerService {
     }
     
     @Override
-    public Player login(String playerName, String password) {
-        if (playerName == null || password == null) {
-            return null;
+    public Player authenticatePlayer(String playerName, String password) {
+        Player player = playerMapper.selectByPlayerName(playerName);
+        if (player != null && password.equals(player.getPassword())) {
+            return player;
         }
-        
-        return playerMapper.selectByPlayerNameAndPassword(playerName, password);
+        return null;
     }
-    
+
     @Override
     public boolean isPlayerNameExists(String playerName) {
-        if (playerName == null) {
-            return false;
-        }
-        
-        Player existingPlayer = playerMapper.selectByPlayerName(playerName);
-        return existingPlayer != null;
+        return false;
     }
 } 

@@ -6,27 +6,27 @@ import lombok.Data;
 
 @Data
 public class PlayerSession {
-    private Long playerId;
+    private Integer playerId;
     private Channel channel;
-    private long lastActiveTimes;
+    private Integer lastActiveTimes;
     private boolean authenticated = false;  // 身份验证状态
     private String username;                // 用户名（验证通过后设置）
-    private Long currentMatchId;            // 当前对局ID
+    private Integer currentMatchId;            // 当前对局ID
 
     public PlayerSession(Channel channel){
         this.channel = channel;
-        this.lastActiveTimes = System.currentTimeMillis();
+        this.lastActiveTimes = (int) System.currentTimeMillis();
         this.authenticated = false;  // 默认未认证
     }
 
     public void updateLastActiveTime(){
-        this.lastActiveTimes = System.currentTimeMillis();
+        this.lastActiveTimes = (int) System.currentTimeMillis();
     }
 
     /**
      * 设置身份验证成功
      */
-    public void setAuthenticated(String username, Long playerId) {
+    public void setAuthenticated(String username, Integer playerId) {
         this.authenticated = true;
         this.username = username;
         this.playerId = playerId;

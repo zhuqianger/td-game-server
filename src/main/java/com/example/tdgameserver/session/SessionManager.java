@@ -5,12 +5,18 @@ import com.example.tdgameserver.network.MessageId;
 import com.example.tdgameserver.session.PlayerSession;
 import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
 
+/**
+ * 会话管理器
+ * 负责管理所有玩家的会话信息
+ */
+@Component
 @Slf4j
 public class SessionManager {
     private static final SessionManager INSTANCE = new SessionManager();
@@ -19,7 +25,7 @@ public class SessionManager {
     private final ConcurrentHashMap<Channel,PlayerSession> channelSessions = new ConcurrentHashMap<>();
 
     //玩家id -> 会话
-    private final ConcurrentHashMap<Long,PlayerSession> playerSessions = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Integer,PlayerSession> playerSessions = new ConcurrentHashMap<>();
 
     // 使用CopyOnWriteArrayList来存储监听器，保证线程安全
     private final CopyOnWriteArrayList<Consumer<PlayerSession>> sessionCloseListeners = new CopyOnWriteArrayList<>();
@@ -61,7 +67,7 @@ public class SessionManager {
         channelSessions.put(session.getChannel(),session);
     }
 
-    public void bindPlayerId(Long playerId, PlayerSession session){
+    public void bindPlayerId(Integer playerId, PlayerSession session){
         session.setPlayerId(playerId);
         playerSessions.put(playerId,session);
     }
@@ -86,12 +92,12 @@ public class SessionManager {
         return channelSessions.get(channel);
     }
 
-    public PlayerSession getSessionsByPlayerId(Long playerId){
+    public PlayerSession getSessionsByPlayerId(Integer playerId){
         return playerSessions.get(playerId);
     }
 
     //向指定玩家发送消息
-    public void sendMessage(Long playerId, GameMessage message){
+    public void sendMessage(Integer playerId, GameMessage message){
         PlayerSession session = getSessionsByPlayerId(playerId);
         if(session != null && session.isActive()){
             session.sendMessage(message);
@@ -109,8 +115,8 @@ public class SessionManager {
     }
 
     //向指定玩家列表广播消息
-    public void broadcastMessage(Collection<Long> playerIds,GameMessage message){
-        for(Long playerId : playerIds){
+    public void broadcastMessage(Collection<Integer> playerIds,GameMessage message){
+        for(Integer playerId : playerIds){
             sendMessage(playerId, message);
         }
     }

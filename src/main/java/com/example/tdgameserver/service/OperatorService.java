@@ -1,82 +1,92 @@
 package com.example.tdgameserver.service;
 
-import com.example.tdgameserver.entity.Operator;
 import com.example.tdgameserver.entity.PlayerOperator;
 
 import java.util.List;
 
 /**
  * 干员服务接口
+ * 负责管理玩家拥有的干员信息，干员基础信息从配置文件中读取
  */
 public interface OperatorService {
     
     /**
-     * 根据干员ID查询干员信息
+     * 获取玩家拥有的所有干员
+     * @param playerId 玩家ID
+     * @return 干员列表
      */
-    Operator getOperatorById(String operatorId);
+    List<PlayerOperator> getPlayerOperators(Integer playerId);
     
     /**
-     * 查询所有干员信息
+     * 根据职业获取玩家拥有的干员
+     * @param playerId 玩家ID
+     * @param profession 职业
+     * @return 干员列表
      */
-    List<Operator> getAllOperators();
+    List<PlayerOperator> getPlayerOperatorsByProfession(Integer playerId, String profession);
     
     /**
-     * 根据职业查询干员列表
+     * 根据稀有度获取玩家拥有的干员
+     * @param playerId 玩家ID
+     * @param rarity 稀有度
+     * @return 干员列表
      */
-    List<Operator> getOperatorsByProfession(String profession);
+    List<PlayerOperator> getPlayerOperatorsByRarity(Integer playerId, Integer rarity);
     
     /**
-     * 根据稀有度查询干员列表
+     * 为玩家添加干员
+     * @param playerId 玩家ID
+     * @param operatorId 干员ID
+     * @return 是否添加成功
      */
-    List<Operator> getOperatorsByRarity(Integer rarity);
+    boolean addPlayerOperator(Integer playerId, Integer operatorId);
     
     /**
-     * 获取玩家拥有的干员列表
+     * 升级干员等级
+     * @param playerId 玩家ID
+     * @param operatorId 干员ID
+     * @return 是否升级成功
      */
-    List<PlayerOperator> getPlayerOperators(Long playerId);
-    
-    /**
-     * 获取玩家拥有的指定职业干员
-     */
-    List<PlayerOperator> getPlayerOperatorsByProfession(Long playerId, String profession);
-    
-    /**
-     * 获取玩家拥有的指定稀有度干员
-     */
-    List<PlayerOperator> getPlayerOperatorsByRarity(Long playerId, Integer rarity);
-    
-    /**
-     * 玩家获得干员
-     */
-    boolean addPlayerOperator(Long playerId, String operatorId);
-    
-    /**
-     * 升级干员
-     */
-    boolean levelUpOperator(Long playerId, String operatorId);
+    boolean levelUpOperator(Integer playerId, Integer operatorId);
     
     /**
      * 精英化干员
+     * @param playerId 玩家ID
+     * @param operatorId 干员ID
+     * @return 是否精英化成功
      */
-    boolean eliteOperator(Long playerId, String operatorId);
+    boolean eliteOperator(Integer playerId, Integer operatorId);
     
     /**
-     * 升级技能
+     * 升级干员技能
+     * @param playerId 玩家ID
+     * @param operatorId 干员ID
+     * @return 是否升级成功
      */
-    boolean upgradeSkill(Long playerId, String operatorId);
+    boolean upgradeSkill(Integer playerId, Integer operatorId);
     
     /**
-     * 技能专精
+     * 专精干员技能
+     * @param playerId 玩家ID
+     * @param operatorId 干员ID
+     * @return 是否专精成功
      */
-    boolean masterSkill(Long playerId, String operatorId);
+    boolean masterSkill(Integer playerId, Integer operatorId);
     
     /**
      * 更新干员当前生命值
+     * @param playerId 玩家ID
+     * @param operatorId 干员ID
+     * @param currentHP 当前生命值
+     * @return 是否更新成功
      */
-    boolean updateOperatorHP(Long playerId, String operatorId, Integer currentHP);
+    boolean updateOperatorHP(Integer playerId, Integer operatorId, Integer currentHP);
     
     /**
      * 检查玩家是否拥有指定干员
+     * @param playerId 玩家ID
+     * @param operatorId 干员ID
+     * @return 是否拥有
      */
-    boolean hasOperator(Long playerId, String operatorId);
+    boolean hasOperator(Integer playerId, Integer operatorId);
 } 

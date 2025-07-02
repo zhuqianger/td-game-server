@@ -1,6 +1,5 @@
 package com.example.tdgameserver.handler;
 
-import com.example.tdgameserver.entity.Operator;
 import com.example.tdgameserver.entity.PlayerOperator;
 import com.example.tdgameserver.network.GameMessage;
 import com.example.tdgameserver.network.MessageId;
@@ -17,6 +16,7 @@ import java.util.Map;
 
 /**
  * 干员处理器
+ * 负责处理玩家干员相关的请求，干员基础信息从配置文件中读取
  */
 @Component
 public class OperatorHandler {
@@ -28,63 +28,11 @@ public class OperatorHandler {
     private ObjectMapper objectMapper;
     
     /**
-     * 获取干员信息
-     */
-    public void handleGetOperatorInfo(PlayerSession session, GameMessage message) {
-        try {
-            Map<String, Object> request = objectMapper.readValue(new String(message.getPayload()), new TypeReference<Map<String, Object>>() {});
-            String operatorId = (String) request.get("operatorId");
-            
-            Operator operator = operatorService.getOperatorById(operatorId);
-            
-            Map<String, Object> response = new HashMap<>();
-            if (operator != null) {
-                response.put("success", true);
-                response.put("operator", operator);
-            } else {
-                response.put("success", false);
-                response.put("message", "干员不存在");
-            }
-            
-            GameMessage responseMessage = new GameMessage();
-            responseMessage.setMessageId(MessageId.RESP_GET_OPERATOR_INFO.getId());
-            responseMessage.setPayload(objectMapper.writeValueAsString(response).getBytes());
-            
-            session.sendMessage(responseMessage);
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    /**
-     * 获取所有干员信息
-     */
-    public void handleGetAllOperators(PlayerSession session, GameMessage message) {
-        try {
-            List<Operator> operators = operatorService.getAllOperators();
-            
-            Map<String, Object> response = new HashMap<>();
-            response.put("success", true);
-            response.put("operators", operators);
-            
-            GameMessage responseMessage = new GameMessage();
-            responseMessage.setMessageId(MessageId.RESP_GET_ALL_OPERATORS.getId());
-            responseMessage.setPayload(objectMapper.writeValueAsString(response).getBytes());
-            
-            session.sendMessage(responseMessage);
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    /**
      * 获取玩家干员列表
      */
     public void handleGetPlayerOperators(PlayerSession session, GameMessage message) {
         try {
-            Long playerId = session.getPlayerId();
+            Integer playerId = session.getPlayerId();
             List<PlayerOperator> playerOperators = operatorService.getPlayerOperators(playerId);
             
             Map<String, Object> response = new HashMap<>();
@@ -108,9 +56,9 @@ public class OperatorHandler {
     public void handleAddPlayerOperator(PlayerSession session, GameMessage message) {
         try {
             Map<String, Object> request = objectMapper.readValue(new String(message.getPayload()), new TypeReference<Map<String, Object>>() {});
-            String operatorId = (String) request.get("operatorId");
+            Integer operatorId = (Integer) request.get("operatorId");
             
-            Long playerId = session.getPlayerId();
+            Integer playerId = session.getPlayerId();
             boolean success = operatorService.addPlayerOperator(playerId, operatorId);
             
             Map<String, Object> response = new HashMap<>();
@@ -139,9 +87,9 @@ public class OperatorHandler {
     public void handleLevelUpOperator(PlayerSession session, GameMessage message) {
         try {
             Map<String, Object> request = objectMapper.readValue(new String(message.getPayload()), new TypeReference<Map<String, Object>>() {});
-            String operatorId = (String) request.get("operatorId");
+            Integer operatorId = (Integer) request.get("operatorId");
             
-            Long playerId = session.getPlayerId();
+            Integer playerId = session.getPlayerId();
             boolean success = operatorService.levelUpOperator(playerId, operatorId);
             
             Map<String, Object> response = new HashMap<>();
@@ -170,9 +118,9 @@ public class OperatorHandler {
     public void handleEliteOperator(PlayerSession session, GameMessage message) {
         try {
             Map<String, Object> request = objectMapper.readValue(new String(message.getPayload()), new TypeReference<Map<String, Object>>() {});
-            String operatorId = (String) request.get("operatorId");
+            Integer operatorId = (Integer) request.get("operatorId");
             
-            Long playerId = session.getPlayerId();
+            Integer playerId = session.getPlayerId();
             boolean success = operatorService.eliteOperator(playerId, operatorId);
             
             Map<String, Object> response = new HashMap<>();
@@ -201,9 +149,9 @@ public class OperatorHandler {
     public void handleUpgradeSkill(PlayerSession session, GameMessage message) {
         try {
             Map<String, Object> request = objectMapper.readValue(new String(message.getPayload()), new TypeReference<Map<String, Object>>() {});
-            String operatorId = (String) request.get("operatorId");
+            Integer operatorId = (Integer) request.get("operatorId");
             
-            Long playerId = session.getPlayerId();
+            Integer playerId = session.getPlayerId();
             boolean success = operatorService.upgradeSkill(playerId, operatorId);
             
             Map<String, Object> response = new HashMap<>();
@@ -232,9 +180,9 @@ public class OperatorHandler {
     public void handleMasterSkill(PlayerSession session, GameMessage message) {
         try {
             Map<String, Object> request = objectMapper.readValue(new String(message.getPayload()), new TypeReference<Map<String, Object>>() {});
-            String operatorId = (String) request.get("operatorId");
+            Integer operatorId = (Integer) request.get("operatorId");
             
-            Long playerId = session.getPlayerId();
+            Integer playerId = session.getPlayerId();
             boolean success = operatorService.masterSkill(playerId, operatorId);
             
             Map<String, Object> response = new HashMap<>();
@@ -263,10 +211,10 @@ public class OperatorHandler {
     public void handleUpdateOperatorHP(PlayerSession session, GameMessage message) {
         try {
             Map<String, Object> request = objectMapper.readValue(new String(message.getPayload()), new TypeReference<Map<String, Object>>() {});
-            String operatorId = (String) request.get("operatorId");
+            Integer operatorId = (Integer) request.get("operatorId");
             Integer currentHP = (Integer) request.get("currentHP");
             
-            Long playerId = session.getPlayerId();
+            Integer playerId = session.getPlayerId();
             boolean success = operatorService.updateOperatorHP(playerId, operatorId, currentHP);
             
             Map<String, Object> response = new HashMap<>();

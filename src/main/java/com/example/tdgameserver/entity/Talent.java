@@ -9,7 +9,7 @@ import java.util.List;
  */
 @Data
 public class Talent {
-    private String talentId;              // 天赋ID
+    private Integer id;                  // 天赋ID（主键）
     private String talentName;            // 天赋名称
     private TalentType talentType;        // 天赋类型
     private String description;           // 天赋描述
@@ -29,8 +29,8 @@ public class Talent {
     // 构造函数
     public Talent() {}
     
-    public Talent(String talentId, String talentName, TalentType talentType) {
-        this.talentId = talentId;
+    public Talent(Integer id, String talentName, TalentType talentType) {
+        this.id = id;
         this.talentName = talentName;
         this.talentType = talentType;
     }
@@ -38,7 +38,7 @@ public class Talent {
     @Override
     public String toString() {
         return "Talent{" +
-                "talentId='" + talentId + '\'' +
+                "id=" + id +
                 ", talentName='" + talentName + '\'' +
                 ", talentType=" + talentType +
                 ", description='" + description + '\'' +

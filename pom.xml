@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.example</groupId>
-    <artifactId>game-server</artifactId>
+    <artifactId>td-game-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>game-server</name>
-    <description>game-server</description>
+    <name>td-game-server</name>
+    <description>td-game-server</description>
     <url/>
     <licenses>
         <license/>

@@ -8,22 +8,22 @@ import lombok.Data;
  */
 @Data
 public class PlayerOperator {
-    private Long id;                     // 主键ID
-    private Long playerId;               // 玩家ID
-    private String operatorId;           // 干员ID
+    private Integer id;                     // 主键ID
+    private Integer playerId;               // 玩家ID
+    private Integer operatorId;          // 干员ID
     private Integer eliteLevel;          // 精英化等级 (0-2)
     private Integer level;               // 等级 (1-90)
     private Integer skillLevel;          // 技能等级 (1-7)
     private Integer skillMastery;        // 技能专精 (0-3)
     private Integer currentHP;           // 当前生命值
     private Boolean isOwned;             // 是否拥有
-    private Long createTime;             // 创建时间
-    private Long updateTime;             // 更新时间
+    private Integer createTime;             // 创建时间
+    private Integer updateTime;             // 更新时间
     
     // 构造函数
     public PlayerOperator() {}
     
-    public PlayerOperator(Long playerId, String operatorId) {
+    public PlayerOperator(Integer playerId, Integer operatorId) {
         this.playerId = playerId;
         this.operatorId = operatorId;
         this.eliteLevel = 0;
@@ -31,8 +31,8 @@ public class PlayerOperator {
         this.skillLevel = 1;
         this.skillMastery = 0;
         this.isOwned = true;
-        this.createTime = System.currentTimeMillis();
-        this.updateTime = System.currentTimeMillis();
+        this.createTime = (int) System.currentTimeMillis();
+        this.updateTime = (int) System.currentTimeMillis();
     }
     
     @Override

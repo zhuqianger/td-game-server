@@ -56,7 +56,7 @@ public class PlayerHandler {
             }
             
             // 通过PlayerService查询数据库验证用户
-            Player player = playerService.login(credentials.username(), credentials.password());
+            Player player = playerService.authenticatePlayer(credentials.username(), credentials.password());
             if (player != null) {
                 handleSuccessfulLogin(session, player);
             } else {

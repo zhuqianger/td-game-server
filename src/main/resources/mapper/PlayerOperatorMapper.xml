@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.tdgameserver.mapper.PlayerOperatorMapper">
+
+    <resultMap id="PlayerOperatorResultMap" type="com.example.tdgameserver.entity.PlayerOperator">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="playerId" column="player_id" jdbcType="INTEGER"/>
+        <result property="operatorId" column="operator_id" jdbcType="INTEGER"/>
+        <result property="eliteLevel" column="elite_level" jdbcType="INTEGER"/>
+        <result property="level" column="level" jdbcType="INTEGER"/>
+        <result property="skillLevel" column="skill_level" jdbcType="INTEGER"/>
+        <result property="skillMastery" column="skill_mastery" jdbcType="INTEGER"/>
+        <result property="currentHP" column="current_hp" jdbcType="INTEGER"/>
+        <result property="isOwned" column="is_owned" jdbcType="BOOLEAN"/>
+        <result property="createTime" column="create_time" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="selectById" resultMap="PlayerOperatorResultMap">
+        SELECT * FROM player_operator WHERE id = #{id}
+    </select>
+
+    <select id="selectByPlayerIdAndOperatorId" resultMap="PlayerOperatorResultMap">
+        SELECT * FROM player_operator WHERE player_id = #{playerId} AND operator_id = #{operatorId}
+    </select>
+
+    <select id="selectByPlayerId" resultMap="PlayerOperatorResultMap">
+        SELECT * FROM player_operator WHERE player_id = #{playerId} ORDER BY id
+    </select>
+
+    <select id="selectByPlayerIdAndProfession" resultMap="PlayerOperatorResultMap">
+        SELECT * FROM player_operator WHERE player_id = #{playerId} ORDER BY id
+    </select>
+
+    <select id="selectByPlayerIdAndRarity" resultMap="PlayerOperatorResultMap">
+        SELECT * FROM player_operator WHERE player_id = #{playerId} ORDER BY id
+    </select>
+
+    <insert id="insert" parameterType="com.example.tdgameserver.entity.PlayerOperator">
+        INSERT INTO player_operator(player_id, operator_id, elite_level, level, skill_level, skill_mastery, current_hp, is_owned, create_time, update_time)
+        VALUES(#{playerId}, #{operatorId}, #{eliteLevel}, #{level}, #{skillLevel}, #{skillMastery}, #{currentHP}, #{isOwned}, #{createTime}, #{updateTime})
+    </insert>
+
+    <update id="update" parameterType="com.example.tdgameserver.entity.PlayerOperator">
+        UPDATE player_operator SET
+            elite_level = #{eliteLevel},
+            level = #{level},
+            skill_level = #{skillLevel},
+            skill_mastery = #{skillMastery},
+            current_hp = #{currentHP},
+            is_owned = #{isOwned},
+            update_time = #{updateTime}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM player_operator WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteByPlayerIdAndOperatorId">
+        DELETE FROM player_operator WHERE player_id = #{playerId} AND operator_id = #{operatorId}
+    </delete>
+
+    <update id="updateLevel">
+        UPDATE player_operator SET level = #{level}, update_time = UNIX_TIMESTAMP() * 1000 WHERE id = #{id}
+    </update>
+
+    <update id="updateEliteLevel">
+        UPDATE player_operator SET elite_level = #{eliteLevel}, update_time = UNIX_TIMESTAMP() * 1000 WHERE id = #{id}
+    </update>
+
+    <update id="updateSkillLevel">
+        UPDATE player_operator SET skill_level = #{skillLevel}, update_time = UNIX_TIMESTAMP() * 1000 WHERE id = #{id}
+    </update>
+
+    <update id="updateSkillMastery">
+        UPDATE player_operator SET skill_mastery = #{skillMastery}, update_time = UNIX_TIMESTAMP() * 1000 WHERE id = #{id}
+    </update>
+
+    <update id="updateCurrentHP">
+        UPDATE player_operator SET current_hp = #{currentHP}, update_time = UNIX_TIMESTAMP() * 1000 WHERE id = #{id}
+    </update>
+</mapper> 

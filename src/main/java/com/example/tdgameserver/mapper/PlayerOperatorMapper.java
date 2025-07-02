@@ -7,78 +7,115 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 玩家干员关联Mapper接口
+ * 玩家干员关联数据访问层接口
  */
 @Mapper
 public interface PlayerOperatorMapper {
     
     /**
-     * 根据ID查询玩家干员信息
+     * 根据ID查询玩家干员关联信息
+     * @param id 主键ID
+     * @return 玩家干员关联信息
      */
-    PlayerOperator selectById(@Param("id") Long id);
+    PlayerOperator selectById(@Param("id") Integer id);
     
     /**
-     * 根据玩家ID和干员ID查询
+     * 根据玩家ID和干员ID查询玩家干员关联信息
+     * @param playerId 玩家ID
+     * @param operatorId 干员ID
+     * @return 玩家干员关联信息
      */
-    PlayerOperator selectByPlayerIdAndOperatorId(@Param("playerId") Long playerId, @Param("operatorId") String operatorId);
+    PlayerOperator selectByPlayerIdAndOperatorId(@Param("playerId") Integer playerId, @Param("operatorId") Integer operatorId);
     
     /**
-     * 查询玩家拥有的所有干员
+     * 根据玩家ID查询所有干员关联信息
+     * @param playerId 玩家ID
+     * @return 干员关联信息列表
      */
-    List<PlayerOperator> selectByPlayerId(@Param("playerId") Long playerId);
+    List<PlayerOperator> selectByPlayerId(@Param("playerId") Integer playerId);
     
     /**
-     * 查询玩家拥有的指定职业干员
+     * 根据玩家ID和职业查询干员关联信息
+     * @param playerId 玩家ID
+     * @param profession 职业
+     * @return 干员关联信息列表
      */
-    List<PlayerOperator> selectByPlayerIdAndProfession(@Param("playerId") Long playerId, @Param("profession") String profession);
+    List<PlayerOperator> selectByPlayerIdAndProfession(@Param("playerId") Integer playerId, @Param("profession") String profession);
     
     /**
-     * 查询玩家拥有的指定稀有度干员
+     * 根据玩家ID和稀有度查询干员关联信息
+     * @param playerId 玩家ID
+     * @param rarity 稀有度
+     * @return 干员关联信息列表
      */
-    List<PlayerOperator> selectByPlayerIdAndRarity(@Param("playerId") Long playerId, @Param("rarity") Integer rarity);
+    List<PlayerOperator> selectByPlayerIdAndRarity(@Param("playerId") Integer playerId, @Param("rarity") Integer rarity);
     
     /**
-     * 插入玩家干员信息
+     * 插入新的玩家干员关联信息
+     * @param playerOperator 玩家干员关联信息
+     * @return 影响行数
      */
     int insert(PlayerOperator playerOperator);
     
     /**
-     * 更新玩家干员信息
+     * 更新玩家干员关联信息
+     * @param playerOperator 玩家干员关联信息
+     * @return 影响行数
      */
     int update(PlayerOperator playerOperator);
     
     /**
-     * 删除玩家干员信息
+     * 根据ID删除玩家干员关联信息
+     * @param id 主键ID
+     * @return 影响行数
      */
-    int deleteById(@Param("id") Long id);
+    int deleteById(@Param("id") Integer id);
     
     /**
-     * 根据玩家ID和干员ID删除
+     * 根据玩家ID和干员ID删除玩家干员关联信息
+     * @param playerId 玩家ID
+     * @param operatorId 干员ID
+     * @return 影响行数
      */
-    int deleteByPlayerIdAndOperatorId(@Param("playerId") Long playerId, @Param("operatorId") String operatorId);
+    int deleteByPlayerIdAndOperatorId(@Param("playerId") Integer playerId, @Param("operatorId") Integer operatorId);
     
     /**
      * 更新干员等级
+     * @param id 主键ID
+     * @param level 等级
+     * @return 影响行数
      */
-    int updateLevel(@Param("id") Long id, @Param("level") Integer level);
+    int updateLevel(@Param("id") Integer id, @Param("level") Integer level);
     
     /**
-     * 更新精英化等级
+     * 更新干员精英化等级
+     * @param id 主键ID
+     * @param eliteLevel 精英化等级
+     * @return 影响行数
      */
-    int updateEliteLevel(@Param("id") Long id, @Param("eliteLevel") Integer eliteLevel);
+    int updateEliteLevel(@Param("id") Integer id, @Param("eliteLevel") Integer eliteLevel);
     
     /**
-     * 更新技能等级
+     * 更新干员技能等级
+     * @param id 主键ID
+     * @param skillLevel 技能等级
+     * @return 影响行数
      */
-    int updateSkillLevel(@Param("id") Long id, @Param("skillLevel") Integer skillLevel);
+    int updateSkillLevel(@Param("id") Integer id, @Param("skillLevel") Integer skillLevel);
     
     /**
-     * 更新技能专精
+     * 更新干员技能专精
+     * @param id 主键ID
+     * @param skillMastery 技能专精
+     * @return 影响行数
      */
-    int updateSkillMastery(@Param("id") Long id, @Param("skillMastery") Integer skillMastery);
+    int updateSkillMastery(@Param("id") Integer id, @Param("skillMastery") Integer skillMastery);
     
     /**
-     * 更新当前生命值
+     * 更新干员当前生命值
+     * @param id 主键ID
+     * @param currentHP 当前生命值
+     * @return 影响行数
      */
-    int updateCurrentHP(@Param("id") Long id, @Param("currentHP") Integer currentHP);
+    int updateCurrentHP(@Param("id") Integer id, @Param("currentHP") Integer currentHP);
 } 

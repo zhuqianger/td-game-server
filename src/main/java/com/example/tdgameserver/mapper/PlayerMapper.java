@@ -7,20 +7,20 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 玩家Mapper接口
+ * 玩家数据访问层接口
  */
 @Mapper
 public interface PlayerMapper {
     
     /**
-     * 根据玩家ID查询玩家
+     * 根据玩家ID查询玩家信息
      * @param playerId 玩家ID
      * @return 玩家信息
      */
-    Player selectByPlayerId(@Param("playerId") Long playerId);
+    Player selectByPlayerId(@Param("playerId") Integer playerId);
     
     /**
-     * 根据玩家名称查询玩家
+     * 根据玩家名称查询玩家信息
      * @param playerName 玩家名称
      * @return 玩家信息
      */
@@ -41,11 +41,11 @@ public interface PlayerMapper {
     int update(Player player);
     
     /**
-     * 删除玩家
+     * 根据玩家ID删除玩家
      * @param playerId 玩家ID
      * @return 影响行数
      */
-    int deleteByPlayerId(@Param("playerId") Long playerId);
+    int deleteByPlayerId(@Param("playerId") Integer playerId);
     
     /**
      * 查询所有玩家

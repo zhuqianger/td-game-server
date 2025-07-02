@@ -9,7 +9,7 @@ import java.util.List;
  */
 @Data
 public class Skill {
-    private String skillId;              // 技能ID
+    private Integer id;                  // 技能ID（主键）
     private String skillName;            // 技能名称
     private SkillType skillType;         // 技能类型
     private String description;          // 技能描述
@@ -31,8 +31,8 @@ public class Skill {
     // 构造函数
     public Skill() {}
     
-    public Skill(String skillId, String skillName, SkillType skillType) {
-        this.skillId = skillId;
+    public Skill(Integer id, String skillName, SkillType skillType) {
+        this.id = id;
         this.skillName = skillName;
         this.skillType = skillType;
     }
@@ -40,7 +40,7 @@ public class Skill {
     @Override
     public String toString() {
         return "Skill{" +
-                "skillId='" + skillId + '\'' +
+                "id=" + id +
                 ", skillName='" + skillName + '\'' +
                 ", skillType=" + skillType +
                 ", description='" + description + '\'' +
