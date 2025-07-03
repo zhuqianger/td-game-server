@@ -127,7 +127,7 @@
                 <includes>
                     <include>**/*.xml</include>
                     <include>**/*.yml</include>
-                    <include>**/*.xlsx</include>
+                    <include>**/*.json</include>
                 </includes>
                 <filtering>false</filtering>
             </resource>

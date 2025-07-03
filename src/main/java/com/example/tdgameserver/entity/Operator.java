@@ -8,9 +8,10 @@ import java.util.List;
  */
 @Data
 public class Operator {
+    private Integer id;                  // 配置ID
     private String operatorId;           // 干员ID
     private String operatorName;         // 干员名称
-    private OperatorProfession profession; // 职业
+    private OperatorProfession profession;           // 职业（字符串格式，便于JSON转换）
     private Integer rarity;              // 稀有度 (1-6星)
     
     // 基础属性

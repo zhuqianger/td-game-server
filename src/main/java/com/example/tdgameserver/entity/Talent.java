@@ -9,10 +9,11 @@ import java.util.List;
  */
 @Data
 public class Talent {
-    private Integer id;                  // 天赋ID（主键）
-    private String talentName;            // 天赋名称
-    private TalentType talentType;        // 天赋类型
-    private String description;           // 天赋描述
+    private Integer id;                  // 配置ID
+    private String talentId;             // 天赋ID
+    private String talentName;           // 天赋名称
+    private String talentType;           // 天赋类型（PASSIVE/ACTIVE）
+    private String description;          // 天赋描述
     
     // 天赋效果列表
     private List<TalentEffect> effects;   // 天赋效果列表
@@ -29,10 +30,11 @@ public class Talent {
     // 构造函数
     public Talent() {}
     
-    public Talent(Integer id, String talentName, TalentType talentType) {
-        this.id = id;
+    public Talent(String talentId, String talentName, String talentType, String description) {
+        this.talentId = talentId;
         this.talentName = talentName;
         this.talentType = talentType;
+        this.description = description;
     }
     
     @Override

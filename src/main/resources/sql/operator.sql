@@ -8,8 +8,6 @@ CREATE TABLE `player_operator` (
     `level` INT NOT NULL DEFAULT 1 COMMENT '等级 (1-90)',
     `skill_level` INT NOT NULL DEFAULT 1 COMMENT '技能等级 (1-7)',
     `skill_mastery` INT NOT NULL DEFAULT 0 COMMENT '技能专精 (0-3)',
-    `current_hp` INT COMMENT '当前生命值',
-    `is_owned` BOOLEAN NOT NULL DEFAULT TRUE COMMENT '是否拥有',
     `create_time` INT NOT NULL COMMENT '创建时间（毫秒时间戳）',
     `update_time` INT NOT NULL COMMENT '更新时间（毫秒时间戳）',
     PRIMARY KEY (`id`),

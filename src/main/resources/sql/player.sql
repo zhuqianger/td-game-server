@@ -13,4 +13,4 @@ CREATE TABLE `player` (
 
 -- 创建索引
 CREATE INDEX `idx_create_time` ON `player` (`create_time`) COMMENT '创建时间索引';
-CREATE INDEX `idx_update_time` ON `player` (`update_time`) COMMENT '更新时间索引'; 
+CREATE INDEX `idx_update_time` ON `player` (`update_time`) COMMENT '更新时间索引';
