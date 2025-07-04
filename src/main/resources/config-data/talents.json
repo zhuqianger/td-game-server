@@ -2,123 +2,243 @@
   "talents": [
     {
       "id": 1,
-      "name": "领袖气质",
+      "talentName": "领袖气质",
       "talentType": "PASSIVE",
-      "description": "部署时，所有友方干员攻击力+10%"
+      "description": "部署时，所有友方干员攻击力+10%",
+      "effects": [],
+      "isAlwaysActive": true,
+      "activationCondition": "deploy",
+      "activationChance": 1.0,
+      "requiredEliteLevel": 0,
+      "requiredLevel": 1
     },
     {
       "id": 2,
-      "name": "领袖气质·改",
+      "talentName": "领袖气质·改",
       "talentType": "PASSIVE",
-      "description": "部署时，所有友方干员攻击力+15%"
+      "description": "部署时，所有友方干员攻击力+15%",
+      "effects": [],
+      "isAlwaysActive": true,
+      "activationCondition": "deploy",
+      "activationChance": 1.0,
+      "requiredEliteLevel": 2,
+      "requiredLevel": 1
     },
     {
       "id": 3,
-      "name": "天使的祝福",
+      "talentName": "天使的祝福",
       "talentType": "PASSIVE",
-      "description": "攻击时有20%概率造成暴击"
+      "description": "攻击时有20%概率造成暴击",
+      "effects": [],
+      "isAlwaysActive": true,
+      "activationCondition": "attack",
+      "activationChance": 0.2,
+      "requiredEliteLevel": 0,
+      "requiredLevel": 1
     },
     {
       "id": 4,
-      "name": "天使的祝福·改",
+      "talentName": "天使的祝福·改",
       "talentType": "PASSIVE",
-      "description": "攻击时有25%概率造成暴击"
+      "description": "攻击时有25%概率造成暴击",
+      "effects": [],
+      "isAlwaysActive": true,
+      "activationCondition": "attack",
+      "activationChance": 0.25,
+      "requiredEliteLevel": 2,
+      "requiredLevel": 1
     },
     {
       "id": 5,
-      "name": "火山之力",
+      "talentName": "火山之力",
       "talentType": "PASSIVE",
-      "description": "法术攻击力+15%"
+      "description": "法术攻击力+15%",
+      "effects": [],
+      "isAlwaysActive": true,
+      "activationCondition": "always",
+      "activationChance": 1.0,
+      "requiredEliteLevel": 0,
+      "requiredLevel": 1
     },
     {
       "id": 6,
-      "name": "火山之力·改",
+      "talentName": "火山之力·改",
       "talentType": "PASSIVE",
-      "description": "法术攻击力+20%"
+      "description": "法术攻击力+20%",
+      "effects": [],
+      "isAlwaysActive": true,
+      "activationCondition": "always",
+      "activationChance": 1.0,
+      "requiredEliteLevel": 2,
+      "requiredLevel": 1
     },
     {
       "id": 7,
-      "name": "钢铁意志",
+      "talentName": "钢铁意志",
       "talentType": "PASSIVE",
-      "description": "受到攻击时，有15%概率免疫伤害"
+      "description": "受到攻击时，有15%概率免疫伤害",
+      "effects": [],
+      "isAlwaysActive": true,
+      "activationCondition": "defend",
+      "activationChance": 0.15,
+      "requiredEliteLevel": 0,
+      "requiredLevel": 1
     },
     {
       "id": 8,
-      "name": "钢铁意志·改",
+      "talentName": "钢铁意志·改",
       "talentType": "PASSIVE",
-      "description": "受到攻击时，有20%概率免疫伤害"
+      "description": "受到攻击时，有20%概率免疫伤害",
+      "effects": [],
+      "isAlwaysActive": true,
+      "activationCondition": "defend",
+      "activationChance": 0.2,
+      "requiredEliteLevel": 2,
+      "requiredLevel": 1
     },
     {
       "id": 9,
-      "name": "神圣庇护",
+      "talentName": "神圣庇护",
       "talentType": "PASSIVE",
-      "description": "治疗目标时，额外恢复目标最大生命值的5%"
+      "description": "治疗目标时，额外恢复目标最大生命值的5%",
+      "effects": [],
+      "isAlwaysActive": true,
+      "activationCondition": "heal",
+      "activationChance": 1.0,
+      "requiredEliteLevel": 0,
+      "requiredLevel": 1
     },
     {
       "id": 10,
-      "name": "神圣庇护·改",
+      "talentName": "神圣庇护·改",
       "talentType": "PASSIVE",
-      "description": "治疗目标时，额外恢复目标最大生命值的8%"
+      "description": "治疗目标时，额外恢复目标最大生命值的8%",
+      "effects": [],
+      "isAlwaysActive": true,
+      "activationCondition": "heal",
+      "activationChance": 1.0,
+      "requiredEliteLevel": 2,
+      "requiredLevel": 1
     },
     {
       "id": 11,
-      "name": "先锋精神",
+      "talentName": "先锋精神",
       "talentType": "PASSIVE",
-      "description": "部署费用-2"
+      "description": "部署费用-2",
+      "effects": [],
+      "isAlwaysActive": true,
+      "activationCondition": "always",
+      "activationChance": 1.0,
+      "requiredEliteLevel": 0,
+      "requiredLevel": 1
     },
     {
       "id": 12,
-      "name": "先锋精神·改",
+      "talentName": "先锋精神·改",
       "talentType": "PASSIVE",
-      "description": "部署费用-3"
+      "description": "部署费用-3",
+      "effects": [],
+      "isAlwaysActive": true,
+      "activationCondition": "always",
+      "activationChance": 1.0,
+      "requiredEliteLevel": 2,
+      "requiredLevel": 1
     },
     {
       "id": 13,
-      "name": "重力操控",
+      "talentName": "重力操控",
       "talentType": "PASSIVE",
-      "description": "攻击时有10%概率使目标减速"
+      "description": "攻击时有10%概率使目标减速",
+      "effects": [],
+      "isAlwaysActive": true,
+      "activationCondition": "attack",
+      "activationChance": 0.1,
+      "requiredEliteLevel": 0,
+      "requiredLevel": 1
     },
     {
       "id": 14,
-      "name": "重力操控·改",
+      "talentName": "重力操控·改",
       "talentType": "PASSIVE",
-      "description": "攻击时有15%概率使目标减速"
+      "description": "攻击时有15%概率使目标减速",
+      "effects": [],
+      "isAlwaysActive": true,
+      "activationCondition": "attack",
+      "activationChance": 0.15,
+      "requiredEliteLevel": 2,
+      "requiredLevel": 1
     },
     {
       "id": 15,
-      "name": "剑术大师",
+      "talentName": "剑术大师",
       "talentType": "PASSIVE",
-      "description": "攻击时有12%概率造成额外伤害"
+      "description": "攻击时有12%概率造成额外伤害",
+      "effects": [],
+      "isAlwaysActive": true,
+      "activationCondition": "attack",
+      "activationChance": 0.12,
+      "requiredEliteLevel": 0,
+      "requiredLevel": 1
     },
     {
       "id": 16,
-      "name": "剑术大师·改",
+      "talentName": "剑术大师·改",
       "talentType": "PASSIVE",
-      "description": "攻击时有18%概率造成额外伤害"
+      "description": "攻击时有18%概率造成额外伤害",
+      "effects": [],
+      "isAlwaysActive": true,
+      "activationCondition": "attack",
+      "activationChance": 0.18,
+      "requiredEliteLevel": 2,
+      "requiredLevel": 1
     },
     {
       "id": 17,
-      "name": "深海之力",
+      "talentName": "深海之力",
       "talentType": "PASSIVE",
-      "description": "攻击力+20%，但攻击速度-10%"
+      "description": "攻击力+20%，但攻击速度-10%",
+      "effects": [],
+      "isAlwaysActive": true,
+      "activationCondition": "always",
+      "activationChance": 1.0,
+      "requiredEliteLevel": 0,
+      "requiredLevel": 1
     },
     {
       "id": 18,
-      "name": "深海之力·改",
+      "talentName": "深海之力·改",
       "talentType": "PASSIVE",
-      "description": "攻击力+25%，但攻击速度-8%"
+      "description": "攻击力+25%，但攻击速度-8%",
+      "effects": [],
+      "isAlwaysActive": true,
+      "activationCondition": "always",
+      "activationChance": 1.0,
+      "requiredEliteLevel": 2,
+      "requiredLevel": 1
     },
     {
       "id": 19,
-      "name": "夜莺之歌",
+      "talentName": "夜莺之歌",
       "talentType": "PASSIVE",
-      "description": "治疗时，同时恢复目标的精神力"
+      "description": "治疗时，同时恢复目标的精神力",
+      "effects": [],
+      "isAlwaysActive": true,
+      "activationCondition": "heal",
+      "activationChance": 1.0,
+      "requiredEliteLevel": 0,
+      "requiredLevel": 1
     },
     {
       "id": 20,
-      "name": "夜莺之歌·改",
+      "talentName": "夜莺之歌·改",
       "talentType": "PASSIVE",
-      "description": "治疗时，大幅恢复目标的精神力"
+      "description": "治疗时，大幅恢复目标的精神力",
+      "effects": [],
+      "isAlwaysActive": true,
+      "activationCondition": "heal",
+      "activationChance": 1.0,
+      "requiredEliteLevel": 2,
+      "requiredLevel": 1
     }
   ]
 } 

@@ -2,7 +2,7 @@
   "operators": [
     {
       "id": 1001,
-      "name": "银灰",
+      "operatorName": "银灰",
       "profession": "GUARD",
       "rarity": 6,
       "maxHP": 2500,
@@ -15,12 +15,12 @@
       "redeployTime": 70,
       "attackRangeX": 1,
       "attackRangeY": 1,
-      "skillIds": [1, 2, 3],
-      "talentIds": [1, 2]
+      "skillIds": ["skill_001", "skill_002", "skill_003"],
+      "talentIds": ["talent_001", "talent_002"]
     },
     {
       "id": 1002,
-      "name": "能天使",
+      "operatorName": "能天使",
       "profession": "SNIPER",
       "rarity": 6,
       "maxHP": 1800,
@@ -33,12 +33,12 @@
       "redeployTime": 60,
       "attackRangeX": 3,
       "attackRangeY": 3,
-      "skillIds": [4, 5, 6],
-      "talentIds": [3, 4]
+      "skillIds": ["skill_004", "skill_005", "skill_006"],
+      "talentIds": ["talent_003", "talent_004"]
     },
     {
       "id": 1003,
-      "name": "艾雅法拉",
+      "operatorName": "艾雅法拉",
       "profession": "CASTER",
       "rarity": 6,
       "maxHP": 1600,
@@ -51,12 +51,12 @@
       "redeployTime": 80,
       "attackRangeX": 2,
       "attackRangeY": 2,
-      "skillIds": [7, 8, 9],
-      "talentIds": [5, 6]
+      "skillIds": ["skill_007", "skill_008", "skill_009"],
+      "talentIds": ["talent_005", "talent_006"]
     },
     {
       "id": 1004,
-      "name": "星熊",
+      "operatorName": "星熊",
       "profession": "DEFENDER",
       "rarity": 6,
       "maxHP": 3200,
@@ -69,12 +69,12 @@
       "redeployTime": 90,
       "attackRangeX": 1,
       "attackRangeY": 1,
-      "skillIds": [10, 11, 12],
-      "talentIds": [7, 8]
+      "skillIds": ["skill_010", "skill_011", "skill_012"],
+      "talentIds": ["talent_007", "talent_008"]
     },
     {
       "id": 1005,
-      "name": "闪灵",
+      "operatorName": "闪灵",
       "profession": "MEDIC",
       "rarity": 6,
       "maxHP": 1400,
@@ -87,12 +87,12 @@
       "redeployTime": 75,
       "attackRangeX": 3,
       "attackRangeY": 3,
-      "skillIds": [13, 14, 15],
-      "talentIds": [9, 10]
+      "skillIds": ["skill_013", "skill_014", "skill_015"],
+      "talentIds": ["talent_009", "talent_010"]
     },
     {
       "id": 1006,
-      "name": "推进之王",
+      "operatorName": "推进之王",
       "profession": "VANGUARD",
       "rarity": 6,
       "maxHP": 2200,
@@ -105,12 +105,12 @@
       "redeployTime": 65,
       "attackRangeX": 1,
       "attackRangeY": 1,
-      "skillIds": [16, 17, 18],
-      "talentIds": [11, 12]
+      "skillIds": ["skill_016", "skill_017", "skill_018"],
+      "talentIds": ["talent_011", "talent_012"]
     },
     {
       "id": 1007,
-      "name": "安洁莉娜",
+      "operatorName": "安洁莉娜",
       "profession": "SUPPORTER",
       "rarity": 6,
       "maxHP": 1500,
@@ -123,12 +123,12 @@
       "redeployTime": 85,
       "attackRangeX": 3,
       "attackRangeY": 3,
-      "skillIds": [19, 20, 21],
-      "talentIds": [13, 14]
+      "skillIds": ["skill_019", "skill_020", "skill_021"],
+      "talentIds": ["talent_013", "talent_014"]
     },
     {
       "id": 1008,
-      "name": "陈",
+      "operatorName": "陈",
       "profession": "GUARD",
       "rarity": 6,
       "maxHP": 2400,
@@ -141,12 +141,12 @@
       "redeployTime": 75,
       "attackRangeX": 1,
       "attackRangeY": 1,
-      "skillIds": [22, 23, 24],
-      "talentIds": [15, 16]
+      "skillIds": ["skill_022", "skill_023", "skill_024"],
+      "talentIds": ["talent_015", "talent_016"]
     },
     {
       "id": 1009,
-      "name": "斯卡蒂",
+      "operatorName": "斯卡蒂",
       "profession": "SPECIALIST",
       "rarity": 6,
       "maxHP": 2800,
@@ -159,12 +159,12 @@
       "redeployTime": 60,
       "attackRangeX": 1,
       "attackRangeY": 1,
-      "skillIds": [25, 26, 27],
-      "talentIds": [17, 18]
+      "skillIds": ["skill_025", "skill_026", "skill_027"],
+      "talentIds": ["talent_017", "talent_018"]
     },
     {
       "id": 1010,
-      "name": "夜莺",
+      "operatorName": "夜莺",
       "profession": "MEDIC",
       "rarity": 6,
       "maxHP": 1300,
@@ -177,8 +177,8 @@
       "redeployTime": 80,
       "attackRangeX": 3,
       "attackRangeY": 3,
-      "skillIds": [28, 29, 30],
-      "talentIds": [19, 20]
+      "skillIds": ["skill_028", "skill_029", "skill_030"],
+      "talentIds": ["talent_019", "talent_020"]
     }
   ]
 } 

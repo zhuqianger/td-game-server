@@ -9,7 +9,6 @@ import java.util.List;
 @Data
 public class Operator {
     private Integer id;                  // 配置ID
-    private String operatorId;           // 干员ID
     private String operatorName;         // 干员名称
     private OperatorProfession profession;           // 职业（字符串格式，便于JSON转换）
     private Integer rarity;              // 稀有度 (1-6星)
@@ -35,8 +34,7 @@ public class Operator {
     // 构造函数
     public Operator() {}
     
-    public Operator(String operatorId, String operatorName, OperatorProfession profession, Integer rarity) {
-        this.operatorId = operatorId;
+    public Operator(String operatorName, OperatorProfession profession, Integer rarity) {
         this.operatorName = operatorName;
         this.profession = profession;
         this.rarity = rarity;
@@ -45,8 +43,7 @@ public class Operator {
     @Override
     public String toString() {
         return "Operator{" +
-                "operatorId='" + operatorId + '\'' +
-                ", operatorName='" + operatorName + '\'' +
+                "operatorName='" + operatorName + '\'' +
                 ", profession=" + profession +
                 ", rarity=" + rarity +
                 ", maxHP=" + maxHP +

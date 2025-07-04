@@ -10,7 +10,6 @@ import java.util.List;
 @Data
 public class Skill {
     private Integer id;                  // 配置ID
-    private String skillId;              // 技能ID
     private String skillName;            // 技能名称
     private String skillType;            // 技能类型（PASSIVE/ACTIVE）
     private String description;          // 技能描述
@@ -32,8 +31,7 @@ public class Skill {
     // 构造函数
     public Skill() {}
     
-    public Skill(String skillId, String skillName, String skillType, String description) {
-        this.skillId = skillId;
+    public Skill(String skillName, String skillType, String description) {
         this.skillName = skillName;
         this.skillType = skillType;
         this.description = description;
@@ -43,7 +41,6 @@ public class Skill {
     public String toString() {
         return "Skill{" +
                 "id=" + id +
-                ", skillId='" + skillId + '\'' +
                 ", skillName='" + skillName + '\'' +
                 ", skillType='" + skillType + '\'' +
                 ", description='" + description + '\'' +

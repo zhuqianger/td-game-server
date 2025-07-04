@@ -10,7 +10,6 @@ import java.util.List;
 @Data
 public class Talent {
     private Integer id;                  // 配置ID
-    private String talentId;             // 天赋ID
     private String talentName;           // 天赋名称
     private String talentType;           // 天赋类型（PASSIVE/ACTIVE）
     private String description;          // 天赋描述
@@ -30,8 +29,7 @@ public class Talent {
     // 构造函数
     public Talent() {}
     
-    public Talent(String talentId, String talentName, String talentType, String description) {
-        this.talentId = talentId;
+    public Talent(String talentName, String talentType, String description) {
         this.talentName = talentName;
         this.talentType = talentType;
         this.description = description;
