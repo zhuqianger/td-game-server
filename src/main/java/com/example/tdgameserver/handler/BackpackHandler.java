@@ -131,10 +131,6 @@ public class BackpackHandler {
      */
     public void handleUseItem(PlayerSession session, GameMessage message) {
         try {
-            if (!session.isAuthenticated()) {
-                session.sendMessage(MessageId.ERROR_MSG.getId(), "请先登录".getBytes());
-                return;
-            }
 
             String requestData = new String(message.getPayload());
             JsonObject request = gson.fromJson(requestData, JsonObject.class);
