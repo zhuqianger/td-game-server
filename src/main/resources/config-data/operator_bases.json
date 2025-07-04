@@ -1,0 +1,148 @@
+{
+  "operatorBases": [
+    {
+      "id": 1,
+      "rarity": 1,
+      "eliteLevel": 0,
+      "baseHP": 800,
+      "baseAttack": 150,
+      "baseDefense": 80,
+      "baseMagicResistance": 0
+    },
+    {
+      "id": 2,
+      "rarity": 1,
+      "eliteLevel": 1,
+      "baseHP": 1200,
+      "baseAttack": 220,
+      "baseDefense": 120,
+      "baseMagicResistance": 0
+    },
+    {
+      "id": 3,
+      "rarity": 2,
+      "eliteLevel": 0,
+      "baseHP": 1000,
+      "baseAttack": 180,
+      "baseDefense": 100,
+      "baseMagicResistance": 0
+    },
+    {
+      "id": 4,
+      "rarity": 2,
+      "eliteLevel": 1,
+      "baseHP": 1500,
+      "baseAttack": 270,
+      "baseDefense": 150,
+      "baseMagicResistance": 0
+    },
+    {
+      "id": 5,
+      "rarity": 3,
+      "eliteLevel": 0,
+      "baseHP": 1200,
+      "baseAttack": 220,
+      "baseDefense": 120,
+      "baseMagicResistance": 5
+    },
+    {
+      "id": 6,
+      "rarity": 3,
+      "eliteLevel": 1,
+      "baseHP": 1800,
+      "baseAttack": 330,
+      "baseDefense": 180,
+      "baseMagicResistance": 8
+    },
+    {
+      "id": 7,
+      "rarity": 3,
+      "eliteLevel": 2,
+      "baseHP": 2200,
+      "baseAttack": 400,
+      "baseDefense": 220,
+      "baseMagicResistance": 10
+    },
+    {
+      "id": 8,
+      "rarity": 4,
+      "eliteLevel": 0,
+      "baseHP": 1400,
+      "baseAttack": 260,
+      "baseDefense": 140,
+      "baseMagicResistance": 8
+    },
+    {
+      "id": 9,
+      "rarity": 4,
+      "eliteLevel": 1,
+      "baseHP": 2100,
+      "baseAttack": 390,
+      "baseDefense": 210,
+      "baseMagicResistance": 12
+    },
+    {
+      "id": 10,
+      "rarity": 4,
+      "eliteLevel": 2,
+      "baseHP": 2600,
+      "baseAttack": 480,
+      "baseDefense": 260,
+      "baseMagicResistance": 15
+    },
+    {
+      "id": 11,
+      "rarity": 5,
+      "eliteLevel": 0,
+      "baseHP": 1600,
+      "baseAttack": 300,
+      "baseDefense": 160,
+      "baseMagicResistance": 10
+    },
+    {
+      "id": 12,
+      "rarity": 5,
+      "eliteLevel": 1,
+      "baseHP": 2400,
+      "baseAttack": 450,
+      "baseDefense": 240,
+      "baseMagicResistance": 15
+    },
+    {
+      "id": 13,
+      "rarity": 5,
+      "eliteLevel": 2,
+      "baseHP": 3000,
+      "baseAttack": 560,
+      "baseDefense": 300,
+      "baseMagicResistance": 20
+    },
+    {
+      "id": 14,
+      "rarity": 6,
+      "eliteLevel": 0,
+      "baseHP": 1800,
+      "baseAttack": 340,
+      "baseDefense": 180,
+      "baseMagicResistance": 12
+    },
+    {
+      "id": 15,
+      "rarity": 6,
+      "eliteLevel": 1,
+      "baseHP": 2700,
+      "baseAttack": 510,
+      "baseDefense": 270,
+      "baseMagicResistance": 18
+    },
+    {
+      "id": 16,
+      "rarity": 6,
+      "eliteLevel": 2,
+      "baseHP": 3400,
+      "baseAttack": 640,
+      "baseDefense": 340,
+      "baseMagicResistance": 25
+    }
+  ]
+} 

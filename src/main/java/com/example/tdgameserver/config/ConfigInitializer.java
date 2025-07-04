@@ -3,6 +3,10 @@ package com.example.tdgameserver.config;
 import com.example.tdgameserver.entity.Operator;
 import com.example.tdgameserver.entity.Skill;
 import com.example.tdgameserver.entity.Talent;
+import com.example.tdgameserver.entity.OperatorLevel;
+import com.example.tdgameserver.entity.OperatorBase;
+import com.example.tdgameserver.entity.OperatorGrowth;
+import com.example.tdgameserver.entity.OperatorAttribute;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,6 +35,10 @@ public class ConfigInitializer {
         configService.registerTableEntity("operators", Operator.class);
         configService.registerTableEntity("skills", Skill.class);
         configService.registerTableEntity("talents", Talent.class);
+        configService.registerTableEntity("operator_levels", OperatorLevel.class);
+        configService.registerTableEntity("operator_bases", OperatorBase.class);
+        configService.registerTableEntity("operator_growths", OperatorGrowth.class);
+        configService.registerTableEntity("operator_attributes", OperatorAttribute.class);
         
         log.info("配置表映射关系初始化完成");
         

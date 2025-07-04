@@ -1,0 +1,704 @@
+{
+  "operatorGrowths": [
+    {
+      "id": 1001,
+      "rarity": 1,
+      "eliteLevel": 0,
+      "level": 1,
+      "hpGrowth": 0,
+      "attackGrowth": 0,
+      "defenseGrowth": 0,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 1002,
+      "rarity": 1,
+      "eliteLevel": 0,
+      "level": 2,
+      "hpGrowth": 40,
+      "attackGrowth": 8,
+      "defenseGrowth": 4,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 1003,
+      "rarity": 1,
+      "eliteLevel": 0,
+      "level": 3,
+      "hpGrowth": 80,
+      "attackGrowth": 16,
+      "defenseGrowth": 8,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 1004,
+      "rarity": 1,
+      "eliteLevel": 0,
+      "level": 4,
+      "hpGrowth": 120,
+      "attackGrowth": 24,
+      "defenseGrowth": 12,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 1005,
+      "rarity": 1,
+      "eliteLevel": 0,
+      "level": 5,
+      "hpGrowth": 160,
+      "attackGrowth": 32,
+      "defenseGrowth": 16,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 1006,
+      "rarity": 1,
+      "eliteLevel": 0,
+      "level": 6,
+      "hpGrowth": 200,
+      "attackGrowth": 40,
+      "defenseGrowth": 20,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 1007,
+      "rarity": 1,
+      "eliteLevel": 0,
+      "level": 7,
+      "hpGrowth": 240,
+      "attackGrowth": 48,
+      "defenseGrowth": 24,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 1008,
+      "rarity": 1,
+      "eliteLevel": 0,
+      "level": 8,
+      "hpGrowth": 280,
+      "attackGrowth": 56,
+      "defenseGrowth": 28,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 1009,
+      "rarity": 1,
+      "eliteLevel": 0,
+      "level": 9,
+      "hpGrowth": 320,
+      "attackGrowth": 64,
+      "defenseGrowth": 32,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 1010,
+      "rarity": 1,
+      "eliteLevel": 0,
+      "level": 10,
+      "hpGrowth": 360,
+      "attackGrowth": 72,
+      "defenseGrowth": 36,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 1101,
+      "rarity": 1,
+      "eliteLevel": 1,
+      "level": 1,
+      "hpGrowth": 0,
+      "attackGrowth": 0,
+      "defenseGrowth": 0,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 1102,
+      "rarity": 1,
+      "eliteLevel": 1,
+      "level": 2,
+      "hpGrowth": 60,
+      "attackGrowth": 12,
+      "defenseGrowth": 6,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 1103,
+      "rarity": 1,
+      "eliteLevel": 1,
+      "level": 3,
+      "hpGrowth": 120,
+      "attackGrowth": 24,
+      "defenseGrowth": 12,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 1104,
+      "rarity": 1,
+      "eliteLevel": 1,
+      "level": 4,
+      "hpGrowth": 180,
+      "attackGrowth": 36,
+      "defenseGrowth": 18,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 1105,
+      "rarity": 1,
+      "eliteLevel": 1,
+      "level": 5,
+      "hpGrowth": 240,
+      "attackGrowth": 48,
+      "defenseGrowth": 24,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 1106,
+      "rarity": 1,
+      "eliteLevel": 1,
+      "level": 6,
+      "hpGrowth": 300,
+      "attackGrowth": 60,
+      "defenseGrowth": 30,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 1107,
+      "rarity": 1,
+      "eliteLevel": 1,
+      "level": 7,
+      "hpGrowth": 360,
+      "attackGrowth": 72,
+      "defenseGrowth": 36,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 1108,
+      "rarity": 1,
+      "eliteLevel": 1,
+      "level": 8,
+      "hpGrowth": 420,
+      "attackGrowth": 84,
+      "defenseGrowth": 42,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 1109,
+      "rarity": 1,
+      "eliteLevel": 1,
+      "level": 9,
+      "hpGrowth": 480,
+      "attackGrowth": 96,
+      "defenseGrowth": 48,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 1110,
+      "rarity": 1,
+      "eliteLevel": 1,
+      "level": 10,
+      "hpGrowth": 540,
+      "attackGrowth": 108,
+      "defenseGrowth": 54,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 2001,
+      "rarity": 2,
+      "eliteLevel": 0,
+      "level": 1,
+      "hpGrowth": 0,
+      "attackGrowth": 0,
+      "defenseGrowth": 0,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 2002,
+      "rarity": 2,
+      "eliteLevel": 0,
+      "level": 2,
+      "hpGrowth": 50,
+      "attackGrowth": 10,
+      "defenseGrowth": 5,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 2003,
+      "rarity": 2,
+      "eliteLevel": 0,
+      "level": 3,
+      "hpGrowth": 100,
+      "attackGrowth": 20,
+      "defenseGrowth": 10,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 2004,
+      "rarity": 2,
+      "eliteLevel": 0,
+      "level": 4,
+      "hpGrowth": 150,
+      "attackGrowth": 30,
+      "defenseGrowth": 15,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 2005,
+      "rarity": 2,
+      "eliteLevel": 0,
+      "level": 5,
+      "hpGrowth": 200,
+      "attackGrowth": 40,
+      "defenseGrowth": 20,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 2006,
+      "rarity": 2,
+      "eliteLevel": 0,
+      "level": 6,
+      "hpGrowth": 250,
+      "attackGrowth": 50,
+      "defenseGrowth": 25,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 2007,
+      "rarity": 2,
+      "eliteLevel": 0,
+      "level": 7,
+      "hpGrowth": 300,
+      "attackGrowth": 60,
+      "defenseGrowth": 30,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 2008,
+      "rarity": 2,
+      "eliteLevel": 0,
+      "level": 8,
+      "hpGrowth": 350,
+      "attackGrowth": 70,
+      "defenseGrowth": 35,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 2009,
+      "rarity": 2,
+      "eliteLevel": 0,
+      "level": 9,
+      "hpGrowth": 400,
+      "attackGrowth": 80,
+      "defenseGrowth": 40,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 2010,
+      "rarity": 2,
+      "eliteLevel": 0,
+      "level": 10,
+      "hpGrowth": 450,
+      "attackGrowth": 90,
+      "defenseGrowth": 45,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 2101,
+      "rarity": 2,
+      "eliteLevel": 1,
+      "level": 1,
+      "hpGrowth": 0,
+      "attackGrowth": 0,
+      "defenseGrowth": 0,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 2102,
+      "rarity": 2,
+      "eliteLevel": 1,
+      "level": 2,
+      "hpGrowth": 75,
+      "attackGrowth": 15,
+      "defenseGrowth": 8,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 2103,
+      "rarity": 2,
+      "eliteLevel": 1,
+      "level": 3,
+      "hpGrowth": 150,
+      "attackGrowth": 30,
+      "defenseGrowth": 16,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 2104,
+      "rarity": 2,
+      "eliteLevel": 1,
+      "level": 4,
+      "hpGrowth": 225,
+      "attackGrowth": 45,
+      "defenseGrowth": 24,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 2105,
+      "rarity": 2,
+      "eliteLevel": 1,
+      "level": 5,
+      "hpGrowth": 300,
+      "attackGrowth": 60,
+      "defenseGrowth": 32,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 2106,
+      "rarity": 2,
+      "eliteLevel": 1,
+      "level": 6,
+      "hpGrowth": 375,
+      "attackGrowth": 75,
+      "defenseGrowth": 40,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 2107,
+      "rarity": 2,
+      "eliteLevel": 1,
+      "level": 7,
+      "hpGrowth": 450,
+      "attackGrowth": 90,
+      "defenseGrowth": 48,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 2108,
+      "rarity": 2,
+      "eliteLevel": 1,
+      "level": 8,
+      "hpGrowth": 525,
+      "attackGrowth": 105,
+      "defenseGrowth": 56,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 2109,
+      "rarity": 2,
+      "eliteLevel": 1,
+      "level": 9,
+      "hpGrowth": 600,
+      "attackGrowth": 120,
+      "defenseGrowth": 64,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 2110,
+      "rarity": 2,
+      "eliteLevel": 1,
+      "level": 10,
+      "hpGrowth": 675,
+      "attackGrowth": 135,
+      "defenseGrowth": 72,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 3001,
+      "rarity": 3,
+      "eliteLevel": 0,
+      "level": 1,
+      "hpGrowth": 0,
+      "attackGrowth": 0,
+      "defenseGrowth": 0,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 3002,
+      "rarity": 3,
+      "eliteLevel": 0,
+      "level": 2,
+      "hpGrowth": 60,
+      "attackGrowth": 12,
+      "defenseGrowth": 6,
+      "magicResistanceGrowth": 1
+    },
+    {
+      "id": 3003,
+      "rarity": 3,
+      "eliteLevel": 0,
+      "level": 3,
+      "hpGrowth": 120,
+      "attackGrowth": 24,
+      "defenseGrowth": 12,
+      "magicResistanceGrowth": 2
+    },
+    {
+      "id": 3004,
+      "rarity": 3,
+      "eliteLevel": 0,
+      "level": 4,
+      "hpGrowth": 180,
+      "attackGrowth": 36,
+      "defenseGrowth": 18,
+      "magicResistanceGrowth": 3
+    },
+    {
+      "id": 3005,
+      "rarity": 3,
+      "eliteLevel": 0,
+      "level": 5,
+      "hpGrowth": 240,
+      "attackGrowth": 48,
+      "defenseGrowth": 24,
+      "magicResistanceGrowth": 4
+    },
+    {
+      "id": 3006,
+      "rarity": 3,
+      "eliteLevel": 0,
+      "level": 6,
+      "hpGrowth": 300,
+      "attackGrowth": 60,
+      "defenseGrowth": 30,
+      "magicResistanceGrowth": 5
+    },
+    {
+      "id": 3007,
+      "rarity": 3,
+      "eliteLevel": 0,
+      "level": 7,
+      "hpGrowth": 360,
+      "attackGrowth": 72,
+      "defenseGrowth": 36,
+      "magicResistanceGrowth": 6
+    },
+    {
+      "id": 3008,
+      "rarity": 3,
+      "eliteLevel": 0,
+      "level": 8,
+      "hpGrowth": 420,
+      "attackGrowth": 84,
+      "defenseGrowth": 42,
+      "magicResistanceGrowth": 7
+    },
+    {
+      "id": 3009,
+      "rarity": 3,
+      "eliteLevel": 0,
+      "level": 9,
+      "hpGrowth": 480,
+      "attackGrowth": 96,
+      "defenseGrowth": 48,
+      "magicResistanceGrowth": 8
+    },
+    {
+      "id": 3010,
+      "rarity": 3,
+      "eliteLevel": 0,
+      "level": 10,
+      "hpGrowth": 540,
+      "attackGrowth": 108,
+      "defenseGrowth": 54,
+      "magicResistanceGrowth": 9
+    },
+    {
+      "id": 3101,
+      "rarity": 3,
+      "eliteLevel": 1,
+      "level": 1,
+      "hpGrowth": 0,
+      "attackGrowth": 0,
+      "defenseGrowth": 0,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 3102,
+      "rarity": 3,
+      "eliteLevel": 1,
+      "level": 2,
+      "hpGrowth": 90,
+      "attackGrowth": 18,
+      "defenseGrowth": 9,
+      "magicResistanceGrowth": 1
+    },
+    {
+      "id": 3103,
+      "rarity": 3,
+      "eliteLevel": 1,
+      "level": 3,
+      "hpGrowth": 180,
+      "attackGrowth": 36,
+      "defenseGrowth": 18,
+      "magicResistanceGrowth": 2
+    },
+    {
+      "id": 3104,
+      "rarity": 3,
+      "eliteLevel": 1,
+      "level": 4,
+      "hpGrowth": 270,
+      "attackGrowth": 54,
+      "defenseGrowth": 27,
+      "magicResistanceGrowth": 3
+    },
+    {
+      "id": 3105,
+      "rarity": 3,
+      "eliteLevel": 1,
+      "level": 5,
+      "hpGrowth": 360,
+      "attackGrowth": 72,
+      "defenseGrowth": 36,
+      "magicResistanceGrowth": 4
+    },
+    {
+      "id": 3106,
+      "rarity": 3,
+      "eliteLevel": 1,
+      "level": 6,
+      "hpGrowth": 450,
+      "attackGrowth": 90,
+      "defenseGrowth": 45,
+      "magicResistanceGrowth": 5
+    },
+    {
+      "id": 3107,
+      "rarity": 3,
+      "eliteLevel": 1,
+      "level": 7,
+      "hpGrowth": 540,
+      "attackGrowth": 108,
+      "defenseGrowth": 54,
+      "magicResistanceGrowth": 6
+    },
+    {
+      "id": 3108,
+      "rarity": 3,
+      "eliteLevel": 1,
+      "level": 8,
+      "hpGrowth": 630,
+      "attackGrowth": 126,
+      "defenseGrowth": 63,
+      "magicResistanceGrowth": 7
+    },
+    {
+      "id": 3109,
+      "rarity": 3,
+      "eliteLevel": 1,
+      "level": 9,
+      "hpGrowth": 720,
+      "attackGrowth": 144,
+      "defenseGrowth": 72,
+      "magicResistanceGrowth": 8
+    },
+    {
+      "id": 3110,
+      "rarity": 3,
+      "eliteLevel": 1,
+      "level": 10,
+      "hpGrowth": 810,
+      "attackGrowth": 162,
+      "defenseGrowth": 81,
+      "magicResistanceGrowth": 9
+    },
+    {
+      "id": 3201,
+      "rarity": 3,
+      "eliteLevel": 2,
+      "level": 1,
+      "hpGrowth": 0,
+      "attackGrowth": 0,
+      "defenseGrowth": 0,
+      "magicResistanceGrowth": 0
+    },
+    {
+      "id": 3202,
+      "rarity": 3,
+      "eliteLevel": 2,
+      "level": 2,
+      "hpGrowth": 120,
+      "attackGrowth": 24,
+      "defenseGrowth": 12,
+      "magicResistanceGrowth": 2
+    },
+    {
+      "id": 3203,
+      "rarity": 3,
+      "eliteLevel": 2,
+      "level": 3,
+      "hpGrowth": 240,
+      "attackGrowth": 48,
+      "defenseGrowth": 24,
+      "magicResistanceGrowth": 4
+    },
+    {
+      "id": 3204,
+      "rarity": 3,
+      "eliteLevel": 2,
+      "level": 4,
+      "hpGrowth": 360,
+      "attackGrowth": 72,
+      "defenseGrowth": 36,
+      "magicResistanceGrowth": 6
+    },
+    {
+      "id": 3205,
+      "rarity": 3,
+      "eliteLevel": 2,
+      "level": 5,
+      "hpGrowth": 480,
+      "attackGrowth": 96,
+      "defenseGrowth": 48,
+      "magicResistanceGrowth": 8
+    },
+    {
+      "id": 3206,
+      "rarity": 3,
+      "eliteLevel": 2,
+      "level": 6,
+      "hpGrowth": 600,
+      "attackGrowth": 120,
+      "defenseGrowth": 60,
+      "magicResistanceGrowth": 10
+    },
+    {
+      "id": 3207,
+      "rarity": 3,
+      "eliteLevel": 2,
+      "level": 7,
+      "hpGrowth": 720,
+      "attackGrowth": 144,
+      "defenseGrowth": 72,
+      "magicResistanceGrowth": 12
+    },
+    {
+      "id": 3208,
+      "rarity": 3,
+      "eliteLevel": 2,
+      "level": 8,
+      "hpGrowth": 840,
+      "attackGrowth": 168,
+      "defenseGrowth": 84,
+      "magicResistanceGrowth": 14
+    },
+    {
+      "id": 3209,
+      "rarity": 3,
+      "eliteLevel": 2,
+      "level": 9,
+      "hpGrowth": 960,
+      "attackGrowth": 192,
+      "defenseGrowth": 96,
+      "magicResistanceGrowth": 16
+    },
+    {
+      "id": 3210,
+      "rarity": 3,
+      "eliteLevel": 2,
+      "level": 10,
+      "hpGrowth": 1080,
+      "attackGrowth": 216,
+      "defenseGrowth": 108,
+      "magicResistanceGrowth": 18
+    }
+  ]
+} 
