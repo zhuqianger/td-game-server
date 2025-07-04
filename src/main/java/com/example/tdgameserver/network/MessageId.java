@@ -62,6 +62,19 @@ public enum MessageId {
     RESP_UPDATE_OPERATOR_HP_SUCCESS(52),
     RESP_UPDATE_OPERATOR_HP_FAIL(53),
     
+    //背包相关
+    REQ_GET_BACKPACK(60),
+    RESP_GET_BACKPACK(61),
+    
+    REQ_GET_BACKPACK_BY_TYPE(62),
+    RESP_GET_BACKPACK_BY_TYPE(63),
+    
+    REQ_ADD_ITEM(64),
+    RESP_ADD_ITEM(65),
+    
+    REQ_USE_ITEM(66),
+    RESP_USE_ITEM(67),
+    
     //错误
     ERROR_MSG(-1);
 

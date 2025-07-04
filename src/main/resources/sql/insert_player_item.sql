@@ -1,0 +1,43 @@
+-- 插入玩家道具测试数据
+-- 用于向player_item表中插入测试数据
+
+INSERT INTO `player_item` (`player_id`, `item_id`, `quantity`, `create_time`, `update_time`) VALUES
+-- 玩家1的道具数据
+(1, 1001, 50, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),  -- 经验卡 x50
+(1, 1002, 20, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),  -- 高级经验卡 x20
+(1, 2001, 10, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),  -- 技能芯片 x10
+(1, 3001, 5, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),   -- 精英化材料 x5
+(1, 4001, 10000, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()), -- 龙门币 x10000
+(1, 5001, 100, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()), -- 源石 x100
+
+-- 玩家2的道具数据
+(2, 1001, 30, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),  -- 经验卡 x30
+(2, 2001, 5, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),   -- 技能芯片 x5
+(2, 4001, 5000, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()), -- 龙门币 x5000
+(2, 5001, 50, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),  -- 源石 x50
+(2, 6001, 3, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),   -- 家具图纸 x3
+
+-- 玩家3的道具数据
+(3, 1002, 15, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),  -- 高级经验卡 x15
+(3, 3001, 8, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),   -- 精英化材料 x8
+(3, 4001, 8000, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()), -- 龙门币 x8000
+(3, 7001, 1, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),   -- 干员皮肤 x1
+(3, 8001, 10, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),  -- 体力药剂 x10
+
+-- 玩家4的道具数据
+(4, 1001, 25, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),  -- 经验卡 x25
+(4, 2001, 3, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),   -- 技能芯片 x3
+(4, 4001, 3000, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()), -- 龙门币 x3000
+(4, 9001, 5, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),   -- 招募券 x5
+
+-- 玩家5的道具数据
+(5, 1001, 100, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()), -- 经验卡 x100
+(5, 1002, 50, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),  -- 高级经验卡 x50
+(5, 2001, 20, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),  -- 技能芯片 x20
+(5, 3001, 15, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),  -- 精英化材料 x15
+(5, 4001, 20000, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()), -- 龙门币 x20000
+(5, 5001, 200, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()), -- 源石 x200
+(5, 6001, 8, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),   -- 家具图纸 x8
+(5, 7001, 2, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),   -- 干员皮肤 x2
+(5, 8001, 25, UNIX_TIMESTAMP(), UNIX_TIMESTAMP()),  -- 体力药剂 x25
+(5, 9001, 10, UNIX_TIMESTAMP(), UNIX_TIMESTAMP());  -- 招募券 x10 

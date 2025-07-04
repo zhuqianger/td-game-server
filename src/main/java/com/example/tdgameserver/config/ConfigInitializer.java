@@ -7,6 +7,8 @@ import com.example.tdgameserver.entity.OperatorLevel;
 import com.example.tdgameserver.entity.OperatorBase;
 import com.example.tdgameserver.entity.OperatorGrowth;
 import com.example.tdgameserver.entity.OperatorAttribute;
+import com.example.tdgameserver.entity.Item;
+import com.example.tdgameserver.entity.BackpackType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -39,6 +41,8 @@ public class ConfigInitializer {
         configService.registerTableEntity("operator_bases", OperatorBase.class);
         configService.registerTableEntity("operator_growths", OperatorGrowth.class);
         configService.registerTableEntity("operator_attributes", OperatorAttribute.class);
+        configService.registerTableEntity("items", Item.class);
+        configService.registerTableEntity("backpack_types", BackpackType.class);
         
         log.info("配置表映射关系初始化完成");
         

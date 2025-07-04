@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.tdgameserver.mapper.PlayerItemMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="PlayerItemResultMap" type="com.example.tdgameserver.entity.PlayerItem">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="player_id" property="playerId" jdbcType="INTEGER"/>
+        <result column="item_id" property="itemId" jdbcType="INTEGER"/>
+        <result column="quantity" property="quantity" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 基础字段 -->
+    <sql id="Base_Column_List">
+        id, player_id, item_id, quantity, create_time, update_time
+    </sql>
+
+    <!-- 根据玩家ID查询所有道具 -->
+    <select id="selectByPlayerId" parameterType="java.lang.Integer" resultMap="PlayerItemResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM player_item
+        WHERE player_id = #{playerId}
+        ORDER BY item_id ASC
+    </select>
+
+    <!-- 根据玩家ID和道具ID查询道具 -->
+    <select id="selectByPlayerIdAndItemId" resultMap="PlayerItemResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM player_item
+        WHERE player_id = #{playerId} AND item_id = #{itemId}
+    </select>
+
+    <!-- 根据玩家ID和背包类型ID查询道具 -->
+    <select id="selectByPlayerIdAndBackpackTypeId" resultMap="PlayerItemResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM player_item pi
+        INNER JOIN (
+            SELECT id FROM items WHERE backpack_type_id = #{backpackTypeId}
+        ) i ON pi.item_id = i.id
+        WHERE pi.player_id = #{playerId}
+        ORDER BY pi.item_id ASC
+    </select>
+
+    <!-- 插入新道具 -->
+    <insert id="insert" parameterType="com.example.tdgameserver.entity.PlayerItem" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO player_item (
+            player_id, 
+            item_id, 
+            quantity, 
+            create_time, 
+            update_time
+        ) VALUES (
+            #{playerId}, 
+            #{itemId}, 
+            #{quantity}, 
+            #{createTime}, 
+            #{updateTime}
+        )
+    </insert>
+
+    <!-- 更新道具数量 -->
+    <update id="update" parameterType="com.example.tdgameserver.entity.PlayerItem">
+        UPDATE player_item
+        <set>
+            <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        WHERE player_id = #{playerId} AND item_id = #{itemId}
+    </update>
+
+    <!-- 根据玩家ID和道具ID删除道具 -->
+    <delete id="deleteByPlayerIdAndItemId">
+        DELETE FROM player_item
+        WHERE player_id = #{playerId} AND item_id = #{itemId}
+    </delete>
+
+    <!-- 根据玩家ID删除所有道具 -->
+    <delete id="deleteByPlayerId" parameterType="java.lang.Integer">
+        DELETE FROM player_item
+        WHERE player_id = #{playerId}
+    </delete>
+
+</mapper> 
