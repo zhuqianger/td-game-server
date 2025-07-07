@@ -7,8 +7,8 @@ import com.example.tdgameserver.network.MessageId;
 import com.example.tdgameserver.service.PlayerService;
 import com.example.tdgameserver.session.PlayerSession;
 import com.example.tdgameserver.session.SessionManager;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.example.tdgameserver.util.MessageUtil;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,18 +22,15 @@ public class PlayerHandler {
 
     private final GameMessageHandlerRegistry handlerRegistry = GameMessageHandlerRegistry.getInstance();
     private final SessionManager sessionManager;
-    private final Gson gson;
 
     public PlayerHandler() {
         this.sessionManager = SessionManager.getInstance();
-        this.gson = new Gson();
         registerHandlers();
     }
 
     public void registerHandlers() {
         handlerRegistry.registerHandler(MessageId.REQ_LOGIN.getId(), this::handleLogin);
     }
-
 
     /**
      * 处理登录请求
@@ -43,24 +40,26 @@ public class PlayerHandler {
             String loginData = new String(message.getPayload());
             log.info("收到登录请求：{}", loginData);
             
-            LoginCredentials credentials = parseLoginData(loginData);
-            if (credentials == null) {
+            // 使用MessageUtil通用转换接口
+            LoginRequest loginRequest = MessageUtil.convertMessage(loginData, LoginRequest.class);
+            if (loginRequest == null) {
                 session.sendMessage(MessageId.RESP_LOGIN_FAIL.getId(), "登录失败：无效的登录数据格式");
                 return;
             }
             
             // 验证用户名和密码
-            if (!validateCredentials(credentials)) {
-                session.sendMessage(MessageId.RESP_LOGIN_FAIL.getId(), "登录失败：用户名或密码不能为空");
+            String validationError = validateLoginRequest(loginRequest);
+            if (validationError != null) {
+                session.sendMessage(MessageId.RESP_LOGIN_FAIL.getId(), "登录失败：" + validationError);
                 return;
             }
             
             // 通过PlayerService查询数据库验证用户
-            Player player = playerService.authenticatePlayer(credentials.username(), credentials.password());
+            Player player = playerService.authenticatePlayer(loginRequest.getUsername(), loginRequest.getPassword());
             if (player != null) {
                 handleSuccessfulLogin(session, player);
             } else {
-                handleFailedLogin(session, credentials.username());
+                handleFailedLogin(session, loginRequest.getUsername());
             }
             
         } catch (Exception e) {
@@ -70,34 +69,16 @@ public class PlayerHandler {
     }
     
     /**
-     * 解析登录数据
+     * 验证登录请求数据
      */
-    private LoginCredentials parseLoginData(String loginData) {
-        if (loginData.trim().startsWith("{") && loginData.trim().endsWith("}")) {
-            try {
-                JsonObject json = gson.fromJson(loginData, JsonObject.class);
-                if (json.has("username") && json.has("password")) {
-                    String username = json.get("username").getAsString();
-                    String password = json.get("password").getAsString();
-                    log.info("成功解析JSON格式登录数据 - 用户名: {}", username);
-                    return new LoginCredentials(username, password);
-                }
-                log.warn("JSON格式不正确，缺少username或password字段：{}", loginData);
-            } catch (Exception e) {
-                log.warn("JSON格式解析失败：{}, 错误: {}", loginData, e.getMessage());
-            }
+    private String validateLoginRequest(LoginRequest request) {
+        if (request.getUsername() == null || request.getUsername().trim().isEmpty()) {
+            return "用户名不能为空";
         }
-        return null;
-    }
-    
-    /**
-     * 验证登录凭据
-     */
-    private boolean validateCredentials(LoginCredentials credentials) {
-        return credentials.username() != null &&
-               credentials.password() != null &&
-               !credentials.username().isEmpty() &&
-               !credentials.password().isEmpty();
+        if (request.getPassword() == null || request.getPassword().trim().isEmpty()) {
+            return "密码不能为空";
+        }
+        return null; // 验证通过
     }
     
     /**
@@ -123,9 +104,11 @@ public class PlayerHandler {
     }
 
     /**
-         * 登录凭据内部类
-         */
-    private record LoginCredentials(String username, String password) {
-
+     * 登录请求实体类
+     */
+    @Data
+    public static class LoginRequest {
+        private String username;
+        private String password;
     }
 } 
