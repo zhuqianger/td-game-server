@@ -8,7 +8,7 @@ spring:
     password: 1187246802zqZQ
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
-  type-aliases-package: org.example.gameserver.entity
+  type-aliases-package: com.example.tdgameserver.entity
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true

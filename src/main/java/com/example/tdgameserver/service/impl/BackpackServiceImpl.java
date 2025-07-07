@@ -9,10 +9,11 @@ import com.example.tdgameserver.service.BackpackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 背包服务实现类
@@ -26,14 +27,62 @@ public class BackpackServiceImpl implements BackpackService {
     @Autowired
     private JsonConfigLoader jsonConfigLoader;
     
+    // 玩家背包数据缓存，key为玩家ID，value为道具列表
+    private final Map<Integer, List<PlayerItem>> playerItemsCache = new ConcurrentHashMap<>();
+    
+    // 玩家道具数量缓存，key为"playerId:itemId"，value为数量
+    private final Map<String, Integer> itemQuantityCache = new ConcurrentHashMap<>();
+    
     @Override
     public List<PlayerItem> getPlayerItems(Integer playerId) {
-        return playerItemMapper.selectByPlayerId(playerId);
+        // 先从缓存获取
+        List<PlayerItem> cachedItems = playerItemsCache.get(playerId);
+        if (cachedItems != null) {
+            return new ArrayList<>(cachedItems); // 返回副本，避免外部修改
+        }
+        
+        // 缓存未命中，从数据库查询
+        List<PlayerItem> items = playerItemMapper.selectByPlayerId(playerId);
+        
+        // 保存到缓存
+        playerItemsCache.put(playerId, new ArrayList<>(items));
+        
+        // 同时更新数量缓存
+        updateQuantityCache(playerId, items);
+        
+        return items;
     }
     
     @Override
     public List<PlayerItem> getPlayerItemsByBackpackType(Integer playerId, Integer backpackTypeId) {
-        return playerItemMapper.selectByPlayerIdAndBackpackTypeId(playerId, backpackTypeId);
+        // 获取所有道具配置
+        List<Item> allItems = getAllItemConfigs();
+        
+        // 过滤出指定背包类型的道具ID
+        List<Integer> targetItemIds = new ArrayList<>();
+        for (Item item : allItems) {
+            if (item.getBackpackTypeId().equals(backpackTypeId)) {
+                targetItemIds.add(item.getId());
+            }
+        }
+        
+        // 如果该背包类型没有道具，返回空列表
+        if (targetItemIds.isEmpty()) {
+            return new ArrayList<>();
+        }
+        
+        // 从缓存获取玩家所有道具
+        List<PlayerItem> allPlayerItems = getPlayerItems(playerId);
+        
+        // 过滤出指定背包类型的道具
+        List<PlayerItem> result = new ArrayList<>();
+        for (PlayerItem playerItem : allPlayerItems) {
+            if (targetItemIds.contains(playerItem.getItemId())) {
+                result.add(playerItem);
+            }
+        }
+        
+        return result;
     }
     
     @Override
@@ -70,21 +119,28 @@ public class BackpackServiceImpl implements BackpackService {
         // 查询玩家是否已有该道具
         PlayerItem existingItem = playerItemMapper.selectByPlayerIdAndItemId(playerId, itemId);
         
+        boolean success;
         if (existingItem != null) {
-            // 更新数量
-            existingItem.setQuantity(existingItem.getQuantity() + quantity);
-            existingItem.setUpdateTime(LocalDateTime.now());
-            return playerItemMapper.update(existingItem) > 0;
+            // 增加数量
+            success = playerItemMapper.addQuantity(playerId, itemId, quantity) > 0;
+            if (success) {
+                // 更新缓存
+                updateCacheAfterAdd(playerId, itemId, quantity);
+            }
         } else {
             // 新增道具
             PlayerItem newItem = new PlayerItem();
             newItem.setPlayerId(playerId);
             newItem.setItemId(itemId);
             newItem.setQuantity(quantity);
-            newItem.setCreateTime(LocalDateTime.now());
-            newItem.setUpdateTime(LocalDateTime.now());
-            return playerItemMapper.insert(newItem) > 0;
+            success = playerItemMapper.insert(newItem) > 0;
+            if (success) {
+                // 更新缓存
+                updateCacheAfterAdd(playerId, itemId, quantity);
+            }
         }
+        
+        return success;
     }
     
     @Override
@@ -93,23 +149,43 @@ public class BackpackServiceImpl implements BackpackService {
             return false;
         }
         
-        // 查询玩家道具
-        PlayerItem playerItem = playerItemMapper.selectByPlayerIdAndItemId(playerId, itemId);
-        if (playerItem == null || playerItem.getQuantity() < quantity) {
+        // 检查是否拥有足够数量
+        if (!hasEnoughItems(playerId, itemId, quantity)) {
             return false;
         }
         
-        // 更新数量
-        int newQuantity = playerItem.getQuantity() - quantity;
-        if (newQuantity == 0) {
-            // 数量为0时删除记录
-            return playerItemMapper.deleteByPlayerIdAndItemId(playerId, itemId) > 0;
-        } else {
-            // 更新数量
-            playerItem.setQuantity(newQuantity);
-            playerItem.setUpdateTime(LocalDateTime.now());
-            return playerItemMapper.update(playerItem) > 0;
+        // 减少数量
+        int result = playerItemMapper.reduceQuantity(playerId, itemId, quantity);
+        
+        if (result > 0) {
+            // 更新缓存
+            updateCacheAfterUse(playerId, itemId, quantity);
+            
+            // 清理数量为0的道具
+            playerItemMapper.deleteZeroQuantityItems(playerId);
         }
+        
+        return result > 0;
+    }
+    
+    @Override
+    public boolean hasEnoughItems(Integer playerId, Integer itemId, Integer requiredQuantity) {
+        // 先从缓存获取
+        String cacheKey = playerId + ":" + itemId;
+        Integer cachedQuantity = itemQuantityCache.get(cacheKey);
+        
+        if (cachedQuantity != null) {
+            return cachedQuantity >= requiredQuantity;
+        }
+        
+        // 缓存未命中，从数据库查询
+        Integer currentQuantity = playerItemMapper.getItemQuantity(playerId, itemId);
+        if (currentQuantity != null) {
+            // 更新缓存
+            itemQuantityCache.put(cacheKey, currentQuantity);
+        }
+        
+        return currentQuantity != null && currentQuantity >= requiredQuantity;
     }
     
     @Override
@@ -130,5 +206,103 @@ public class BackpackServiceImpl implements BackpackService {
     @Override
     public List<BackpackType> getAllBackpackTypeConfigs() {
         return jsonConfigLoader.getConfigList("backpack_types", BackpackType.class);
+    }
+    
+    /**
+     * 玩家离线时清理缓存
+     * @param playerId 玩家ID
+     */
+    public void clearPlayerCache(Integer playerId) {
+        // 清理背包数据缓存
+        playerItemsCache.remove(playerId);
+        
+        // 清理该玩家的所有道具数量缓存
+        List<String> keysToRemove = new ArrayList<>();
+        for (String key : itemQuantityCache.keySet()) {
+            if (key.startsWith(playerId + ":")) {
+                keysToRemove.add(key);
+            }
+        }
+        for (String key : keysToRemove) {
+            itemQuantityCache.remove(key);
+        }
+    }
+    
+    /**
+     * 更新数量缓存
+     */
+    private void updateQuantityCache(Integer playerId, List<PlayerItem> items) {
+        for (PlayerItem item : items) {
+            String cacheKey = playerId + ":" + item.getItemId();
+            itemQuantityCache.put(cacheKey, item.getQuantity());
+        }
+    }
+    
+    /**
+     * 添加道具后更新缓存
+     */
+    private void updateCacheAfterAdd(Integer playerId, Integer itemId, Integer quantity) {
+        // 更新背包数据缓存
+        List<PlayerItem> cachedItems = playerItemsCache.get(playerId);
+        if (cachedItems != null) {
+            boolean found = false;
+            for (PlayerItem item : cachedItems) {
+                if (item.getItemId().equals(itemId)) {
+                    item.setQuantity(item.getQuantity() + quantity);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                PlayerItem newItem = new PlayerItem();
+                newItem.setPlayerId(playerId);
+                newItem.setItemId(itemId);
+                newItem.setQuantity(quantity);
+                cachedItems.add(newItem);
+            }
+        }
+        
+        // 更新数量缓存
+        String cacheKey = playerId + ":" + itemId;
+        Integer currentQuantity = itemQuantityCache.get(cacheKey);
+        if (currentQuantity != null) {
+            itemQuantityCache.put(cacheKey, currentQuantity + quantity);
+        } else {
+            itemQuantityCache.put(cacheKey, quantity);
+        }
+    }
+    
+    /**
+     * 使用道具后更新缓存
+     */
+    private void updateCacheAfterUse(Integer playerId, Integer itemId, Integer quantity) {
+        // 更新背包数据缓存
+        List<PlayerItem> cachedItems = playerItemsCache.get(playerId);
+        if (cachedItems != null) {
+            for (PlayerItem item : cachedItems) {
+                if (item.getItemId().equals(itemId)) {
+                    int newQuantity = Math.max(0, item.getQuantity() - quantity);
+                    item.setQuantity(newQuantity);
+                    
+                    // 如果数量为0，从缓存中移除
+                    if (newQuantity == 0) {
+                        cachedItems.remove(item);
+                    }
+                    break;
+                }
+            }
+        }
+        
+        // 更新数量缓存
+        String cacheKey = playerId + ":" + itemId;
+        Integer currentQuantity = itemQuantityCache.get(cacheKey);
+        if (currentQuantity != null) {
+            int newQuantity = Math.max(0, currentQuantity - quantity);
+            if (newQuantity == 0) {
+                itemQuantityCache.remove(cacheKey);
+            } else {
+                itemQuantityCache.put(cacheKey, newQuantity);
+            }
+        }
     }
 } 

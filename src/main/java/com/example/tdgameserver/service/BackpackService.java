@@ -20,7 +20,7 @@ public interface BackpackService {
     List<PlayerItem> getPlayerItems(Integer playerId);
     
     /**
-     * 根据背包类型获取玩家道具
+     * 根据背包类型获取玩家道具（通过配置过滤）
      * @param playerId 玩家ID
      * @param backpackTypeId 背包类型ID
      * @return 道具列表
@@ -51,6 +51,21 @@ public interface BackpackService {
      * @return 是否成功
      */
     boolean useItem(Integer playerId, Integer itemId, Integer quantity);
+    
+    /**
+     * 检查玩家是否拥有足够数量的道具
+     * @param playerId 玩家ID
+     * @param itemId 道具ID
+     * @param requiredQuantity 需要的数量
+     * @return 是否足够
+     */
+    boolean hasEnoughItems(Integer playerId, Integer itemId, Integer requiredQuantity);
+    
+    /**
+     * 玩家离线时清理缓存
+     * @param playerId 玩家ID
+     */
+    void clearPlayerCache(Integer playerId);
     
     /**
      * 获取道具配置

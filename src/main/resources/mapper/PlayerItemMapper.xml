@@ -4,9 +4,10 @@
 
     <!-- 结果映射 -->
     <resultMap id="PlayerItemResultMap" type="com.example.tdgameserver.entity.PlayerItem">
-        <id column="id" property="id" jdbcType="BIGINT"/>
+        <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="player_id" property="playerId" jdbcType="INTEGER"/>
         <result column="item_id" property="itemId" jdbcType="INTEGER"/>
+        <result column="quantity" property="quantity" jdbcType="INTEGER"/>
         <result column="quantity" property="quantity" jdbcType="INTEGER"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
@@ -14,7 +15,7 @@
 
     <!-- 基础字段 -->
     <sql id="Base_Column_List">
-        id, player_id, item_id, quantity, create_time, update_time
+        id, player_id, item_id, quantity
     </sql>
 
     <!-- 根据玩家ID查询所有道具 -->
@@ -34,16 +35,31 @@
         WHERE player_id = #{playerId} AND item_id = #{itemId}
     </select>
 
-    <!-- 根据玩家ID和背包类型ID查询道具 -->
-    <select id="selectByPlayerIdAndBackpackTypeId" resultMap="PlayerItemResultMap">
+    <!-- 根据玩家ID和道具ID列表查询道具 -->
+    <select id="selectByPlayerIdAndItemIds" resultMap="PlayerItemResultMap">
         SELECT 
         <include refid="Base_Column_List"/>
-        FROM player_item pi
-        INNER JOIN (
-            SELECT id FROM items WHERE backpack_type_id = #{backpackTypeId}
-        ) i ON pi.item_id = i.id
-        WHERE pi.player_id = #{playerId}
-        ORDER BY pi.item_id ASC
+        FROM player_item
+        WHERE player_id = #{playerId} 
+        AND item_id IN
+        <foreach collection="itemIds" item="itemId" open="(" separator="," close=")">
+            #{itemId}
+        </foreach>
+        ORDER BY item_id ASC
+    </select>
+
+    <!-- 查询玩家拥有的道具数量 -->
+    <select id="countByPlayerId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM player_item
+        WHERE player_id = #{playerId}
+    </select>
+
+    <!-- 查询玩家指定道具的数量 -->
+    <select id="getItemQuantity" resultType="java.lang.Integer">
+        SELECT quantity
+        FROM player_item
+        WHERE player_id = #{playerId} AND item_id = #{itemId}
     </select>
 
     <!-- 插入新道具 -->
@@ -51,25 +67,32 @@
         INSERT INTO player_item (
             player_id, 
             item_id, 
-            quantity, 
-            create_time, 
-            update_time
+            quantity
         ) VALUES (
             #{playerId}, 
             #{itemId}, 
-            #{quantity}, 
-            #{createTime}, 
-            #{updateTime}
+            #{quantity}
         )
     </insert>
 
     <!-- 更新道具数量 -->
-    <update id="update" parameterType="com.example.tdgameserver.entity.PlayerItem">
+    <update id="updateQuantity">
         UPDATE player_item
-        <set>
-            <if test="quantity != null">quantity = #{quantity},</if>
-            <if test="updateTime != null">update_time = #{updateTime},</if>
-        </set>
+        SET quantity = #{quantity}
+        WHERE player_id = #{playerId} AND item_id = #{itemId}
+    </update>
+
+    <!-- 增加道具数量 -->
+    <update id="addQuantity">
+        UPDATE player_item
+        SET quantity = quantity + #{addQuantity}
+        WHERE player_id = #{playerId} AND item_id = #{itemId}
+    </update>
+
+    <!-- 减少道具数量 -->
+    <update id="reduceQuantity">
+        UPDATE player_item
+        SET quantity = GREATEST(0, quantity - #{reduceQuantity})
         WHERE player_id = #{playerId} AND item_id = #{itemId}
     </update>
 
@@ -83,6 +106,12 @@
     <delete id="deleteByPlayerId" parameterType="java.lang.Integer">
         DELETE FROM player_item
         WHERE player_id = #{playerId}
+    </delete>
+
+    <!-- 删除数量为0的道具 -->
+    <delete id="deleteZeroQuantityItems" parameterType="java.lang.Integer">
+        DELETE FROM player_item
+        WHERE player_id = #{playerId} AND quantity = 0
     </delete>
 
 </mapper> 

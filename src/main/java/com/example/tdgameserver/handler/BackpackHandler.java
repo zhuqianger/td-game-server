@@ -4,14 +4,19 @@ import com.example.tdgameserver.entity.PlayerItem;
 import com.example.tdgameserver.network.GameMessage;
 import com.example.tdgameserver.network.GameMessageHandlerRegistry;
 import com.example.tdgameserver.network.MessageId;
+import com.example.tdgameserver.requestEntity.BackpackRequest;
 import com.example.tdgameserver.service.BackpackService;
 import com.example.tdgameserver.session.PlayerSession;
+import com.example.tdgameserver.session.SessionManager;
+import com.example.tdgameserver.util.MessageUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,10 +28,12 @@ public class BackpackHandler {
     private BackpackService backpackService;
 
     private final GameMessageHandlerRegistry handlerRegistry = GameMessageHandlerRegistry.getInstance();
+    private final SessionManager sessionManager = SessionManager.getInstance();
     private final Gson gson = new Gson();
 
     public BackpackHandler() {
         registerHandlers();
+        registerSessionCloseListener();
     }
 
     public void registerHandlers() {
@@ -34,6 +41,25 @@ public class BackpackHandler {
         handlerRegistry.registerHandler(MessageId.REQ_GET_BACKPACK_BY_TYPE.getId(), this::handleGetBackpackByType);
         handlerRegistry.registerHandler(MessageId.REQ_ADD_ITEM.getId(), this::handleAddItem);
         handlerRegistry.registerHandler(MessageId.REQ_USE_ITEM.getId(), this::handleUseItem);
+    }
+    
+    /**
+     * 注册会话关闭监听器
+     */
+    private void registerSessionCloseListener() {
+        sessionManager.registerSessionCloseListener(this::onPlayerOffline);
+        log.info("背包处理器已注册会话关闭监听器");
+    }
+    
+    /**
+     * 玩家离线时的处理
+     */
+    private void onPlayerOffline(PlayerSession session) {
+        Integer playerId = session.getPlayerId();
+        if (playerId != null) {
+            backpackService.clearPlayerCache(playerId);
+            log.info("玩家 {} 离线，已清理背包缓存", playerId);
+        }
     }
 
     /**
@@ -64,15 +90,23 @@ public class BackpackHandler {
     public void handleGetBackpackByType(PlayerSession session, GameMessage message) {
         try {
             String requestData = new String(message.getPayload());
-            JsonObject request = gson.fromJson(requestData, JsonObject.class);
             
-            if (!request.has("backpackTypeId")) {
-                session.sendMessage(MessageId.ERROR_MSG.getId(), "缺少背包类型ID".getBytes());
+            // 使用MessageUtil通用转换
+            BackpackRequest request = MessageUtil.convertMessage(requestData, BackpackRequest.class);
+            if (request == null) {
+                session.sendMessage(MessageId.ERROR_MSG.getId(), "无效的请求数据格式".getBytes());
+                return;
+            }
+            
+            // 验证请求参数
+            String validationError = validateBackpackRequest(request);
+            if (validationError != null) {
+                session.sendMessage(MessageId.ERROR_MSG.getId(), validationError.getBytes());
                 return;
             }
 
             Integer playerId = session.getPlayerId();
-            Integer backpackTypeId = request.get("backpackTypeId").getAsInt();
+            Integer backpackTypeId = request.getBackpackTypeId();
             
             List<PlayerItem> items = backpackService.getPlayerItemsByBackpackType(playerId, backpackTypeId);
 
@@ -96,16 +130,24 @@ public class BackpackHandler {
     public void handleAddItem(PlayerSession session, GameMessage message) {
         try {
             String requestData = new String(message.getPayload());
-            JsonObject request = gson.fromJson(requestData, JsonObject.class);
             
-            if (!request.has("itemId") || !request.has("quantity")) {
-                session.sendMessage(MessageId.ERROR_MSG.getId(), "缺少道具ID或数量".getBytes());
+            // 使用MessageUtil通用转换
+            BackpackRequest request = MessageUtil.convertMessage(requestData, BackpackRequest.class);
+            if (request == null) {
+                session.sendMessage(MessageId.ERROR_MSG.getId(), "无效的请求数据格式".getBytes());
+                return;
+            }
+            
+            // 验证请求参数
+            String validationError = validateAddItemRequest(request);
+            if (validationError != null) {
+                session.sendMessage(MessageId.ERROR_MSG.getId(), validationError.getBytes());
                 return;
             }
 
             Integer playerId = session.getPlayerId();
-            Integer itemId = request.get("itemId").getAsInt();
-            Integer quantity = request.get("quantity").getAsInt();
+            Integer itemId = request.getItemId();
+            Integer quantity = request.getCount();
             
             boolean success = backpackService.addItem(playerId, itemId, quantity);
 
@@ -131,18 +173,25 @@ public class BackpackHandler {
      */
     public void handleUseItem(PlayerSession session, GameMessage message) {
         try {
-
             String requestData = new String(message.getPayload());
-            JsonObject request = gson.fromJson(requestData, JsonObject.class);
             
-            if (!request.has("itemId") || !request.has("quantity")) {
-                session.sendMessage(MessageId.ERROR_MSG.getId(), "缺少道具ID或数量".getBytes());
+            // 使用MessageUtil通用转换
+            BackpackRequest request = MessageUtil.convertMessage(requestData, BackpackRequest.class);
+            if (request == null) {
+                session.sendMessage(MessageId.ERROR_MSG.getId(), "无效的请求数据格式".getBytes());
+                return;
+            }
+            
+            // 验证请求参数
+            String validationError = validateUseItemRequest(request);
+            if (validationError != null) {
+                session.sendMessage(MessageId.ERROR_MSG.getId(), validationError.getBytes());
                 return;
             }
 
             Integer playerId = session.getPlayerId();
-            Integer itemId = request.get("itemId").getAsInt();
-            Integer quantity = request.get("quantity").getAsInt();
+            Integer itemId = request.getItemId();
+            Integer quantity = request.getCount();
             
             boolean success = backpackService.useItem(playerId, itemId, quantity);
 
@@ -161,5 +210,56 @@ public class BackpackHandler {
             log.error("处理使用道具请求失败", e);
             session.sendMessage(MessageId.ERROR_MSG.getId(), "使用道具失败：服务器内部错误".getBytes());
         }
+    }
+    
+    /**
+     * 验证背包请求参数
+     */
+    private String validateBackpackRequest(BackpackRequest request) {
+        if (request.getBackpackTypeId() == null) {
+            return "缺少背包类型ID";
+        }
+        if (request.getBackpackTypeId() <= 0) {
+            return "背包类型ID必须大于0";
+        }
+        return null;
+    }
+    
+    /**
+     * 验证添加道具请求参数
+     */
+    private String validateAddItemRequest(BackpackRequest request) {
+        if (request.getItemId() == null) {
+            return "缺少道具ID";
+        }
+        if (request.getCount() == null) {
+            return "缺少道具数量";
+        }
+        if (request.getItemId() <= 0) {
+            return "道具ID必须大于0";
+        }
+        if (request.getCount() <= 0) {
+            return "道具数量必须大于0";
+        }
+        return null;
+    }
+    
+    /**
+     * 验证使用道具请求参数
+     */
+    private String validateUseItemRequest(BackpackRequest request) {
+        if (request.getItemId() == null) {
+            return "缺少道具ID";
+        }
+        if (request.getCount() == null) {
+            return "缺少道具数量";
+        }
+        if (request.getItemId() <= 0) {
+            return "道具ID必须大于0";
+        }
+        if (request.getCount() <= 0) {
+            return "道具数量必须大于0";
+        }
+        return null;
     }
 } 
