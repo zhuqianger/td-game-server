@@ -1,7 +1,9 @@
 package com.example.tdgameserver.service.impl;
 
+import com.example.tdgameserver.entity.OperatorLevelUpResult;
 import com.example.tdgameserver.entity.PlayerOperator;
 import com.example.tdgameserver.mapper.PlayerOperatorMapper;
+import com.example.tdgameserver.requestEntity.OperatorLevelUpRequest;
 import com.example.tdgameserver.service.OperatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,11 @@ import java.util.List;
  */
 @Service
 public class OperatorServiceImpl implements OperatorService {
-    
+
+    private static final int MAX_ELITE_LEVEL = 2;
+
+    private static final int MAX_LEVEL = 90;
+
     @Autowired
     private PlayerOperatorMapper playerOperatorMapper;
     
@@ -23,17 +29,7 @@ public class OperatorServiceImpl implements OperatorService {
     public List<PlayerOperator> getPlayerOperators(Integer playerId) {
         return playerOperatorMapper.selectByPlayerId(playerId);
     }
-    
-    @Override
-    public List<PlayerOperator> getPlayerOperatorsByProfession(Integer playerId, String profession) {
-        return playerOperatorMapper.selectByPlayerIdAndProfession(playerId, profession);
-    }
-    
-    @Override
-    public List<PlayerOperator> getPlayerOperatorsByRarity(Integer playerId, Integer rarity) {
-        return playerOperatorMapper.selectByPlayerIdAndRarity(playerId, rarity);
-    }
-    
+
     @Override
     @Transactional
     public boolean addPlayerOperator(Integer playerId, Integer operatorId) {
@@ -67,7 +63,12 @@ public class OperatorServiceImpl implements OperatorService {
         int result = playerOperatorMapper.updateLevel(playerOperator.getId(), newLevel);
         return result > 0;
     }
-    
+
+    @Override
+    public OperatorLevelUpResult levelUpOperatorWithExpItems(Integer playerId, OperatorLevelUpRequest request) {
+        return null;
+    }
+
     @Override
     @Transactional
     public boolean eliteOperator(Integer playerId, Integer operatorId) {
@@ -124,23 +125,47 @@ public class OperatorServiceImpl implements OperatorService {
         int result = playerOperatorMapper.updateSkillMastery(playerOperator.getId(), newSkillMastery);
         return result > 0;
     }
-    
-    @Override
-    @Transactional
-    public boolean updateOperatorHP(Integer playerId, Integer operatorId, Integer currentHP) {
-        PlayerOperator playerOperator = playerOperatorMapper.selectByPlayerIdAndOperatorId(playerId, operatorId);
-        if (playerOperator == null) {
-            return false; // 玩家不拥有该干员
-        }
-        
-        // 更新当前生命值
-        int result = playerOperatorMapper.updateCurrentHP(playerOperator.getId(), currentHP);
-        return result > 0;
-    }
+
     
     @Override
     public boolean hasOperator(Integer playerId, Integer operatorId) {
         PlayerOperator playerOperator = playerOperatorMapper.selectByPlayerIdAndOperatorId(playerId, operatorId);
         return playerOperator != null;
+    }
+    
+    @Override
+    @Transactional
+    public boolean addOperatorExp(Integer playerId, Integer operatorId, Integer exp) {
+        PlayerOperator playerOperator = playerOperatorMapper.selectByPlayerIdAndOperatorId(playerId, operatorId);
+        if (playerOperator == null) {
+            return false; // 玩家不拥有该干员
+        }
+        
+        if (exp <= 0) {
+            return false; // 经验值必须大于0
+        }
+        
+        // 增加经验值
+        int result = playerOperatorMapper.addExp(playerOperator.getId(), exp);
+        return result > 0;
+    }
+
+    
+    @Override
+    public boolean canLevelUp(Integer playerId, Integer operatorId) {
+        PlayerOperator playerOperator = playerOperatorMapper.selectByPlayerIdAndOperatorId(playerId, operatorId);
+        if (playerOperator == null) {
+            return false; // 玩家不拥有该干员
+        }
+        
+        // 检查等级上限
+        if (playerOperator.getLevel() >= 90) {
+            return false; // 已达到最大等级
+        }
+        
+        // 这里可以添加经验值检查逻辑
+        // 例如：检查当前经验值是否达到升级所需经验值
+        // 暂时简化处理，只要有经验值就可以升级
+        return playerOperator.getCurrentExp() > 0;
     }
 } 

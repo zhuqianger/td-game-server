@@ -112,6 +112,31 @@ public interface PlayerOperatorMapper {
     int updateSkillMastery(@Param("id") Integer id, @Param("skillMastery") Integer skillMastery);
     
     /**
+     * 更新干员当前经验值
+     * @param id 主键ID
+     * @param currentExp 当前经验值
+     * @return 影响行数
+     */
+    int updateCurrentExp(@Param("id") Integer id, @Param("currentExp") Integer currentExp);
+    
+    /**
+     * 增加干员经验值
+     * @param id 主键ID
+     * @param exp 要增加的经验值
+     * @return 影响行数
+     */
+    int addExp(@Param("id") Integer id, @Param("exp") Integer exp);
+    
+    /**
+     * 更新干员等级和经验值（升级时使用）
+     * @param id 主键ID
+     * @param level 新等级
+     * @param currentExp 新经验值（通常为0）
+     * @return 影响行数
+     */
+    int updateLevelAndExp(@Param("id") Integer id, @Param("level") Integer level, @Param("currentExp") Integer currentExp);
+    
+    /**
      * 更新干员当前生命值
      * @param id 主键ID
      * @param currentHP 当前生命值

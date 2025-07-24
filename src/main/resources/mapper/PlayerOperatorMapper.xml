@@ -9,6 +9,7 @@
         <result property="operatorId" column="operator_id" jdbcType="INTEGER"/>
         <result property="eliteLevel" column="elite_level" jdbcType="INTEGER"/>
         <result property="level" column="level" jdbcType="INTEGER"/>
+        <result property="currentExp" column="current_exp" jdbcType="INTEGER"/>
         <result property="skillLevel" column="skill_level" jdbcType="INTEGER"/>
         <result property="skillMastery" column="skill_mastery" jdbcType="INTEGER"/>
         <result property="currentHP" column="current_hp" jdbcType="INTEGER"/>
@@ -38,14 +39,15 @@
     </select>
 
     <insert id="insert" parameterType="com.example.tdgameserver.entity.PlayerOperator">
-        INSERT INTO player_operator(player_id, operator_id, elite_level, level, skill_level, skill_mastery, current_hp, is_owned, create_time, update_time)
-        VALUES(#{playerId}, #{operatorId}, #{eliteLevel}, #{level}, #{skillLevel}, #{skillMastery}, #{currentHP}, #{isOwned}, #{createTime}, #{updateTime})
+        INSERT INTO player_operator(player_id, operator_id, elite_level, level, current_exp, skill_level, skill_mastery, create_time, update_time)
+        VALUES(#{playerId}, #{operatorId}, #{eliteLevel}, #{level}, #{currentExp}, #{skillLevel}, #{skillMastery}, #{createTime}, #{updateTime})
     </insert>
 
     <update id="update" parameterType="com.example.tdgameserver.entity.PlayerOperator">
         UPDATE player_operator SET
             elite_level = #{eliteLevel},
             level = #{level},
+            current_exp = #{currentExp},
             skill_level = #{skillLevel},
             skill_mastery = #{skillMastery},
             current_hp = #{currentHP},
@@ -76,6 +78,18 @@
 
     <update id="updateSkillMastery">
         UPDATE player_operator SET skill_mastery = #{skillMastery}, update_time = UNIX_TIMESTAMP() * 1000 WHERE id = #{id}
+    </update>
+
+    <update id="updateCurrentExp">
+        UPDATE player_operator SET current_exp = #{currentExp}, update_time = UNIX_TIMESTAMP() * 1000 WHERE id = #{id}
+    </update>
+
+    <update id="addExp">
+        UPDATE player_operator SET current_exp = current_exp + #{exp}, update_time = UNIX_TIMESTAMP() * 1000 WHERE id = #{id}
+    </update>
+
+    <update id="updateLevelAndExp">
+        UPDATE player_operator SET level = #{level}, current_exp = #{currentExp}, update_time = UNIX_TIMESTAMP() * 1000 WHERE id = #{id}
     </update>
 
     <update id="updateCurrentHP">

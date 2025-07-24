@@ -13,6 +13,7 @@ public class PlayerOperator {
     private Integer operatorId;          // 干员ID
     private Integer eliteLevel;          // 精英化等级 (0-2)
     private Integer level;               // 等级 (1-90)
+    private Integer currentExp;          // 当前经验值
     private Integer skillLevel;          // 技能等级 (1-7)
     private Integer skillMastery;        // 技能专精 (0-3)
     private Integer createTime;             // 创建时间
@@ -26,6 +27,7 @@ public class PlayerOperator {
         this.operatorId = operatorId;
         this.eliteLevel = 0;
         this.level = 1;
+        this.currentExp = 0;
         this.skillLevel = 1;
         this.skillMastery = 0;
         this.createTime = (int) System.currentTimeMillis();
@@ -40,6 +42,7 @@ public class PlayerOperator {
                 ", operatorId='" + operatorId + '\'' +
                 ", eliteLevel=" + eliteLevel +
                 ", level=" + level +
+                ", currentExp=" + currentExp +
                 ", skillLevel=" + skillLevel +
                 ", skillMastery=" + skillMastery +
                 ", createTime=" + createTime +

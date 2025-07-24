@@ -266,7 +266,7 @@ public class TestGameClientBag {
     private void sendUseItemMessage(int itemId, int count) {
         JsonObject json = new JsonObject();
         json.addProperty("itemId", itemId);
-        json.addProperty("quantity", count);
+        json.addProperty("count", count);
         
         GameMessage message = new GameMessage(MessageId.REQ_USE_ITEM.getId(), json.toString().getBytes());
         channel.writeAndFlush(message);

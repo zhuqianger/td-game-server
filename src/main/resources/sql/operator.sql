@@ -6,6 +6,7 @@ CREATE TABLE `player_operator` (
     `operator_id` INT NOT NULL COMMENT '干员ID（对应配置文件中的干员ID）',
     `elite_level` INT NOT NULL DEFAULT 0 COMMENT '精英化等级 (0-2)',
     `level` INT NOT NULL DEFAULT 1 COMMENT '等级 (1-90)',
+    `current_exp` INT NOT NULL DEFAULT 0 COMMENT '当前经验值',
     `skill_level` INT NOT NULL DEFAULT 1 COMMENT '技能等级 (1-7)',
     `skill_mastery` INT NOT NULL DEFAULT 0 COMMENT '技能专精 (0-3)',
     `create_time` INT NOT NULL COMMENT '创建时间（毫秒时间戳）',

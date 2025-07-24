@@ -1,6 +1,8 @@
 package com.example.tdgameserver.service;
 
 import com.example.tdgameserver.entity.PlayerOperator;
+import com.example.tdgameserver.entity.OperatorLevelUpResult;
+import com.example.tdgameserver.requestEntity.OperatorLevelUpRequest;
 
 import java.util.List;
 
@@ -16,23 +18,7 @@ public interface OperatorService {
      * @return 干员列表
      */
     List<PlayerOperator> getPlayerOperators(Integer playerId);
-    
-    /**
-     * 根据职业获取玩家拥有的干员
-     * @param playerId 玩家ID
-     * @param profession 职业
-     * @return 干员列表
-     */
-    List<PlayerOperator> getPlayerOperatorsByProfession(Integer playerId, String profession);
-    
-    /**
-     * 根据稀有度获取玩家拥有的干员
-     * @param playerId 玩家ID
-     * @param rarity 稀有度
-     * @return 干员列表
-     */
-    List<PlayerOperator> getPlayerOperatorsByRarity(Integer playerId, Integer rarity);
-    
+
     /**
      * 为玩家添加干员
      * @param playerId 玩家ID
@@ -48,6 +34,14 @@ public interface OperatorService {
      * @return 是否升级成功
      */
     boolean levelUpOperator(Integer playerId, Integer operatorId);
+    
+    /**
+     * 使用经验道具升级干员
+     * @param playerId 玩家ID
+     * @param request 升级请求
+     * @return 升级结果
+     */
+    OperatorLevelUpResult levelUpOperatorWithExpItems(Integer playerId, OperatorLevelUpRequest request);
     
     /**
      * 精英化干员
@@ -72,16 +66,7 @@ public interface OperatorService {
      * @return 是否专精成功
      */
     boolean masterSkill(Integer playerId, Integer operatorId);
-    
-    /**
-     * 更新干员当前生命值
-     * @param playerId 玩家ID
-     * @param operatorId 干员ID
-     * @param currentHP 当前生命值
-     * @return 是否更新成功
-     */
-    boolean updateOperatorHP(Integer playerId, Integer operatorId, Integer currentHP);
-    
+
     /**
      * 检查玩家是否拥有指定干员
      * @param playerId 玩家ID
@@ -89,4 +74,20 @@ public interface OperatorService {
      * @return 是否拥有
      */
     boolean hasOperator(Integer playerId, Integer operatorId);
+    
+    /**
+     * 为干员增加经验值
+     * @param playerId 玩家ID
+     * @param operatorId 干员ID
+     * @param exp 要增加的经验值
+     * @return 是否增加成功
+     */
+    boolean addOperatorExp(Integer playerId, Integer operatorId, Integer exp);
+    /**
+     * 检查干员是否可以升级
+     * @param playerId 玩家ID
+     * @param operatorId 干员ID
+     * @return 是否可以升级
+     */
+    boolean canLevelUp(Integer playerId, Integer operatorId);
 } 

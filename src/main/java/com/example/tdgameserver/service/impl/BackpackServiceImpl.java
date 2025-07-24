@@ -33,6 +33,12 @@ public class BackpackServiceImpl implements BackpackService {
     // 玩家道具数量缓存，key为"playerId:itemId"，value为数量
     private final Map<String, Integer> itemQuantityCache = new ConcurrentHashMap<>();
     
+    // 配置缓存
+    private volatile List<Item> itemConfigsCache = null;
+    private volatile List<BackpackType> backpackTypeConfigsCache = null;
+    private volatile Map<Integer, Item> itemConfigMapCache = null;
+    private volatile Map<Integer, BackpackType> backpackTypeConfigMapCache = null;
+    
     @Override
     public List<PlayerItem> getPlayerItems(Integer playerId) {
         // 先从缓存获取
@@ -116,27 +122,43 @@ public class BackpackServiceImpl implements BackpackService {
             return false;
         }
         
-        // 查询玩家是否已有该道具
-        PlayerItem existingItem = playerItemMapper.selectByPlayerIdAndItemId(playerId, itemId);
+        // 从缓存检查玩家是否已有该道具
+        String cacheKey = playerId + ":" + itemId;
+        Integer cachedQuantity = itemQuantityCache.get(cacheKey);
         
         boolean success;
-        if (existingItem != null) {
-            // 增加数量
+        if (cachedQuantity != null) {
+            // 玩家已有该道具，增加数量
             success = playerItemMapper.addQuantity(playerId, itemId, quantity) > 0;
             if (success) {
                 // 更新缓存
                 updateCacheAfterAdd(playerId, itemId, quantity);
             }
         } else {
-            // 新增道具
-            PlayerItem newItem = new PlayerItem();
-            newItem.setPlayerId(playerId);
-            newItem.setItemId(itemId);
-            newItem.setQuantity(quantity);
-            success = playerItemMapper.insert(newItem) > 0;
-            if (success) {
-                // 更新缓存
-                updateCacheAfterAdd(playerId, itemId, quantity);
+            // 玩家没有该道具，检查数据库确认
+            PlayerItem existingItem = playerItemMapper.selectByPlayerIdAndItemId(playerId, itemId);
+            
+            if (existingItem != null) {
+                // 数据库中有但缓存中没有，先更新缓存
+                itemQuantityCache.put(cacheKey, existingItem.getQuantity());
+                
+                // 增加数量
+                success = playerItemMapper.addQuantity(playerId, itemId, quantity) > 0;
+                if (success) {
+                    // 更新缓存
+                    updateCacheAfterAdd(playerId, itemId, quantity);
+                }
+            } else {
+                // 新增道具
+                PlayerItem newItem = new PlayerItem();
+                newItem.setPlayerId(playerId);
+                newItem.setItemId(itemId);
+                newItem.setQuantity(quantity);
+                success = playerItemMapper.insert(newItem) > 0;
+                if (success) {
+                    // 更新缓存
+                    updateCacheAfterAdd(playerId, itemId, quantity);
+                }
             }
         }
         
@@ -190,22 +212,64 @@ public class BackpackServiceImpl implements BackpackService {
     
     @Override
     public Item getItemConfig(Integer itemId) {
-        return jsonConfigLoader.getConfig("items", itemId, Item.class);
+        // 确保配置缓存已加载
+        ensureItemConfigsLoaded();
+        return itemConfigMapCache.get(itemId);
     }
     
     @Override
     public BackpackType getBackpackTypeConfig(Integer backpackTypeId) {
-        return jsonConfigLoader.getConfig("backpack_types", backpackTypeId, BackpackType.class);
+        // 确保配置缓存已加载
+        ensureBackpackTypeConfigsLoaded();
+        return backpackTypeConfigMapCache.get(backpackTypeId);
     }
     
     @Override
     public List<Item> getAllItemConfigs() {
-        return jsonConfigLoader.getConfigList("items", Item.class);
+        // 确保配置缓存已加载
+        ensureItemConfigsLoaded();
+        return new ArrayList<>(itemConfigsCache);
     }
     
     @Override
     public List<BackpackType> getAllBackpackTypeConfigs() {
-        return jsonConfigLoader.getConfigList("backpack_types", BackpackType.class);
+        // 确保配置缓存已加载
+        ensureBackpackTypeConfigsLoaded();
+        return new ArrayList<>(backpackTypeConfigsCache);
+    }
+    
+    /**
+     * 确保道具配置已加载到缓存
+     */
+    private void ensureItemConfigsLoaded() {
+        if (itemConfigsCache == null) {
+            synchronized (this) {
+                if (itemConfigsCache == null) {
+                    itemConfigsCache = jsonConfigLoader.getConfigList("items", Item.class);
+                    itemConfigMapCache = new HashMap<>();
+                    for (Item item : itemConfigsCache) {
+                        itemConfigMapCache.put(item.getId(), item);
+                    }
+                }
+            }
+        }
+    }
+    
+    /**
+     * 确保背包类型配置已加载到缓存
+     */
+    private void ensureBackpackTypeConfigsLoaded() {
+        if (backpackTypeConfigsCache == null) {
+            synchronized (this) {
+                if (backpackTypeConfigsCache == null) {
+                    backpackTypeConfigsCache = jsonConfigLoader.getConfigList("backpack_types", BackpackType.class);
+                    backpackTypeConfigMapCache = new HashMap<>();
+                    for (BackpackType backpackType : backpackTypeConfigsCache) {
+                        backpackTypeConfigMapCache.put(backpackType.getId(), backpackType);
+                    }
+                }
+            }
+        }
     }
     
     /**
