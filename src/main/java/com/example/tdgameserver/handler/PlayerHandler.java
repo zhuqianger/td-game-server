@@ -1,6 +1,6 @@
 package com.example.tdgameserver.handler;
 
-import com.example.tdgameserver.entity.Player;
+import com.example.tdgameserver.entity.player.Player;
 import com.example.tdgameserver.network.GameMessage;
 import com.example.tdgameserver.network.GameMessageHandlerRegistry;
 import com.example.tdgameserver.network.MessageId;

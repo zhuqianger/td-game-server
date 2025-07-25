@@ -1,11 +1,11 @@
 package com.example.tdgameserver.service.impl;
 
 import com.example.tdgameserver.config.ConfigService;
-import com.example.tdgameserver.entity.Operator;
-import com.example.tdgameserver.entity.OperatorAttribute;
-import com.example.tdgameserver.entity.OperatorBase;
-import com.example.tdgameserver.entity.OperatorGrowth;
-import com.example.tdgameserver.entity.PlayerOperator;
+import com.example.tdgameserver.entity.operator.Operator;
+import com.example.tdgameserver.entity.operator.OperatorAttribute;
+import com.example.tdgameserver.entity.operator.OperatorBase;
+import com.example.tdgameserver.entity.operator.OperatorGrowth;
+import com.example.tdgameserver.entity.operator.PlayerOperator;
 import com.example.tdgameserver.service.OperatorAttributeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

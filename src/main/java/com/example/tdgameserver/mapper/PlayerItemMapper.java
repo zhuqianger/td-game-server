@@ -1,6 +1,6 @@
 package com.example.tdgameserver.mapper;
 
-import com.example.tdgameserver.entity.PlayerItem;
+import com.example.tdgameserver.entity.backpack.PlayerItem;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

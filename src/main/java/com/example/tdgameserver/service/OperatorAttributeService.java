@@ -1,6 +1,6 @@
 package com.example.tdgameserver.service;
 
-import com.example.tdgameserver.entity.PlayerOperator;
+import com.example.tdgameserver.entity.operator.PlayerOperator;
 
 /**
  * 干员属性计算服务

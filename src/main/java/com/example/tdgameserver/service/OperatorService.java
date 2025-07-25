@@ -1,7 +1,7 @@
 package com.example.tdgameserver.service;
 
-import com.example.tdgameserver.entity.PlayerOperator;
-import com.example.tdgameserver.entity.OperatorLevelUpResult;
+import com.example.tdgameserver.entity.operator.PlayerOperator;
+import com.example.tdgameserver.entity.operator.OperatorLevelUpResult;
 import com.example.tdgameserver.requestEntity.OperatorLevelUpRequest;
 
 import java.util.List;

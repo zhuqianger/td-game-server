@@ -1,4 +1,4 @@
-package com.example.tdgameserver.entity;
+package com.example.tdgameserver.entity.skill;
 
 import lombok.Data;
 

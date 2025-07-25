@@ -1,6 +1,6 @@
 package com.example.tdgameserver.handler;
 
-import com.example.tdgameserver.entity.PlayerItem;
+import com.example.tdgameserver.entity.backpack.PlayerItem;
 import com.example.tdgameserver.network.GameMessage;
 import com.example.tdgameserver.network.GameMessageHandlerRegistry;
 import com.example.tdgameserver.network.MessageId;
@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

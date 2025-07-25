@@ -1,8 +1,8 @@
 package com.example.tdgameserver.service;
 
-import com.example.tdgameserver.entity.Item;
-import com.example.tdgameserver.entity.BackpackType;
-import com.example.tdgameserver.entity.PlayerItem;
+import com.example.tdgameserver.entity.backpack.Item;
+import com.example.tdgameserver.entity.backpack.BackpackType;
+import com.example.tdgameserver.entity.backpack.PlayerItem;
 
 import java.util.List;
 import java.util.Map;

@@ -1,0 +1,19 @@
+[
+  {
+    "stageId": 101,
+    "spawns": [
+      { "enemyId": 1001, "count": 1, "spawnTime": 0 },
+      { "enemyId": 1002, "count": 1, "spawnTime": 2 },
+      { "enemyId": 1001, "count": 2, "spawnTime": 5 },
+      { "enemyId": 1003, "count": 1, "spawnTime": 8 }
+    ]
+  },
+  {
+    "stageId": 102,
+    "spawns": [
+      { "enemyId": 1002, "count": 3, "spawnTime": 0 },
+      { "enemyId": 1002, "count": 2, "spawnTime": 4 },
+      { "enemyId": 1003, "count": 1, "spawnTime": 10 }
+    ]
+  }
+] 

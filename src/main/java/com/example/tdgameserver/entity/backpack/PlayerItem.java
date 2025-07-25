@@ -1,8 +1,6 @@
-package com.example.tdgameserver.entity;
+package com.example.tdgameserver.entity.backpack;
 
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 /**
  * 玩家道具实体类

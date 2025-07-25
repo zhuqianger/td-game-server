@@ -1,4 +1,4 @@
-package com.example.tdgameserver.entity;
+package com.example.tdgameserver.entity.operator;
 
 /**
  * 干员职业枚举

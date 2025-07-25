@@ -1,14 +1,14 @@
 package com.example.tdgameserver.config;
 
-import com.example.tdgameserver.entity.Operator;
-import com.example.tdgameserver.entity.Skill;
-import com.example.tdgameserver.entity.Talent;
-import com.example.tdgameserver.entity.OperatorLevel;
-import com.example.tdgameserver.entity.OperatorBase;
-import com.example.tdgameserver.entity.OperatorGrowth;
-import com.example.tdgameserver.entity.OperatorAttribute;
-import com.example.tdgameserver.entity.Item;
-import com.example.tdgameserver.entity.BackpackType;
+import com.example.tdgameserver.entity.operator.Operator;
+import com.example.tdgameserver.entity.skill.Skill;
+import com.example.tdgameserver.entity.talent.Talent;
+import com.example.tdgameserver.entity.operator.OperatorLevel;
+import com.example.tdgameserver.entity.operator.OperatorBase;
+import com.example.tdgameserver.entity.operator.OperatorGrowth;
+import com.example.tdgameserver.entity.operator.OperatorAttribute;
+import com.example.tdgameserver.entity.backpack.Item;
+import com.example.tdgameserver.entity.backpack.BackpackType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

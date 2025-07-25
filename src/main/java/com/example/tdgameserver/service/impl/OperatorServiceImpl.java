@@ -1,7 +1,7 @@
 package com.example.tdgameserver.service.impl;
 
-import com.example.tdgameserver.entity.OperatorLevelUpResult;
-import com.example.tdgameserver.entity.PlayerOperator;
+import com.example.tdgameserver.entity.operator.OperatorLevelUpResult;
+import com.example.tdgameserver.entity.operator.PlayerOperator;
 import com.example.tdgameserver.mapper.PlayerOperatorMapper;
 import com.example.tdgameserver.requestEntity.OperatorLevelUpRequest;
 import com.example.tdgameserver.service.OperatorService;

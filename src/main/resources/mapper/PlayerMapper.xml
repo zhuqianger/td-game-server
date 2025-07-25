@@ -3,7 +3,7 @@
 <mapper namespace="com.example.tdgameserver.mapper.PlayerMapper">
 
     <!-- 结果映射 -->
-    <resultMap id="PlayerResultMap" type="com.example.tdgameserver.entity.Player">
+    <resultMap id="PlayerResultMap" type="com.example.tdgameserver.entity.player.Player">
         <id column="player_id" property="playerId" jdbcType="INTEGER"/>
         <result column="player_name" property="playerName" jdbcType="VARCHAR"/>
         <result column="password" property="password" jdbcType="VARCHAR"/>
@@ -33,7 +33,7 @@
     </select>
 
     <!-- 插入新玩家 -->
-    <insert id="insert" parameterType="com.example.tdgameserver.entity.Player" useGeneratedKeys="true" keyProperty="playerId">
+    <insert id="insert" parameterType="com.example.tdgameserver.entity.player.Player" useGeneratedKeys="true" keyProperty="playerId">
         INSERT INTO player (
             player_name, 
             password, 
@@ -48,7 +48,7 @@
     </insert>
 
     <!-- 更新玩家信息 -->
-    <update id="update" parameterType="com.example.tdgameserver.entity.Player">
+    <update id="update" parameterType="com.example.tdgameserver.entity.player.Player">
         UPDATE player
         <set>
             <if test="playerName != null">player_name = #{playerName},</if>

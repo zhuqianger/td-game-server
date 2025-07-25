@@ -1,4 +1,4 @@
-package com.example.tdgameserver.entity;
+package com.example.tdgameserver.entity.talent;
 
 /**
  * 天赋类型枚举

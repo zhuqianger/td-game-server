@@ -1,6 +1,6 @@
 package com.example.tdgameserver.service;
 
-import com.example.tdgameserver.entity.Player;
+import com.example.tdgameserver.entity.player.Player;
 
 import java.util.List;
 

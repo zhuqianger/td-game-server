@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.tdgameserver.mapper.PlayerOperatorMapper">
 
-    <resultMap id="PlayerOperatorResultMap" type="com.example.tdgameserver.entity.PlayerOperator">
+    <resultMap id="PlayerOperatorResultMap" type="com.example.tdgameserver.entity.operator.PlayerOperator">
         <id property="id" column="id" jdbcType="INTEGER"/>
         <result property="playerId" column="player_id" jdbcType="INTEGER"/>
         <result property="operatorId" column="operator_id" jdbcType="INTEGER"/>
@@ -38,12 +38,12 @@
         SELECT * FROM player_operator WHERE player_id = #{playerId} ORDER BY id
     </select>
 
-    <insert id="insert" parameterType="com.example.tdgameserver.entity.PlayerOperator">
+    <insert id="insert" parameterType="com.example.tdgameserver.entity.operator.PlayerOperator">
         INSERT INTO player_operator(player_id, operator_id, elite_level, level, current_exp, skill_level, skill_mastery, create_time, update_time)
         VALUES(#{playerId}, #{operatorId}, #{eliteLevel}, #{level}, #{currentExp}, #{skillLevel}, #{skillMastery}, #{createTime}, #{updateTime})
     </insert>
 
-    <update id="update" parameterType="com.example.tdgameserver.entity.PlayerOperator">
+    <update id="update" parameterType="com.example.tdgameserver.entity.operator.PlayerOperator">
         UPDATE player_operator SET
             elite_level = #{eliteLevel},
             level = #{level},

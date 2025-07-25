@@ -3,7 +3,7 @@
 <mapper namespace="com.example.tdgameserver.mapper.PlayerItemMapper">
 
     <!-- 结果映射 -->
-    <resultMap id="PlayerItemResultMap" type="com.example.tdgameserver.entity.PlayerItem">
+    <resultMap id="PlayerItemResultMap" type="com.example.tdgameserver.entity.backpack.PlayerItem">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="player_id" property="playerId" jdbcType="INTEGER"/>
         <result column="item_id" property="itemId" jdbcType="INTEGER"/>
@@ -63,7 +63,7 @@
     </select>
 
     <!-- 插入新道具 -->
-    <insert id="insert" parameterType="com.example.tdgameserver.entity.PlayerItem" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.example.tdgameserver.entity.backpack.PlayerItem" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO player_item (
             player_id, 
             item_id, 

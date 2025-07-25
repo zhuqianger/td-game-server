@@ -1,9 +1,9 @@
 package com.example.tdgameserver.service.impl;
 
 import com.example.tdgameserver.config.JsonConfigLoader;
-import com.example.tdgameserver.entity.BackpackType;
-import com.example.tdgameserver.entity.Item;
-import com.example.tdgameserver.entity.PlayerItem;
+import com.example.tdgameserver.entity.backpack.BackpackType;
+import com.example.tdgameserver.entity.backpack.Item;
+import com.example.tdgameserver.entity.backpack.PlayerItem;
 import com.example.tdgameserver.mapper.PlayerItemMapper;
 import com.example.tdgameserver.service.BackpackService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,0 +1,32 @@
+[
+  {
+    "enemyId": 1001,
+    "enemyName": "普通敌人",
+    "enemyType": 1,
+    "maxHP": 500,
+    "attack": 100,
+    "defense": 50,
+    "moveSpeed": 2.0,
+    "blockCount": 1
+  },
+  {
+    "enemyId": 1002,
+    "enemyName": "精英敌人",
+    "enemyType": 2,
+    "maxHP": 1200,
+    "attack": 200,
+    "defense": 100,
+    "moveSpeed": 1.5,
+    "blockCount": 2
+  },
+  {
+    "enemyId": 1003,
+    "enemyName": "BOSS敌人",
+    "enemyType": 3,
+    "maxHP": 5000,
+    "attack": 400,
+    "defense": 200,
+    "moveSpeed": 1.0,
+    "blockCount": 3
+  }
+] 

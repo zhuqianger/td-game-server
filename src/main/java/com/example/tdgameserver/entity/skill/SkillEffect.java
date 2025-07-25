@@ -1,38 +1,38 @@
-package com.example.tdgameserver.entity;
+package com.example.tdgameserver.entity.skill;
 
 import lombok.Data;
 
 /**
- * 天赋效果实体类
+ * 技能效果实体类
  */
 @Data
-public class TalentEffect {
+public class SkillEffect {
     private String effectId;             // 效果ID
-    private String effectName;           // 效果名称
+    private SkillEffectType effectType;  // 效果类型
     private Float value;                 // 效果数值
+    private Float duration;              // 持续时间
+    private String description;          // 效果描述
     private String targetType;           // 目标类型
     private String condition;            // 触发条件
-    private String description;          // 效果描述
-    private Float duration;              // 持续时间
     
     // 构造函数
-    public TalentEffect() {}
+    public SkillEffect() {}
     
-    public TalentEffect(String effectName, Float value) {
-        this.effectName = effectName;
+    public SkillEffect(SkillEffectType effectType, Float value) {
+        this.effectType = effectType;
         this.value = value;
     }
-    
+
     @Override
     public String toString() {
-        return "TalentEffect{" +
+        return "SkillEffect{" +
                 "effectId='" + effectId + '\'' +
-                ", effectName='" + effectName + '\'' +
+                ", effectType=" + effectType +
                 ", value=" + value +
+                ", duration=" + duration +
+                ", description='" + description + '\'' +
                 ", targetType='" + targetType + '\'' +
                 ", condition='" + condition + '\'' +
-                ", description='" + description + '\'' +
-                ", duration=" + duration +
                 '}';
     }
 } 
