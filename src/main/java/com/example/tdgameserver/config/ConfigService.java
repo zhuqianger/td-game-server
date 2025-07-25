@@ -1,5 +1,6 @@
 package com.example.tdgameserver.config;
 
+import com.example.tdgameserver.entity.Stage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,4 +49,6 @@ public class ConfigService {
     public <T> T getConfig(String tableName, int id, Class<T> clazz) {
         return jsonConfigLoader.getConfig(tableName, id, clazz);
     }
+    
+    // 移除特殊方法，保留通用方法
 } 

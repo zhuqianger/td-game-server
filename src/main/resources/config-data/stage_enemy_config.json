@@ -1,6 +1,6 @@
 [
   {
-    "stageId": 101,
+    "id": 101,
     "spawns": [
       { "enemyId": 1001, "count": 1, "spawnTime": 0 },
       { "enemyId": 1002, "count": 1, "spawnTime": 2 },
@@ -9,7 +9,7 @@
     ]
   },
   {
-    "stageId": 102,
+    "id": 102,
     "spawns": [
       { "enemyId": 1002, "count": 3, "spawnTime": 0 },
       { "enemyId": 1002, "count": 2, "spawnTime": 4 },

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.tdgameserver.mapper.PlayerStageMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.tdgameserver.entity.PlayerStage">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="player_id" property="playerId" jdbcType="BIGINT"/>
+        <result column="stage_id" property="stageId" jdbcType="INTEGER"/>
+        <result column="star" property="star" jdbcType="INTEGER"/>
+        <result column="operator_ids" property="operatorIds" jdbcType="VARCHAR"/>
+        <result column="pass_time" property="passTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, player_id, stage_id, star, operator_ids, pass_time
+    </sql>
+
+    <insert id="insert" parameterType="com.example.tdgameserver.entity.PlayerStage" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO player_stage (player_id, stage_id, star, operator_ids, pass_time)
+        VALUES (#{playerId}, #{stageId}, #{star}, #{operatorIds}, #{passTime})
+    </insert>
+
+    <select id="selectByPlayerIdAndStageId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM player_stage
+        WHERE player_id = #{playerId} AND stage_id = #{stageId}
+    </select>
+
+    <select id="selectByPlayerId" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM player_stage
+        WHERE player_id = #{playerId}
+        ORDER BY stage_id ASC
+    </select>
+
+    <update id="update" parameterType="com.example.tdgameserver.entity.PlayerStage">
+        UPDATE player_stage
+        SET star = #{star},
+            operator_ids = #{operatorIds},
+            pass_time = #{passTime}
+        WHERE player_id = #{playerId} AND stage_id = #{stageId}
+    </update>
+
+    <delete id="deleteByPlayerIdAndStageId">
+        DELETE FROM player_stage
+        WHERE player_id = #{playerId} AND stage_id = #{stageId}
+    </delete>
+
+</mapper> 

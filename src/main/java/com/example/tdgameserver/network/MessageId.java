@@ -65,6 +65,22 @@ public enum MessageId {
     REQ_USE_ITEM(66),
     RESP_USE_ITEM(67),
     
+    //关卡相关
+    REQ_GET_ALL_STAGES(80),
+    RESP_GET_ALL_STAGES(81),
+    
+    REQ_GET_PLAYER_STAGES(82),
+    RESP_GET_PLAYER_STAGES(83),
+    
+    REQ_GET_STAGE_INFO(84),
+    RESP_GET_STAGE_INFO(85),
+    
+    REQ_SAVE_STAGE_RECORD(86),
+    RESP_SAVE_STAGE_RECORD(87),
+    
+    REQ_CHECK_STAGE_PASSED(88),
+    RESP_CHECK_STAGE_PASSED(89),
+    
     //错误
     ERROR_MSG(-1);
 
