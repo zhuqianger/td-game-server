@@ -19,4 +19,21 @@ public class GameMessage {
         this.messageId = messageId;
         this.payload = payload;
     }
+    
+    /**
+     * 统一响应类
+     * 所有handler都可以使用这个类来构建响应
+     */
+    @Data
+    public static class Response {
+        private boolean success;
+        private String message;
+        private Object data;
+        
+        public Response(boolean success, String message, Object data) {
+            this.success = success;
+            this.message = message;
+            this.data = data;
+        }
+    }
 }

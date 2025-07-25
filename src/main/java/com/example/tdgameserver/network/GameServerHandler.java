@@ -50,7 +50,8 @@ public class GameServerHandler extends ChannelInboundHandlerAdapter {
                     } else {
                         log.warn("未认证连接尝试发送非登录消息，messageId: {}", gameMsg.getMessageId());
                         String errorMsg = "请先进行身份验证，发送登录消息";
-                        session.sendMessage(MessageId.RESP_LOGIN_FAIL.getId(), errorMsg.getBytes());
+                        String responseJson = gson.toJson(new ErrorResponse(false, errorMsg));
+                        session.sendMessage(MessageId.RESP_LOGIN.getId(), responseJson.getBytes());
                     }
                 } else {
                     handleGameMessage(session, gameMsg);
@@ -73,6 +74,9 @@ public class GameServerHandler extends ChannelInboundHandlerAdapter {
             }
         } else {
             log.warn("未找到消息处理器：messageId = {}", messageId);
+            String errorMsg = "未找到消息处理器";
+            String responseJson = gson.toJson(new ErrorResponse(false, errorMsg));
+            session.sendMessage(MessageId.ERROR_MSG.getId(), responseJson.getBytes());
         }
     }
 
@@ -81,5 +85,34 @@ public class GameServerHandler extends ChannelInboundHandlerAdapter {
         log.error("连接异常", cause);
         ctx.close();
         channelInactive(ctx);
+    }
+
+    /**
+     * 错误响应类
+     */
+    private static class ErrorResponse {
+        private boolean success;
+        private String message;
+        
+        public ErrorResponse(boolean success, String message) {
+            this.success = success;
+            this.message = message;
+        }
+        
+        public boolean isSuccess() {
+            return success;
+        }
+        
+        public void setSuccess(boolean success) {
+            this.success = success;
+        }
+        
+        public String getMessage() {
+            return message;
+        }
+        
+        public void setMessage(String message) {
+            this.message = message;
+        }
     }
 }

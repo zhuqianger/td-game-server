@@ -4,13 +4,13 @@ import com.example.tdgameserver.entity.PlayerItem;
 import com.example.tdgameserver.network.GameMessage;
 import com.example.tdgameserver.network.GameMessageHandlerRegistry;
 import com.example.tdgameserver.network.MessageId;
+import com.example.tdgameserver.network.Response;
 import com.example.tdgameserver.requestEntity.BackpackRequest;
 import com.example.tdgameserver.service.BackpackService;
 import com.example.tdgameserver.session.PlayerSession;
 import com.example.tdgameserver.session.SessionManager;
 import com.example.tdgameserver.util.MessageUtil;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,17 +70,14 @@ public class BackpackHandler {
             Integer playerId = session.getPlayerId();
             Map<Integer, Map<String, Object>> itemsWithConfig = backpackService.getPlayerItemsWithConfig(playerId);
 
-            JsonObject response = new JsonObject();
-            response.addProperty("success", true);
-            response.addProperty("message", "获取背包成功");
-            response.add("data", gson.toJsonTree(itemsWithConfig));
-
-            session.sendMessage(MessageId.RESP_GET_BACKPACK.getId(), response.toString().getBytes());
+            Response response = Response.success("获取背包成功", itemsWithConfig);
+            session.sendMessage(MessageId.RESP_GET_BACKPACK.getId(), gson.toJson(response).getBytes());
             log.info("玩家 {} 获取背包成功，共 {} 种道具", playerId, itemsWithConfig.size());
 
         } catch (Exception e) {
             log.error("处理获取背包请求失败", e);
-            session.sendMessage(MessageId.ERROR_MSG.getId(), "获取背包失败：服务器内部错误".getBytes());
+            Response response = Response.error("获取背包失败：服务器内部错误");
+            session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
         }
     }
 
@@ -94,14 +91,16 @@ public class BackpackHandler {
             // 使用MessageUtil通用转换
             BackpackRequest request = MessageUtil.convertMessage(requestData, BackpackRequest.class);
             if (request == null) {
-                session.sendMessage(MessageId.ERROR_MSG.getId(), "无效的请求数据格式".getBytes());
+                Response response = Response.error("无效的请求数据格式");
+                session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
                 return;
             }
             
             // 验证请求参数
             String validationError = validateBackpackRequest(request);
             if (validationError != null) {
-                session.sendMessage(MessageId.ERROR_MSG.getId(), validationError.getBytes());
+                Response response = Response.error(validationError);
+                session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
                 return;
             }
 
@@ -110,17 +109,14 @@ public class BackpackHandler {
             
             List<PlayerItem> items = backpackService.getPlayerItemsByBackpackType(playerId, backpackTypeId);
 
-            JsonObject response = new JsonObject();
-            response.addProperty("success", true);
-            response.addProperty("message", "获取背包成功");
-            response.add("data", gson.toJsonTree(items));
-
-            session.sendMessage(MessageId.RESP_GET_BACKPACK_BY_TYPE.getId(), response.toString().getBytes());
+            Response response = Response.success("获取背包成功", items);
+            session.sendMessage(MessageId.RESP_GET_BACKPACK_BY_TYPE.getId(), gson.toJson(response).getBytes());
             log.info("玩家 {} 获取背包类型 {} 成功，共 {} 种道具", playerId, backpackTypeId, items.size());
 
         } catch (Exception e) {
             log.error("处理根据背包类型获取道具请求失败", e);
-            session.sendMessage(MessageId.ERROR_MSG.getId(), "获取背包失败：服务器内部错误".getBytes());
+            Response response = Response.error("获取背包失败：服务器内部错误");
+            session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
         }
     }
 
@@ -134,14 +130,16 @@ public class BackpackHandler {
             // 使用MessageUtil通用转换
             BackpackRequest request = MessageUtil.convertMessage(requestData, BackpackRequest.class);
             if (request == null) {
-                session.sendMessage(MessageId.ERROR_MSG.getId(), "无效的请求数据格式".getBytes());
+                Response response = Response.error("无效的请求数据格式");
+                session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
                 return;
             }
             
             // 验证请求参数
             String validationError = validateAddItemRequest(request);
             if (validationError != null) {
-                session.sendMessage(MessageId.ERROR_MSG.getId(), validationError.getBytes());
+                Response response = Response.error(validationError);
+                session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
                 return;
             }
 
@@ -151,20 +149,17 @@ public class BackpackHandler {
             
             boolean success = backpackService.addItem(playerId, itemId, quantity);
 
-            JsonObject response = new JsonObject();
-            response.addProperty("success", success);
-            response.addProperty("message", success ? "添加道具成功" : "添加道具失败");
-            if (success) {
-                response.addProperty("itemId", itemId);
-                response.addProperty("quantity", quantity);
-            }
+            Response response = success ? 
+                Response.success("添加道具成功", new ItemData(itemId, quantity)) :
+                Response.error("添加道具失败");
 
-            session.sendMessage(MessageId.RESP_ADD_ITEM.getId(), response.toString().getBytes());
+            session.sendMessage(MessageId.RESP_ADD_ITEM.getId(), gson.toJson(response).getBytes());
             log.info("玩家 {} {} 道具 {} x{}", playerId, success ? "添加" : "添加失败", itemId, quantity);
 
         } catch (Exception e) {
             log.error("处理添加道具请求失败", e);
-            session.sendMessage(MessageId.ERROR_MSG.getId(), "添加道具失败：服务器内部错误".getBytes());
+            Response response = Response.error("添加道具失败：服务器内部错误");
+            session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
         }
     }
 
@@ -178,14 +173,16 @@ public class BackpackHandler {
             // 使用MessageUtil通用转换
             BackpackRequest request = MessageUtil.convertMessage(requestData, BackpackRequest.class);
             if (request == null) {
-                session.sendMessage(MessageId.ERROR_MSG.getId(), "无效的请求数据格式".getBytes());
+                Response response = Response.error("无效的请求数据格式");
+                session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
                 return;
             }
             
             // 验证请求参数
             String validationError = validateUseItemRequest(request);
             if (validationError != null) {
-                session.sendMessage(MessageId.ERROR_MSG.getId(), validationError.getBytes());
+                Response response = Response.error(validationError);
+                session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
                 return;
             }
 
@@ -195,20 +192,17 @@ public class BackpackHandler {
             
             boolean success = backpackService.useItem(playerId, itemId, quantity);
 
-            JsonObject response = new JsonObject();
-            response.addProperty("success", success);
-            response.addProperty("message", success ? "使用道具成功" : "使用道具失败");
-            if (success) {
-                response.addProperty("itemId", itemId);
-                response.addProperty("quantity", quantity);
-            }
+            Response response = success ? 
+                Response.success("使用道具成功", new ItemData(itemId, quantity)) :
+                Response.error("使用道具失败");
 
-            session.sendMessage(MessageId.RESP_USE_ITEM.getId(), response.toString().getBytes());
+            session.sendMessage(MessageId.RESP_USE_ITEM.getId(), gson.toJson(response).getBytes());
             log.info("玩家 {} {} 道具 {} x{}", playerId, success ? "使用" : "使用失败", itemId, quantity);
 
         } catch (Exception e) {
             log.error("处理使用道具请求失败", e);
-            session.sendMessage(MessageId.ERROR_MSG.getId(), "使用道具失败：服务器内部错误".getBytes());
+            Response response = Response.error("使用道具失败：服务器内部错误");
+            session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
         }
     }
     
@@ -261,5 +255,19 @@ public class BackpackHandler {
             return "道具数量必须大于0";
         }
         return null;
+    }
+    
+    /**
+     * 道具数据类
+     */
+    @Data
+    public static class ItemData {
+        private Integer itemId;
+        private Integer quantity;
+        
+        public ItemData(Integer itemId, Integer quantity) {
+            this.itemId = itemId;
+            this.quantity = quantity;
+        }
     }
 } 
