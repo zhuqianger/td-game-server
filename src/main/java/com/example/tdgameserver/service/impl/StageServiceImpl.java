@@ -1,12 +1,11 @@
 package com.example.tdgameserver.service.impl;
 
 import com.example.tdgameserver.config.ConfigService;
-import com.example.tdgameserver.entity.Stage;
-import com.example.tdgameserver.entity.PlayerStage;
+import com.example.tdgameserver.entity.stage.Stage;
+import com.example.tdgameserver.entity.stage.PlayerStage;
 import com.example.tdgameserver.mapper.PlayerStageMapper;
 import com.example.tdgameserver.service.StageService;
 import com.example.tdgameserver.requestEntity.StageRequest;
-import com.example.tdgameserver.config.ConfigManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;

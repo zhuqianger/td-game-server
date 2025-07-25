@@ -1,7 +1,7 @@
 package com.example.tdgameserver.service;
 
-import com.example.tdgameserver.entity.Stage;
-import com.example.tdgameserver.entity.PlayerStage;
+import com.example.tdgameserver.entity.stage.Stage;
+import com.example.tdgameserver.entity.stage.PlayerStage;
 import com.example.tdgameserver.requestEntity.StageRequest;
 import java.util.List;
 

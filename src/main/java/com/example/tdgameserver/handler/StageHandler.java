@@ -1,7 +1,7 @@
 package com.example.tdgameserver.handler;
 
-import com.example.tdgameserver.entity.Stage;
-import com.example.tdgameserver.entity.PlayerStage;
+import com.example.tdgameserver.constant.StageConstant;
+import com.example.tdgameserver.entity.stage.PlayerStage;
 import com.example.tdgameserver.requestEntity.StageRequest;
 import com.example.tdgameserver.service.StageService;
 import com.example.tdgameserver.network.GameMessage;
@@ -37,27 +37,11 @@ public class StageHandler {
     }
 
     public void registerHandlers() {
-        handlerRegistry.registerHandler(MessageId.REQ_GET_ALL_STAGES.getId(), this::handleGetAllStages);
         handlerRegistry.registerHandler(MessageId.REQ_GET_PLAYER_STAGES.getId(), this::handleGetPlayerStages);
         handlerRegistry.registerHandler(MessageId.REQ_SAVE_STAGE_RECORD.getId(), this::handleSaveStageRecord);
         handlerRegistry.registerHandler(MessageId.REQ_CHECK_STAGE_PASSED.getId(), this::handleCheckStagePassed);
     }
 
-    /**
-     * 获取所有关卡配置
-     */
-    public void handleGetAllStages(PlayerSession session, GameMessage message) {
-        try {
-            List<Stage> stages = configService.getConfigList("stages", Stage.class);
-            Response response = Response.success("获取关卡配置成功", stages);
-            session.sendMessage(MessageId.RESP_GET_ALL_STAGES.getId(), gson.toJson(response).getBytes());
-            log.info("玩家 {} 获取所有关卡配置成功", session.getPlayerId());
-        } catch (Exception e) {
-            log.error("获取关卡配置失败", e);
-            Response response = Response.error("获取关卡配置失败: " + e.getMessage());
-            session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
-        }
-    }
 
     /**
      * 获取玩家关卡通关记录
@@ -94,7 +78,7 @@ public class StageHandler {
                 session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
                 return;
             }
-            if (star < 1 || star > 3) {
+            if (star < StageConstant.MIN_STAGE_STAR || star > StageConstant.MAX_STAGE_STAR) {
                 Response response = Response.error("星级必须在1-3之间");
                 session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
                 return;
