@@ -23,9 +23,9 @@ public class OperatorAttribute {
     private Integer rarity;
     
     /**
-     * 职业
+     * 职业ID
      */
-    private String profession;
+    private Integer professionId;
     
     /**
      * 生命值修正系数

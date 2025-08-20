@@ -1,0 +1,52 @@
+{
+  "professions": [
+    {
+      "id": 1,
+      "name": "近卫",
+      "description": "近战物理输出职业，擅长单体攻击",
+      "sortOrder": 1
+    },
+    {
+      "id": 2,
+      "name": "狙击",
+      "description": "远程物理输出职业，擅长对空攻击",
+      "sortOrder": 2
+    },
+    {
+      "id": 3,
+      "name": "术师",
+      "description": "法术输出职业，擅长群体攻击",
+      "sortOrder": 3
+    },
+    {
+      "id": 4,
+      "name": "重装",
+      "description": "防御职业，拥有高生命值和防御力",
+      "sortOrder": 4
+    },
+    {
+      "id": 5,
+      "name": "医疗",
+      "description": "治疗职业，能够恢复友方单位生命值",
+      "sortOrder": 5
+    },
+    {
+      "id": 6,
+      "name": "先锋",
+      "description": "费用回复职业，能够快速回复部署费用",
+      "sortOrder": 6
+    },
+    {
+      "id": 7,
+      "name": "辅助",
+      "description": "支援职业，提供各种增益效果",
+      "sortOrder": 7
+    },
+    {
+      "id": 8,
+      "name": "特种",
+      "description": "特殊职业，拥有独特的技能机制",
+      "sortOrder": 8
+    }
+  ]
+}

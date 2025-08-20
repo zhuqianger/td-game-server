@@ -10,7 +10,7 @@ import java.util.List;
 public class Operator {
     private Integer id;                  // 配置ID
     private String operatorName;         // 干员名称
-    private OperatorProfession profession;           // 职业（字符串格式，便于JSON转换）
+    private Integer professionId;        // 职业ID
     private Integer rarity;              // 稀有度 (1-6星)
     
     // 基础属性
@@ -28,15 +28,15 @@ public class Operator {
     private Integer attackRangeY;        // 攻击范围Y
     
     // 技能和天赋ID列表
-    private List<String> skillIds;       // 技能ID列表
-    private List<String> talentIds;      // 天赋ID列表
+    private List<Integer> skillIds;      // 技能ID列表
+    private List<Integer> talentIds;     // 天赋ID列表
     
     // 构造函数
     public Operator() {}
     
-    public Operator(String operatorName, OperatorProfession profession, Integer rarity) {
+    public Operator(String operatorName, Integer professionId, Integer rarity) {
         this.operatorName = operatorName;
-        this.profession = profession;
+        this.professionId = professionId;
         this.rarity = rarity;
     }
 
@@ -44,7 +44,7 @@ public class Operator {
     public String toString() {
         return "Operator{" +
                 "operatorName='" + operatorName + '\'' +
-                ", profession=" + profession +
+                ", professionId=" + professionId +
                 ", rarity=" + rarity +
                 ", maxHP=" + maxHP +
                 ", attack=" + attack +

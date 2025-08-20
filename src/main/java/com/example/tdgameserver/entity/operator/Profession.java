@@ -1,25 +1,25 @@
-package com.example.tdgameserver.entity.backpack;
+package com.example.tdgameserver.entity.operator;
 
 import lombok.Data;
 
 /**
- * 背包类型配置实体类
+ * 职业配置实体类
  */
 @Data
-public class BackpackType {
+public class Profession {
     
     /**
-     * 背包类型ID
+     * 职业ID
      */
     private Integer id;
     
     /**
-     * 背包类型名称
+     * 职业名称
      */
     private String name;
     
     /**
-     * 背包类型描述
+     * 职业描述
      */
     private String description;
     
@@ -27,4 +27,4 @@ public class BackpackType {
      * 排序顺序
      */
     private Integer sortOrder;
-} 
+}
