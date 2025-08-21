@@ -28,7 +28,7 @@ public class StageServiceImpl implements StageService {
     public Stage getStageById(Integer stageId) {
         List<Stage> stages = configService.getConfigList("stages", Stage.class);
         return stages.stream()
-                .filter(stage -> stage.getStageId().equals(stageId))
+                .filter(stage -> stage.getId().equals(stageId))
                 .findFirst()
                 .orElse(null);
     }

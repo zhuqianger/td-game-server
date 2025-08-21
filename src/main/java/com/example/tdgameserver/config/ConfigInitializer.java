@@ -39,9 +39,7 @@ public class ConfigInitializer {
         configService.registerTableEntity("skills", Skill.class);
         configService.registerTableEntity("talents", Talent.class);
         configService.registerTableEntity("operator_levels", OperatorLevel.class);
-        configService.registerTableEntity("operator_bases", OperatorBase.class);
         configService.registerTableEntity("operator_growths", OperatorGrowth.class);
-        configService.registerTableEntity("operator_attributes", OperatorAttribute.class);
         configService.registerTableEntity("items", Item.class);
         configService.registerTableEntity("backpack_types", BackpackType.class);
         configService.registerTableEntity("stages", Stage.class);
