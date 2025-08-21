@@ -27,4 +27,14 @@ public class Profession {
      * 排序顺序
      */
     private Integer sortOrder;
+    
+    /**
+     * 攻击间隔(秒)
+     */
+    private Float attackInterval;
+    
+    /**
+     * 再部署时间(秒)
+     */
+    private Integer redeployTime;
 }

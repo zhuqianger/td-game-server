@@ -3,19 +3,20 @@ package com.example.tdgameserver.entity.operator;
 import lombok.Data;
 
 /**
- * 干员属性成长配置
+ * 干员属性成长配置实体类
  */
 @Data
 public class OperatorGrowth {
+
     /**
-     * 配置ID (rarity*1000 + eliteLevel*100 + level)
+     * 配置唯一ID
      */
     private Integer id;
-    
+
     /**
-     * 稀有度
+     * 干员ID
      */
-    private Integer rarity;
+    private Integer operatorId;
     
     /**
      * 精英化等级
@@ -23,27 +24,22 @@ public class OperatorGrowth {
     private Integer eliteLevel;
     
     /**
-     * 等级
+     * 每级生命值成长
      */
-    private Integer level;
+    private Integer hpGrowthPerLevel;
     
     /**
-     * 生命值成长
+     * 每级攻击力成长
      */
-    private Integer hpGrowth;
+    private Integer attackGrowthPerLevel;
     
     /**
-     * 攻击力成长
+     * 每级防御力成长
      */
-    private Integer attackGrowth;
+    private Integer defenseGrowthPerLevel;
     
     /**
-     * 防御力成长
+     * 每级法术抗性成长
      */
-    private Integer defenseGrowth;
-    
-    /**
-     * 法术抗性成长
-     */
-    private Integer magicResistanceGrowth;
+    private Integer magicResistanceGrowthPerLevel;
 } 

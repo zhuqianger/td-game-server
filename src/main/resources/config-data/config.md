@@ -7,12 +7,12 @@
 系统包含以下配置文件：
 - `professions.json` - 职业配置
 - `operators.json` - 干员基础信息配置
+- `operator_base_attributes.json` - 干员基础属性配置
+- `operator_growths.json` - 干员属性成长配置
+- `operator_levels.json` - 干员等级经验配置
+- `operator_attributes.json` - 干员属性修正配置
 - `skills.json` - 技能系统配置
 - `talents.json` - 天赋系统配置
-- `operator_levels.json` - 干员等级经验配置
-- `operator_growths.json` - 干员属性成长配置
-- `operator_bases.json` - 干员基础属性配置
-- `operator_attributes.json` - 干员属性修正配置
 - `items.json` - 道具物品配置
 - `backpack_types.json` - 背包类型配置
 - `stage_config.json` - 关卡基础配置
@@ -30,6 +30,8 @@
 | `id` | Integer | 职业唯一ID | 1 |
 | `name` | String | 职业名称 | "近卫" |
 | `description` | String | 职业描述 | "近战物理输出职业..." |
+| `attackInterval` | Float | 攻击间隔(秒) | 1.2 |
+| `redeployTime` | Integer | 再部署时间(秒) | 70 |
 | `sortOrder` | Integer | 排序顺序 | 1 |
 
 **职业ID对应关系：**
@@ -50,16 +52,6 @@
 | `operatorName` | String | 干员名称 | "银灰" |
 | `professionId` | Integer | 职业ID | 1 |
 | `rarity` | Integer | 稀有度(1-6星) | 6 |
-| `maxHP` | Integer | 最大生命值 | 2500 |
-| `attack` | Integer | 攻击力 | 850 |
-| `defense` | Integer | 防御力 | 350 |
-| `magicResistance` | Integer | 法术抗性 | 0 |
-| `deployCost` | Integer | 部署费用 | 18 |
-| `blockCount` | Integer | 阻挡敌人数量 | 1 |
-| `attackInterval` | Float | 攻击间隔(秒) | 1.3 |
-| `redeployTime` | Integer | 重新部署时间(秒) | 70 |
-| `attackRangeX` | Integer | 攻击范围X轴 | 1 |
-| `attackRangeY` | Integer | 攻击范围Y轴 | 1 |
 | `skillIds` | Array<Integer> | 技能ID列表 | [1, 2, 3] |
 | `talentIds` | Array<Integer> | 天赋ID列表 | [1, 2] |
 
@@ -73,32 +65,47 @@
 - 7 - 辅助
 - 8 - 特种
 
-### 2. operator_bases.json - 干员基础属性
+
+
+### 2. operators.json - 干员基础信息
 
 | 字段名 | 类型 | 说明 | 示例值 |
 |--------|------|------|--------|
-| `id` | Integer | 配置唯一ID | 1 |
-| `rarity` | Integer | 稀有度 | 1 |
+| `id` | Integer | 干员唯一标识ID | 1001 |
+| `operatorName` | String | 干员名称 | "银灰" |
+| `professionId` | Integer | 职业ID | 1 |
+| `rarity` | Integer | 稀有度(1-6星) | 6 |
+| `skillIds` | Array<Integer> | 技能ID列表 | [1, 2, 3] |
+| `talentIds` | Array<Integer> | 天赋ID列表 | [1, 2] |
+
+### 3. operator_base_attributes.json - 干员基础属性
+
+| 字段名 | 类型 | 说明 | 示例值 |
+|--------|------|------|--------|
+| `id` | Integer | 配置唯一ID，通过公式 id = operatorId * 10 + eliteLevel 计算 | 10010 |
+| `operatorId` | Integer | 干员ID | 1001 |
 | `eliteLevel` | Integer | 精英化等级(0-2) | 0 |
 | `baseHP` | Integer | 基础生命值 | 800 |
 | `baseAttack` | Integer | 基础攻击力 | 150 |
 | `baseDefense` | Integer | 基础防御力 | 80 |
 | `baseMagicResistance` | Integer | 基础法术抗性 | 0 |
+| `attackRange` | Array<Array<Integer>> | 攻击范围，相对于干员位置的坐标列表 [[x_offset, y_offset], ...] | [[0, 0], [1, 0]] |
+| `deployCost` | Integer | 部署费用 | 18 |
+| `blockCount` | Integer | 阻挡数量 | 1 |
 
-### 3. operator_growths.json - 干员属性成长
+### 4. operator_growths.json - 干员属性成长
 
 | 字段名 | 类型 | 说明 | 示例值 |
 |--------|------|------|--------|
-| `id` | Integer | 配置唯一ID | 1001 |
-| `rarity` | Integer | 稀有度 | 1 |
+| `id` | Integer | 配置唯一ID，通过公式 id = operatorId * 10 + eliteLevel 计算 | 10010 |
+| `operatorId` | Integer | 干员ID | 1001 |
 | `eliteLevel` | Integer | 精英化等级 | 0 |
-| `level` | Integer | 等级 | 1 |
-| `hpGrowth` | Integer | 生命值成长 | 40 |
-| `attackGrowth` | Integer | 攻击力成长 | 8 |
-| `defenseGrowth` | Integer | 防御力成长 | 4 |
-| `magicResistanceGrowth` | Integer | 法术抗性成长 | 0 |
+| `hpGrowthPerLevel` | Integer | 每级生命值成长 | 100 |
+| `attackGrowthPerLevel` | Integer | 每级攻击力成长 | 20 |
+| `defenseGrowthPerLevel` | Integer | 每级防御力成长 | 10 |
+| `magicResistanceGrowthPerLevel` | Integer | 每级法术抗性成长 | 5 |
 
-### 4. operator_levels.json - 干员等级经验
+### 5. operator_levels.json - 干员等级经验
 
 | 字段名 | 类型 | 说明 | 示例值 |
 |--------|------|------|--------|
@@ -108,7 +115,7 @@
 | `level` | Integer | 等级 | 1 |
 | `needExp` | Integer | 升级所需经验 | 0 |
 
-### 5. operator_attributes.json - 干员属性修正
+### 6. operator_attributes.json - 干员属性修正
 
 | 字段名 | 类型 | 说明 | 示例值 |
 |--------|------|------|--------|
@@ -265,9 +272,9 @@
 ### 数据关联关系
 
 1. **干员系统**：
-   - `professions.json` 定义职业信息
+   - `professions.json` 定义职业基础信息和属性（攻击间隔、再部署时间）
    - `operators.json` 定义干员基础信息
-   - `operator_bases.json` 提供基础属性模板
+   - `operator_base_attributes.json` 提供基础属性模板（包含部署费用、阻挡数）
    - `operator_growths.json` 计算等级成长
    - `operator_levels.json` 管理升级经验
    - `operator_attributes.json` 应用个体修正

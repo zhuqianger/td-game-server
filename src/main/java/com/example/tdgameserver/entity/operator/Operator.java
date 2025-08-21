@@ -13,19 +13,9 @@ public class Operator {
     private Integer professionId;        // 职业ID
     private Integer rarity;              // 稀有度 (1-6星)
     
-    // 基础属性
-    private Integer maxHP;               // 最大生命值
-    private Integer attack;              // 攻击力
-    private Integer defense;             // 防御力
-    private Integer magicResistance;     // 法术抗性
-    private Integer deployCost;          // 部署费用
-    private Integer blockCount;          // 阻挡数
-    private Float attackInterval;        // 攻击间隔
-    private Float redeployTime;          // 再部署时间
-    
-    // 攻击范围
-    private Integer attackRangeX;        // 攻击范围X
-    private Integer attackRangeY;        // 攻击范围Y
+    // 基础信息
+    // 部署费用和阻挡数通过精英化等级在 operator_base_attributes.json 中配置
+    // 攻击间隔和再部署时间通过职业在 professions.json 中配置
     
     // 技能和天赋ID列表
     private List<Integer> skillIds;      // 技能ID列表
@@ -46,16 +36,6 @@ public class Operator {
                 "operatorName='" + operatorName + '\'' +
                 ", professionId=" + professionId +
                 ", rarity=" + rarity +
-                ", maxHP=" + maxHP +
-                ", attack=" + attack +
-                ", defense=" + defense +
-                ", magicResistance=" + magicResistance +
-                ", deployCost=" + deployCost +
-                ", blockCount=" + blockCount +
-                ", attackInterval=" + attackInterval +
-                ", redeployTime=" + redeployTime +
-                ", attackRangeX=" + attackRangeX +
-                ", attackRangeY=" + attackRangeY +
                 ", skillIds=" + skillIds +
                 ", talentIds=" + talentIds +
                 '}';
