@@ -226,7 +226,7 @@
 
 ## 🗺️ 关卡系统配置
 
-### 1. stage_config.json - 关卡基础配置
+### 9. stage_config.json - 关卡配置
 
 | 字段名 | 类型 | 说明 | 示例值 |
 |--------|------|------|--------|
@@ -234,36 +234,35 @@
 | `stageName` | String | 关卡名称 | "第一章 第一关" |
 | `stageType` | Integer | 关卡类型 | 1 |
 | `difficulty` | Integer | 难度等级 | 1 |
+| `chapter` | Integer | 章节编号 | 1 |
 
-### 2. enemy_config.json - 敌人配置
+### 10. enemy_config.json - 敌人配置
 
 | 字段名 | 类型 | 说明 | 示例值 |
 |--------|------|------|--------|
 | `enemyId` | Integer | 敌人唯一ID | 1001 |
 | `enemyName` | String | 敌人名称 | "普通敌人" |
 | `enemyType` | Integer | 敌人类型 | 1 |
-| `maxHP` | Integer | 最大生命值 | 500 |
+| `hp` | Integer | 生命值 | 500 |
 | `attack` | Integer | 攻击力 | 100 |
 | `defense` | Integer | 防御力 | 50 |
+| `magicResistance` | Integer | 魔法抗性 | 0 |
 | `moveSpeed` | Float | 移动速度 | 2.0 |
 | `blockCount` | Integer | 阻挡数量 | 1 |
+| `attackRange` | Array<Array<Integer>> | 攻击范围，相对于敌人位置的坐标列表 [[x_offset, y_offset], ...] | [[0, 0], [1, 0]] |
 
-**敌人类型说明：**
-- 1 - 普通敌人
-- 2 - 精英敌人
-- 3 - BOSS敌人
-
-### 3. stage_enemy_config.json - 关卡敌人配置
+### 11. stage_enemy_config.json - 关卡敌人配置
 
 | 字段名 | 类型 | 说明 | 示例值 |
 |--------|------|------|--------|
-| `id` | Integer | 关卡ID | 101 |
-| `spawns` | Array | 敌人生成配置 | [] |
-
-**spawns数组字段：**
-- `enemyId` - 敌人ID
-- `count` - 生成数量
-- `spawnTime` - 生成时间(秒)
+| `id` | Integer | 关卡唯一ID | 101 |
+| `mapConfig` | Object | 地图配置 | - |
+| `mapConfig.entryPoints` | Array<Object> | 敌人进入点列表 | [{ "id": 1, "position": [0, 0], "name": "入口1" }] |
+| `mapConfig.targetPoint` | Object | 敌方目标点 | { "position": [10, 3], "name": "目标点" } |
+| `spawns` | Array<Object> | 敌人生成配置 | - |
+| `spawns[].enemyId` | Integer | 敌人ID | 1001 |
+| `spawns[].spawnTime` | Integer | 出现时间(秒) | 0 |
+| `spawns[].entryPointId` | Integer | 进入点ID | 1 |
 
 ---
 
