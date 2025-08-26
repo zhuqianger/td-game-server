@@ -37,7 +37,6 @@ public class OperatorHandler {
     
     public void registerHandlers() {
         handlerRegistry.registerHandler(MessageId.REQ_GET_PLAYER_OPERATORS.getId(), this::handleGetPlayerOperators);
-        handlerRegistry.registerHandler(MessageId.REQ_ADD_PLAYER_OPERATOR.getId(), this::handleAddPlayerOperator);
         handlerRegistry.registerHandler(MessageId.REQ_LEVEL_UP_OPERATOR.getId(), this::handleLevelUpOperator);
         handlerRegistry.registerHandler(MessageId.REQ_ELITE_OPERATOR.getId(), this::handleEliteOperator);
         handlerRegistry.registerHandler(MessageId.REQ_UPGRADE_SKILL.getId(), this::handleUpgradeSkill);
@@ -62,49 +61,6 @@ public class OperatorHandler {
         } catch (Exception e) {
             log.error("获取玩家干员列表失败，玩家ID: {}", session.getPlayerId(), e);
             Response response = Response.error("获取干员列表失败：服务器内部错误");
-            session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
-        }
-    }
-
-    /**
-     * 添加玩家干员
-     */
-    public void handleAddPlayerOperator(PlayerSession session, GameMessage message) {
-        try {
-            String requestData = new String(message.getPayload());
-            
-            // 使用MessageUtil通用转换
-            OperatorRequest request = MessageUtil.convertMessage(requestData, OperatorRequest.class);
-            if (request == null) {
-                Response response = Response.error("无效的请求数据格式");
-                session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
-                return;
-            }
-            
-            // 验证请求参数
-            String validationError = validateAddOperatorRequest(request);
-            if (validationError != null) {
-                Response response = Response.error(validationError);
-                session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
-                return;
-            }
-
-            Integer playerId = session.getPlayerId();
-            Integer operatorId = request.getOperatorId();
-            log.info("玩家 {} 请求添加干员，干员ID: {}", playerId, operatorId);
-
-            boolean success = operatorService.addPlayerOperator(playerId, operatorId);
-
-            Response response = success ? 
-                Response.success("获得干员成功", new OperatorData(operatorId)) :
-                Response.error("获得干员失败");
-
-            session.sendMessage(MessageId.RESP_ADD_PLAYER_OPERATOR.getId(), gson.toJson(response).getBytes());
-            log.info("玩家 {} {} 干员 {}", playerId, success ? "添加" : "添加失败", operatorId);
-
-        } catch (Exception e) {
-            log.error("添加玩家干员失败，玩家ID: {}", session.getPlayerId(), e);
-            Response response = Response.error("添加干员失败：服务器内部错误");
             session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
         }
     }

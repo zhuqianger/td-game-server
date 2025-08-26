@@ -38,7 +38,6 @@ public class BackpackHandler {
     public void registerHandlers() {
         handlerRegistry.registerHandler(MessageId.REQ_GET_BACKPACK.getId(), this::handleGetBackpack);
         handlerRegistry.registerHandler(MessageId.REQ_GET_BACKPACK_BY_TYPE.getId(), this::handleGetBackpackByType);
-        handlerRegistry.registerHandler(MessageId.REQ_ADD_ITEM.getId(), this::handleAddItem);
         handlerRegistry.registerHandler(MessageId.REQ_USE_ITEM.getId(), this::handleUseItem);
     }
     
@@ -115,49 +114,6 @@ public class BackpackHandler {
         } catch (Exception e) {
             log.error("处理根据背包类型获取道具请求失败", e);
             Response response = Response.error("获取背包失败：服务器内部错误");
-            session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
-        }
-    }
-
-    /**
-     * 处理添加道具请求
-     */
-    public void handleAddItem(PlayerSession session, GameMessage message) {
-        try {
-            String requestData = new String(message.getPayload());
-            
-            // 使用MessageUtil通用转换
-            BackpackRequest request = MessageUtil.convertMessage(requestData, BackpackRequest.class);
-            if (request == null) {
-                Response response = Response.error("无效的请求数据格式");
-                session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
-                return;
-            }
-            
-            // 验证请求参数
-            String validationError = validateAddItemRequest(request);
-            if (validationError != null) {
-                Response response = Response.error(validationError);
-                session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
-                return;
-            }
-
-            Integer playerId = session.getPlayerId();
-            Integer itemId = request.getItemId();
-            Integer quantity = request.getCount();
-            
-            boolean success = backpackService.addItem(playerId, itemId, quantity);
-
-            Response response = success ? 
-                Response.success("添加道具成功", new ItemData(itemId, quantity)) :
-                Response.error("添加道具失败");
-
-            session.sendMessage(MessageId.RESP_ADD_ITEM.getId(), gson.toJson(response).getBytes());
-            log.info("玩家 {} {} 道具 {} x{}", playerId, success ? "添加" : "添加失败", itemId, quantity);
-
-        } catch (Exception e) {
-            log.error("处理添加道具请求失败", e);
-            Response response = Response.error("添加道具失败：服务器内部错误");
             session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
         }
     }

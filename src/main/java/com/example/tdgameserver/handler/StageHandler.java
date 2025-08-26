@@ -39,7 +39,6 @@ public class StageHandler {
     public void registerHandlers() {
         handlerRegistry.registerHandler(MessageId.REQ_GET_PLAYER_STAGES.getId(), this::handleGetPlayerStages);
         handlerRegistry.registerHandler(MessageId.REQ_SAVE_STAGE_RECORD.getId(), this::handleSaveStageRecord);
-        handlerRegistry.registerHandler(MessageId.REQ_CHECK_STAGE_PASSED.getId(), this::handleCheckStagePassed);
     }
 
 
@@ -100,39 +99,6 @@ public class StageHandler {
         } catch (Exception e) {
             log.error("保存通关记录失败", e);
             Response response = Response.error("保存通关记录失败: " + e.getMessage());
-            session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
-        }
-    }
-
-    /**
-     * 检查关卡是否已通关
-     */
-    public void handleCheckStagePassed(PlayerSession session, GameMessage message) {
-        try {
-            String requestData = new String(message.getPayload());
-            StageRequest request = MessageUtil.convertMessage(requestData, StageRequest.class);
-            if (request == null) {
-                Response response = Response.error("参数不完整");
-                session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
-                return;
-            }
-            Integer stageId = request.getStageId();
-            if (stageId == null) {
-                Response response = Response.error("关卡ID不能为空");
-                session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
-                return;
-            }
-            boolean hasPassed = stageService.hasPassedStage(session.getPlayerId(), stageId);
-            Integer star = stageService.getPlayerStageStar(session.getPlayerId(), stageId);
-            Map<String, Object> data = new HashMap<>();
-            data.put("hasPassed", hasPassed);
-            data.put("star", star);
-            Response response = Response.success("检查关卡通关状态成功", data);
-            session.sendMessage(MessageId.RESP_CHECK_STAGE_PASSED.getId(), gson.toJson(response).getBytes());
-            log.info("玩家 {} 检查关卡 {} 通关状态: {}", session.getPlayerId(), stageId, hasPassed);
-        } catch (Exception e) {
-            log.error("检查关卡通关状态失败", e);
-            Response response = Response.error("检查关卡通关状态失败: " + e.getMessage());
             session.sendMessage(MessageId.ERROR_MSG.getId(), gson.toJson(response).getBytes());
         }
     }

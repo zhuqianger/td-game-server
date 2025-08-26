@@ -3,7 +3,7 @@ package com.example.tdgameserver.service.impl;
 import com.example.tdgameserver.entity.operator.OperatorLevelUpResult;
 import com.example.tdgameserver.entity.operator.PlayerOperator;
 import com.example.tdgameserver.mapper.PlayerOperatorMapper;
-import com.example.tdgameserver.requestEntity.OperatorLevelUpRequest;
+import com.example.tdgameserver.requestEntity.OperatorRequest;
 import com.example.tdgameserver.service.OperatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,7 +65,7 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     @Override
-    public OperatorLevelUpResult levelUpOperatorWithExpItems(Integer playerId, OperatorLevelUpRequest request) {
+    public OperatorLevelUpResult levelUpOperatorWithExpItems(Integer playerId, OperatorRequest request) {
         return null;
     }
 

@@ -2,7 +2,7 @@ package com.example.tdgameserver.service;
 
 import com.example.tdgameserver.entity.operator.PlayerOperator;
 import com.example.tdgameserver.entity.operator.OperatorLevelUpResult;
-import com.example.tdgameserver.requestEntity.OperatorLevelUpRequest;
+import com.example.tdgameserver.requestEntity.OperatorRequest;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public interface OperatorService {
      * @param request 升级请求
      * @return 升级结果
      */
-    OperatorLevelUpResult levelUpOperatorWithExpItems(Integer playerId, OperatorLevelUpRequest request);
+    OperatorLevelUpResult levelUpOperatorWithExpItems(Integer playerId, OperatorRequest request);
     
     /**
      * 精英化干员

@@ -45,7 +45,7 @@ public class OperatorBaseAttribute {
     private Integer baseMagicResistance;
 
     /**
-     * 攻击范围 [X轴, Y轴]，以人物为原心
+     * 攻击范围 [X轴, Y轴]，以人物为坐标原点
      */
     private List<Integer> attackRange;
     
