@@ -1,7 +1,11 @@
 package com.example.tdgameserver.util;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import lombok.extern.slf4j.Slf4j;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * 消息工具类
@@ -42,6 +46,42 @@ public class MessageUtil {
             }
         } catch (Exception e) {
             log.error("消息转换失败，消息内容: {}, 目标类型: {}, 错误: {}", 
+                     message, targetClass.getSimpleName(), e.getMessage());
+        }
+        return null;
+    }
+
+    /**
+     * 转换消息为列表类型
+     * 将收到的消息转换为指定类型的列表
+     * 
+     * @param message 收到的消息内容
+     * @param targetClass 列表中元素的类型
+     * @param <T> 目标类型
+     * @return 转换后的列表实例，转换失败返回null
+     */
+    public static <T> List<T> convertMessageToList(String message, Class<T> targetClass) {
+        if (message == null || message.trim().isEmpty()) {
+            log.warn("消息内容为空");
+            return null;
+        }
+        
+        try {
+            // 检查是否为JSON数组格式
+            if (message.trim().startsWith("[") && message.trim().endsWith("]")) {
+                Type type = TypeToken.getParameterized(List.class, targetClass).getType();
+                List<T> result = gson.fromJson(message, type);
+                if (result != null) {
+                    log.info("成功转换消息为List<{}>类型", targetClass.getSimpleName());
+                    return result;
+                } else {
+                    log.warn("消息转换结果为空，消息内容: {}", message);
+                }
+            } else {
+                log.warn("消息内容不是有效的JSON数组格式: {}", message);
+            }
+        } catch (Exception e) {
+            log.error("消息转换失败，消息内容: {}, 目标类型: List<{}>, 错误: {}", 
                      message, targetClass.getSimpleName(), e.getMessage());
         }
         return null;
