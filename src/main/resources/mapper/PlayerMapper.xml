@@ -4,7 +4,7 @@
 
     <!-- 结果映射 -->
     <resultMap id="PlayerResultMap" type="com.example.tdgameserver.entity.player.Player">
-        <id column="player_id" property="playerId" jdbcType="INTEGER"/>
+        <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="player_name" property="playerName" jdbcType="VARCHAR"/>
         <result column="password" property="password" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
@@ -13,7 +13,7 @@
 
     <!-- 基础字段 -->
     <sql id="Base_Column_List">
-        player_id, player_name, password, create_time, update_time
+        id, player_name, password, create_time, update_time
     </sql>
 
     <!-- 根据玩家ID查询玩家 -->
@@ -21,7 +21,7 @@
         SELECT 
         <include refid="Base_Column_List"/>
         FROM player
-        WHERE player_id = #{playerId}
+        WHERE id = #{playerId}
     </select>
 
     <!-- 根据玩家名称查询玩家 -->
@@ -55,13 +55,13 @@
             <if test="password != null">password = #{password},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </set>
-        WHERE player_id = #{playerId}
+        WHERE id = #{playerId}
     </update>
 
     <!-- 删除玩家 -->
     <delete id="deleteByPlayerId" parameterType="java.lang.Integer">
         DELETE FROM player
-        WHERE player_id = #{playerId}
+        WHERE id = #{playerId}
     </delete>
 
     <!-- 查询所有玩家 -->

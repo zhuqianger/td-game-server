@@ -1,6 +1,7 @@
 package com.example.tdgameserver.entity.player;
 
 import lombok.Data;
+import org.springframework.data.relational.core.sql.In;
 
 import java.time.LocalDateTime;
 
@@ -28,12 +29,12 @@ public class Player {
     /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+    private Integer createTime;
     
     /**
      * 更新时间
      */
-    private LocalDateTime updateTime;
+    private Integer updateTime;
     
     // 构造函数
     public Player() {}
@@ -42,11 +43,11 @@ public class Player {
         this.id = id;
         this.playerName = playerName;
         this.password = password;
-        this.createTime = LocalDateTime.now();
-        this.updateTime = LocalDateTime.now();
+        this.createTime = 0;
+        this.updateTime = 0;
     }
 
-    public Player(Integer id, String playerName, String password, LocalDateTime createTime, LocalDateTime updateTime) {
+    public Player(Integer id, String playerName, String password, Integer createTime, Integer updateTime) {
         this.id = id;
         this.playerName = playerName;
         this.password = password;
