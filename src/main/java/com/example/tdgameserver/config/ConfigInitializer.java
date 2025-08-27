@@ -33,14 +33,14 @@ public class ConfigInitializer {
         log.info("开始初始化配置表映射关系...");
         
         // 注册表名和实体类的映射关系
-        configService.registerTableEntity("operators", Operator.class);
-        configService.registerTableEntity("skills", Skill.class);
-        configService.registerTableEntity("talents", Talent.class);
-        configService.registerTableEntity("operator_levels", OperatorLevel.class);
-        configService.registerTableEntity("operator_growths", OperatorGrowth.class);
-        configService.registerTableEntity("items", Item.class);
-        configService.registerTableEntity("backpack_types", BackpackType.class);
-        configService.registerTableEntity("stages", Stage.class);
+        configService.registerTableEntity("operators_config", Operator.class);
+        configService.registerTableEntity("skills_config", Skill.class);
+        configService.registerTableEntity("talents_config", Talent.class);
+        configService.registerTableEntity("operator_levels_config", OperatorLevel.class);
+        configService.registerTableEntity("operator_growths_config", OperatorGrowth.class);
+        configService.registerTableEntity("items_config", Item.class);
+        configService.registerTableEntity("backpack_types_config", BackpackType.class);
+        configService.registerTableEntity("stages_config", Stage.class);
         
         log.info("配置表映射关系初始化完成");
         

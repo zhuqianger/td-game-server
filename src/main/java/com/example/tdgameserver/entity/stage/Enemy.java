@@ -12,7 +12,7 @@ public class Enemy {
     /**
      * 敌人ID
      */
-    private Integer enemyId;
+    private Integer id;
 
     /**
      * 敌人名称

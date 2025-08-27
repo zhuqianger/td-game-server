@@ -13,7 +13,7 @@ public class Player {
     /**
      * 玩家ID
      */
-    private Integer playerId;
+    private Integer id;
     
     /**
      * 玩家名称
@@ -38,16 +38,16 @@ public class Player {
     // 构造函数
     public Player() {}
     
-    public Player(Integer playerId, String playerName, String password) {
-        this.playerId = playerId;
+    public Player(Integer id, String playerName, String password) {
+        this.id = id;
         this.playerName = playerName;
         this.password = password;
         this.createTime = LocalDateTime.now();
         this.updateTime = LocalDateTime.now();
     }
 
-    public Player(Integer playerId, String playerName, String password, LocalDateTime createTime, LocalDateTime updateTime) {
-        this.playerId = playerId;
+    public Player(Integer id, String playerName, String password, LocalDateTime createTime, LocalDateTime updateTime) {
+        this.id = id;
         this.playerName = playerName;
         this.password = password;
         this.createTime = createTime;
@@ -57,7 +57,7 @@ public class Player {
     @Override
     public String toString() {
         return "Player{" +
-                "playerId=" + playerId +
+                "id=" + id +
                 ", playerName='" + playerName + '\'' +
                 ", password='" + password + '\'' +
                 ", createTime=" + createTime +

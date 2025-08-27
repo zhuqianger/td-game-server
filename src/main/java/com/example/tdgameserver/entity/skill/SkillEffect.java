@@ -7,7 +7,7 @@ import lombok.Data;
  */
 @Data
 public class SkillEffect {
-    private String effectId;             // 效果ID
+    private Integer id;             // 效果ID
     private SkillEffectType effectType;  // 效果类型
     private Float value;                 // 效果数值
     private Float duration;              // 持续时间
@@ -26,7 +26,7 @@ public class SkillEffect {
     @Override
     public String toString() {
         return "SkillEffect{" +
-                "effectId='" + effectId + '\'' +
+                "id='" + id + '\'' +
                 ", effectType=" + effectType +
                 ", value=" + value +
                 ", duration=" + duration +

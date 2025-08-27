@@ -7,7 +7,7 @@ import lombok.Data;
  */
 @Data
 public class TalentEffect {
-    private String effectId;             // 效果ID
+    private Integer id;             // 效果ID
     private String effectName;           // 效果名称
     private Float value;                 // 效果数值
     private String targetType;           // 目标类型
@@ -26,7 +26,7 @@ public class TalentEffect {
     @Override
     public String toString() {
         return "TalentEffect{" +
-                "effectId='" + effectId + '\'' +
+                "id='" + id + '\'' +
                 ", effectName='" + effectName + '\'' +
                 ", value=" + value +
                 ", targetType='" + targetType + '\'' +

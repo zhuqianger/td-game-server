@@ -91,10 +91,10 @@ public class PlayerHandler {
      * 处理登录成功
      */
     private void handleSuccessfulLogin(PlayerSession session, Player player) {
-        session.setAuthenticated(player.getPlayerName(), player.getPlayerId());
-        sessionManager.bindPlayerId(player.getPlayerId(), session);
+        session.setAuthenticated(player.getPlayerName(), player.getId());
+        sessionManager.bindPlayerId(player.getId(), session);
 
-        log.info("玩家 {} 身份验证成功，ID：{}", player.getPlayerName(), player.getPlayerId());
+        log.info("玩家 {} 身份验证成功，ID：{}", player.getPlayerName(), player.getId());
         
         String successMsg = "登录成功，欢迎 " + player.getPlayerName() + "！";
         Response response = Response.success(successMsg, player);
