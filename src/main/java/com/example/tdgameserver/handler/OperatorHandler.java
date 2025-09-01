@@ -238,25 +238,6 @@ public class OperatorHandler {
     }
     
     /**
-     * 验证添加干员请求参数
-     */
-    private String validateAddOperatorRequest(OperatorRequest request) {
-        if (request == null) {
-            return "请求参数不能为空";
-        }
-        
-        if (request.getOperatorId() == null) {
-            return "干员ID不能为空";
-        }
-        
-        if (request.getOperatorId() <= 0) {
-            return "干员ID必须大于0";
-        }
-        
-        return null;
-    }
-    
-    /**
      * 验证干员操作请求参数
      */
     private String validateOperatorRequest(OperatorRequest request) {
