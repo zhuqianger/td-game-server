@@ -66,11 +66,11 @@ public class BackpackHandler {
     public void handleGetBackpack(PlayerSession session, GameMessage message) {
         try {
             Integer playerId = session.getPlayerId();
-            Map<Integer, Map<String, Object>> itemsWithConfig = backpackService.getPlayerItemsWithConfig(playerId);
+            List<PlayerItem> itemList = backpackService.getPlayerItems(playerId);
 
-            Response response = Response.success("获取背包成功", itemsWithConfig);
+            Response response = Response.success("获取背包成功", itemList);
             session.sendMessage(MessageId.RESP_GET_BACKPACK.getId(), gson.toJson(response).getBytes());
-            log.info("玩家 {} 获取背包成功，共 {} 种道具", playerId, itemsWithConfig.size());
+            log.info("玩家 {} 获取背包成功，共 {} 种道具", playerId, itemList.size());
 
         } catch (Exception e) {
             log.error("处理获取背包请求失败", e);
@@ -147,11 +147,6 @@ public class BackpackHandler {
             
             boolean success = backpackService.useItem(playerId, itemId, quantity);
 
-            Response response = success ? 
-                Response.success("使用道具成功", new ItemData(itemId, quantity)) :
-                Response.error("使用道具失败");
-
-            session.sendMessage(MessageId.RESP_USE_ITEM.getId(), gson.toJson(response).getBytes());
             log.info("玩家 {} {} 道具 {} x{}", playerId, success ? "使用" : "使用失败", itemId, quantity);
 
         } catch (Exception e) {
@@ -210,19 +205,5 @@ public class BackpackHandler {
             return "道具数量必须大于0";
         }
         return null;
-    }
-    
-    /**
-     * 道具数据类
-     */
-    @Data
-    public static class ItemData {
-        private Integer itemId;
-        private Integer quantity;
-        
-        public ItemData(Integer itemId, Integer quantity) {
-            this.itemId = itemId;
-            this.quantity = quantity;
-        }
     }
 } 

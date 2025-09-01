@@ -26,14 +26,7 @@ public interface BackpackService {
      * @return 道具列表
      */
     List<PlayerItem> getPlayerItemsByBackpackType(Integer playerId, Integer backpackTypeId);
-    
-    /**
-     * 获取玩家道具（包含配置信息）
-     * @param playerId 玩家ID
-     * @return 道具信息Map，key为道具ID，value为包含配置信息的道具数据
-     */
-    Map<Integer, Map<String, Object>> getPlayerItemsWithConfig(Integer playerId);
-    
+
     /**
      * 添加道具
      * @param playerId 玩家ID

@@ -92,25 +92,6 @@ public class BackpackServiceImpl implements BackpackService {
     }
     
     @Override
-    public Map<Integer, Map<String, Object>> getPlayerItemsWithConfig(Integer playerId) {
-        List<PlayerItem> playerItems = getPlayerItems(playerId);
-        Map<Integer, Map<String, Object>> result = new HashMap<>();
-        
-        for (PlayerItem playerItem : playerItems) {
-            Item itemConfig = getItemConfig(playerItem.getItemId());
-            if (itemConfig != null) {
-                Map<String, Object> itemData = new HashMap<>();
-                itemData.put("playerItem", playerItem);
-                itemData.put("itemConfig", itemConfig);
-                itemData.put("backpackTypeConfig", getBackpackTypeConfig(itemConfig.getBackpackTypeId()));
-                result.put(playerItem.getItemId(), itemData);
-            }
-        }
-        
-        return result;
-    }
-    
-    @Override
     public boolean addItem(Integer playerId, Integer itemId, Integer quantity) {
         if (quantity <= 0) {
             return false;
